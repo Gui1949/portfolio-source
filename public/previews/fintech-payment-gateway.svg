@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 580" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0d0f12; }
+      .surface { fill: #13151a; stroke: #272a33; stroke-width: 1; }
+      .inner-box { fill: #0a0b0e; stroke: #1e2129; stroke-width: 1; }
+      .mono { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
+      .text-sec { fill: #8b92a0; font-size: 12px; }
+      .text-pri { fill: #e6e8ec; font-size: 13px; }
+      .text-dim { fill: #525866; font-size: 11px; }
+      .badge-green { fill: #064e3b; stroke: #059669; }
+      .badge-text-green { fill: #34d399; font-size: 11px; font-weight: 600; }
+      .badge-red { fill: #451a1a; stroke: #dc2626; }
+      .badge-text-red { fill: #f87171; font-size: 11px; font-weight: 600; }
+      .dot-red { fill: #ef4444; }
+      .dot-yellow { fill: #f59e0b; }
+      .dot-green { fill: #10b981; }
+      .bar-line { stroke: #272a33; stroke-width: 1; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="580" rx="12" class="bg"/>
+
+  <!-- Chrome Header -->
+  <rect width="1000" height="42" rx="12" fill="#14171d"/>
+  <rect y="30" width="1000" height="12" fill="#14171d"/>
+  <circle cx="24" cy="21" r="5" class="dot-red"/>
+  <circle cx="40" cy="21" r="5" class="dot-yellow"/>
+  <circle cx="56" cy="21" r="5" class="dot-green"/>
+  <text x="500" y="26" text-anchor="middle" class="mono text-sec">aegispay · Painel de Auditoria &amp; Conciliação de Adquirentes</text>
+  <line x1="0" y1="42" x2="1000" y2="42" class="bar-line"/>
+
+  <!-- Top KPIs -->
+  <g transform="translate(24, 60)">
+    <rect width="220" height="64" rx="8" class="surface"/>
+    <text x="16" y="26" class="text-sec">Volume Liquidado</text>
+    <text x="16" y="49" class="mono text-pri" font-weight="600">R$ 184.950,00</text>
+
+    <rect x="240" width="220" height="64" rx="8" class="surface"/>
+    <text x="256" y="26" class="text-sec">MDR Médio Contratado</text>
+    <text x="256" y="49" class="mono text-pri" font-weight="600">2,14% (Auditado)</text>
+
+    <rect x="480" width="220" height="64" rx="8" class="surface"/>
+    <text x="496" y="26" class="text-sec">Taxa de Conciliação</text>
+    <text x="496" y="49" class="mono text-pri" font-weight="600">99,8% (Match 1:1)</text>
+
+    <rect x="720" width="232" height="64" rx="8" class="surface"/>
+    <text x="736" y="26" class="text-sec">Divergências Contábeis</text>
+    <text x="736" y="49" class="mono text-pri" font-weight="600" fill="#f87171">1 divergência retida</text>
+  </g>
+
+  <!-- Reconciliation Stream Table -->
+  <g transform="translate(24, 142)">
+    <rect width="952" height="414" rx="8" class="surface"/>
+
+    <!-- Table Header -->
+    <rect width="952" height="38" rx="8" fill="#181b22"/>
+    <rect y="26" width="952" height="12" fill="#181b22"/>
+    <text x="20" y="24" class="mono text-dim" font-weight="600">ID TRANSAÇÃO</text>
+    <text x="160" y="24" class="mono text-dim" font-weight="600">MÉTODO</text>
+    <text x="270" y="24" class="mono text-dim" font-weight="600">VALOR BRUTO</text>
+    <text x="410" y="24" class="mono text-dim" font-weight="600">MDR CONTRATUAL</text>
+    <text x="560" y="24" class="mono text-dim" font-weight="600">EXTRATO ADQUIRENTE</text>
+    <text x="740" y="24" class="mono text-dim" font-weight="600">STATUS AUDITORIA</text>
+    <line x1="0" y1="38" x2="952" y2="38" class="bar-line"/>
+
+    <!-- Row 1 (Pix Match) -->
+    <g transform="translate(0, 38)">
+      <text x="20" y="32" class="mono text-sec">TX-99042</text>
+      <text x="160" y="32" class="mono text-pri">Pix (D+0)</text>
+      <text x="270" y="32" class="mono text-pri" font-weight="600">R$ 1.500,00</text>
+      <text x="410" y="32" class="mono text-sec">R$ 14,85 (0.99%)</text>
+      <text x="560" y="32" class="mono text-sec">R$ 14,85 (Líquido: R$ 1.485,15)</text>
+      <rect x="740" y="16" width="160" height="24" rx="4" class="badge-green" stroke-width="1"/>
+      <text x="820" y="32" text-anchor="middle" class="mono badge-text-green">CONCILIADO 100%</text>
+    </g>
+    <line x1="20" y1="88" x2="932" y2="88" class="bar-line"/>
+
+    <!-- Row 2 (Card Installment Match) -->
+    <g transform="translate(0, 88)">
+      <text x="20" y="32" class="mono text-sec">TX-99038</text>
+      <text x="160" y="32" class="mono text-pri">Cartão (3x)</text>
+      <text x="270" y="32" class="mono text-pri" font-weight="600">R$ 3.840,00</text>
+      <text x="410" y="32" class="mono text-sec">R$ 145,53 (3.79%)</text>
+      <text x="560" y="32" class="mono text-sec">R$ 145,53 (Líquido: R$ 3.694,47)</text>
+      <rect x="740" y="16" width="160" height="24" rx="4" class="badge-green" stroke-width="1"/>
+      <text x="820" y="32" text-anchor="middle" class="mono badge-text-green">CONCILIADO 100%</text>
+    </g>
+    <line x1="20" y1="138" x2="932" y2="138" class="bar-line"/>
+
+    <!-- Row 3 (DIVERGENCE ALERT) -->
+    <g transform="translate(0, 138)">
+      <text x="20" y="32" class="mono text-sec">TX-99014</text>
+      <text x="160" y="32" class="mono text-pri">Cartão (1x)</text>
+      <text x="270" y="32" class="mono text-pri" font-weight="600">R$ 980,00</text>
+      <text x="410" y="32" class="mono text-sec">R$ 28,32 (2.89%)</text>
+      <text x="560" y="32" class="mono text-sec" fill="#f87171">R$ 39,10 (3.99%! Divergência)</text>
+      <rect x="740" y="16" width="160" height="24" rx="4" class="badge-red" stroke-width="1"/>
+      <text x="820" y="32" text-anchor="middle" class="mono badge-text-red">DIVERGÊNCIA (-R$ 10,78)</text>
+    </g>
+    <line x1="20" y1="188" x2="932" y2="188" class="bar-line"/>
+
+    <!-- Row 4 (Pix Match) -->
+    <g transform="translate(0, 188)">
+      <text x="20" y="32" class="mono text-sec">TX-99002</text>
+      <text x="160" y="32" class="mono text-pri">Pix (D+0)</text>
+      <text x="270" y="32" class="mono text-pri" font-weight="600">R$ 450,00</text>
+      <text x="410" y="32" class="mono text-sec">R$ 4,45 (0.99%)</text>
+      <text x="560" y="32" class="mono text-sec">R$ 4,45 (Líquido: R$ 445,55)</text>
+      <rect x="740" y="16" width="160" height="24" rx="4" class="badge-green" stroke-width="1"/>
+      <text x="820" y="32" text-anchor="middle" class="mono badge-text-green">CONCILIADO 100%</text>
+    </g>
+    <line x1="20" y1="238" x2="932" y2="238" class="bar-line"/>
+
+    <!-- Security & HMAC Note -->
+    <g transform="translate(20, 270)">
+      <rect width="912" height="110" rx="6" class="inner-box"/>
+      <text x="16" y="28" class="mono text-sec">● Proteção Criptográfica HMAC SHA-256 ativa: 100% dos webhooks de adquirente validados contra replay attacks.</text>
+      <text x="16" y="54" class="mono text-sec">● Alerta Contábil Emitido: A divergência de R$ 10,78 na TX-99014 gerou protocolo de contestação automático junto à adquirente.</text>
+      <text x="16" y="80" class="mono text-sec">● Cálculos monetários em centavos inteiros (evitando imprecisões de ponto flutuante IEEE 754).</text>
+    </g>
+  </g>
+</svg>

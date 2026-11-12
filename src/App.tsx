@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   ArrowUpRight, 
   Mail, 
-  MapPin
+  MapPin, 
+  ExternalLink,
+  ChevronDown,
+  ChevronUp,
+  Image as ImageIcon
 } from 'lucide-react';
 import { profileData } from './data/profile';
 import { realWorldProjects, featuredGithubRepos } from './data/learnings';
@@ -20,6 +24,16 @@ const LinkedinIcon: React.FC<{ className?: string }> = ({ className = "w-4 h-4" 
 );
 
 export const App: React.FC = () => {
+  const [expandedScreens, setExpandedScreens] = useState<Record<string, boolean>>({
+    'retail-order-sync': true,
+    'restaurant-kitchen-hub': true,
+    'fintech-payment-gateway': true,
+  });
+
+  const toggleScreen = (id: string) => {
+    setExpandedScreens((prev) => ({ ...prev, [id]: !prev[id] }));
+  };
+
   return (
     <div className="min-h-screen bg-[#0c0d10] text-[#e6e8ec] antialiased selection:bg-zinc-800 selection:text-white">
       {/* Top Header */}
@@ -130,11 +144,11 @@ export const App: React.FC = () => {
               </p>
             </div>
             <span className="text-xs text-zinc-500 font-mono">
-              3 módulos disponíveis
+              3 módulos com código aberto
             </span>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-6">
             {realWorldProjects.map((project) => (
               <article 
                 key={project.id}
@@ -155,16 +169,27 @@ export const App: React.FC = () => {
                     </h3>
                   </div>
 
-                  <a
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-medium text-zinc-300 bg-zinc-850 hover:bg-zinc-800 border border-zinc-750 transition-colors self-start"
-                  >
-                    <GithubIcon className="w-3.5 h-3.5" />
-                    <span>Ver código</span>
-                    <ArrowUpRight className="w-3 h-3 text-zinc-500" />
-                  </a>
+                  <div className="flex items-center gap-2 self-start">
+                    <button
+                      onClick={() => toggleScreen(project.id)}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-medium text-zinc-300 bg-zinc-800 hover:bg-zinc-750 border border-zinc-700 transition-colors"
+                    >
+                      <ImageIcon className="w-3.5 h-3.5 text-zinc-400" />
+                      <span>{expandedScreens[project.id] ? 'Recolher Tela' : 'Ver Tela do Sistema'}</span>
+                      {expandedScreens[project.id] ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
+                    </button>
+
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-medium text-zinc-300 bg-zinc-850 hover:bg-zinc-800 border border-zinc-750 transition-colors"
+                    >
+                      <GithubIcon className="w-3.5 h-3.5" />
+                      <span>Código</span>
+                      <ArrowUpRight className="w-3 h-3 text-zinc-500" />
+                    </a>
+                  </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs mb-4">
@@ -186,9 +211,42 @@ export const App: React.FC = () => {
                   </div>
                 </div>
 
+                {/* Screenshot / Screen Preview Frame */}
+                {expandedScreens[project.id] && (
+                  <div className="my-5 rounded-lg overflow-hidden border border-zinc-750 bg-[#0a0b0e] shadow-2xl">
+                    <div className="px-3 py-2 bg-zinc-900 border-b border-zinc-800 flex items-center justify-between text-xs text-zinc-400 font-mono">
+                      <div className="flex items-center gap-2">
+                        <span className="flex gap-1.5">
+                          <span className="w-2.5 h-2.5 rounded-full bg-zinc-700"></span>
+                          <span className="w-2.5 h-2.5 rounded-full bg-zinc-700"></span>
+                          <span className="w-2.5 h-2.5 rounded-full bg-zinc-700"></span>
+                        </span>
+                        <span className="text-zinc-400 text-[11px] ml-2">Captura da Interface em Produção</span>
+                      </div>
+                      <a 
+                        href={project.previewImage} 
+                        target="_blank" 
+                        rel="noreferrer"
+                        className="text-[11px] text-zinc-400 hover:text-zinc-200 inline-flex items-center gap-1"
+                      >
+                        <span>Abrir imagem</span>
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                    </div>
+                    <div className="p-1 sm:p-2 bg-[#0d0f12]">
+                      <img 
+                        src={project.previewImage} 
+                        alt={`Interface do sistema ${project.name}`}
+                        className="w-full h-auto rounded border border-zinc-800/80 object-cover"
+                        loading="lazy"
+                      />
+                    </div>
+                  </div>
+                )}
+
                 <div className="p-3 rounded bg-[#0c0d10] border border-zinc-850 space-y-2 mb-4">
                   <span className="font-medium text-zinc-400 uppercase tracking-wide text-[10px]">
-                    Critérios de Implementação
+                    Critérios de Implementação & Resiliência
                   </span>
                   <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1.5">
                     {project.highlights.map((h, i) => (

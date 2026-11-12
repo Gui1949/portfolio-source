@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 580" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0d0f12; }
+      .surface { fill: #13151a; stroke: #272a33; stroke-width: 1; }
+      .inner-box { fill: #0a0b0e; stroke: #1e2129; stroke-width: 1; }
+      .title { fill: #f0f2f5; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 14px; font-weight: 600; }
+      .mono { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
+      .text-sec { fill: #8b92a0; font-size: 12px; }
+      .text-pri { fill: #e6e8ec; font-size: 13px; }
+      .text-dim { fill: #525866; font-size: 11px; }
+      .badge-green { fill: #064e3b; stroke: #059669; }
+      .badge-text-green { fill: #34d399; font-size: 11px; font-weight: 600; }
+      .badge-blue { fill: #1e293b; stroke: #3b82f6; }
+      .badge-text-blue { fill: #60a5fa; font-size: 11px; font-weight: 500; }
+      .dot-red { fill: #ef4444; }
+      .dot-yellow { fill: #f59e0b; }
+      .dot-green { fill: #10b981; }
+      .bar-line { stroke: #272a33; stroke-width: 1; }
+    </style>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="1000" height="580" rx="12" class="bg"/>
+
+  <!-- Window Chrome Header -->
+  <rect width="1000" height="42" rx="12" fill="#14171d"/>
+  <rect y="30" width="1000" height="12" fill="#14171d"/>
+  <circle cx="24" cy="21" r="5" class="dot-red"/>
+  <circle cx="40" cy="21" r="5" class="dot-yellow"/>
+  <circle cx="56" cy="21" r="5" class="dot-green"/>
+  <text x="500" y="26" text-anchor="middle" class="mono text-sec">retail-sync-engine · Loja 04 (Av. Paulista) ↔ RabbitMQ Central</text>
+  <line x1="0" y1="42" x2="1000" y2="42" class="bar-line"/>
+
+  <!-- Top Metrics Bar -->
+  <g transform="translate(24, 60)">
+    <!-- KPI 1 -->
+    <rect width="220" height="64" rx="8" class="surface"/>
+    <text x="16" y="26" class="text-sec">Status do Broker</text>
+    <circle cx="20" cy="45" r="4" class="dot-green"/>
+    <text x="32" y="49" class="mono text-pri" font-weight="600">RabbitMQ Conectado</text>
+
+    <!-- KPI 2 -->
+    <rect x="240" width="220" height="64" rx="8" class="surface"/>
+    <text x="256" y="26" class="text-sec">Vazão de PDVs</text>
+    <text x="256" y="49" class="mono text-pri" font-weight="600">42 vendas/min</text>
+
+    <!-- KPI 3 -->
+    <rect x="480" width="220" height="64" rx="8" class="surface"/>
+    <text x="496" y="26" class="text-sec">Outbox Buffer (Fila)</text>
+    <text x="496" y="49" class="mono text-pri" font-weight="600">0 pendentes (100% synced)</text>
+
+    <!-- KPI 4 -->
+    <rect x="720" width="232" height="64" rx="8" class="surface"/>
+    <text x="736" y="26" class="text-sec">Dead Letter Queue (DLQ)</text>
+    <text x="736" y="49" class="mono text-pri" font-weight="600">0 falhas acumuladas</text>
+  </g>
+
+  <!-- Live Stream / Outbox Relay Table -->
+  <g transform="translate(24, 142)">
+    <rect width="952" height="414" rx="8" class="surface"/>
+    
+    <!-- Table Header -->
+    <rect width="952" height="38" rx="8" fill="#181b22"/>
+    <rect y="26" width="952" height="12" fill="#181b22"/>
+    <text x="20" y="24" class="mono text-dim" font-weight="600">HORA LOCAL</text>
+    <text x="140" y="24" class="mono text-dim" font-weight="600">EVENTO</text>
+    <text x="260" y="24" class="mono text-dim" font-weight="600">ORIGEM / PDV</text>
+    <text x="400" y="24" class="mono text-dim" font-weight="600">VALOR VENDA</text>
+    <text x="540" y="24" class="mono text-dim" font-weight="600">COMMIT LOCAL</text>
+    <text x="680" y="24" class="mono text-dim" font-weight="600">STATUS RELAY RABBITMQ</text>
+    <line x1="0" y1="38" x2="952" y2="38" class="bar-line"/>
+
+    <!-- Row 1 -->
+    <g transform="translate(0, 38)">
+      <text x="20" y="32" class="mono text-sec">14:48:02.114</text>
+      <text x="140" y="32" class="mono text-pri">ORDER_CREATED</text>
+      <text x="260" y="32" class="mono text-sec">Caixa 02 (Balcão)</text>
+      <text x="400" y="32" class="mono text-pri" font-weight="600">R$ 540,80</text>
+      <text x="540" y="32" class="mono text-sec">8 ms (ACID OK)</text>
+      <rect x="680" y="16" width="170" height="24" rx="4" class="badge-green" stroke-width="1"/>
+      <text x="765" y="32" text-anchor="middle" class="mono badge-text-green">PUBLISHED (ACK 14ms)</text>
+    </g>
+    <line x1="20" y1="88" x2="932" y2="88" class="bar-line"/>
+
+    <!-- Row 2 -->
+    <g transform="translate(0, 88)">
+      <text x="20" y="32" class="mono text-sec">14:47:58.640</text>
+      <text x="140" y="32" class="mono text-pri">ORDER_CREATED</text>
+      <text x="260" y="32" class="mono text-sec">Caixa 01 (Rápido)</text>
+      <text x="400" y="32" class="mono text-pri" font-weight="600">R$ 129,90</text>
+      <text x="540" y="32" class="mono text-sec">6 ms (ACID OK)</text>
+      <rect x="680" y="16" width="170" height="24" rx="4" class="badge-green" stroke-width="1"/>
+      <text x="765" y="32" text-anchor="middle" class="mono badge-text-green">PUBLISHED (ACK 18ms)</text>
+    </g>
+    <line x1="20" y1="138" x2="932" y2="138" class="bar-line"/>
+
+    <!-- Row 3 -->
+    <g transform="translate(0, 138)">
+      <text x="20" y="32" class="mono text-sec">14:47:45.902</text>
+      <text x="140" y="32" class="mono text-pri">STOCK_SYNC</text>
+      <text x="260" y="32" class="mono text-sec">Sankhya ERP Central</text>
+      <text x="400" y="32" class="mono text-sec">-4 itens</text>
+      <text x="540" y="32" class="mono text-sec">12 ms</text>
+      <rect x="680" y="16" width="170" height="24" rx="4" class="badge-blue" stroke-width="1"/>
+      <text x="765" y="32" text-anchor="middle" class="mono badge-text-blue">BAIXA EFETUADA</text>
+    </g>
+    <line x1="20" y1="188" x2="932" y2="188" class="bar-line"/>
+
+    <!-- Row 4 -->
+    <g transform="translate(0, 188)">
+      <text x="20" y="32" class="mono text-sec">14:47:31.420</text>
+      <text x="140" y="32" class="mono text-pri">ORDER_CREATED</text>
+      <text x="260" y="32" class="mono text-sec">Caixa 04 (Vip)</text>
+      <text x="400" y="32" class="mono text-pri" font-weight="600">R$ 1.840,00</text>
+      <text x="540" y="32" class="mono text-sec">9 ms (ACID OK)</text>
+      <rect x="680" y="16" width="170" height="24" rx="4" class="badge-green" stroke-width="1"/>
+      <text x="765" y="32" text-anchor="middle" class="mono badge-text-green">PUBLISHED (ACK 12ms)</text>
+    </g>
+    <line x1="20" y1="238" x2="932" y2="238" class="bar-line"/>
+
+    <!-- Row 5 -->
+    <g transform="translate(0, 238)">
+      <text x="20" y="32" class="mono text-sec">14:47:19.008</text>
+      <text x="140" y="32" class="mono text-pri">ORDER_CREATED</text>
+      <text x="260" y="32" class="mono text-sec">Caixa 03 (Drive)</text>
+      <text x="400" y="32" class="mono text-pri" font-weight="600">R$ 74,50</text>
+      <text x="540" y="32" class="mono text-sec">5 ms (ACID OK)</text>
+      <rect x="680" y="16" width="170" height="24" rx="4" class="badge-green" stroke-width="1"/>
+      <text x="765" y="32" text-anchor="middle" class="mono badge-text-green">PUBLISHED (ACK 15ms)</text>
+    </g>
+    <line x1="20" y1="288" x2="932" y2="288" class="bar-line"/>
+
+    <!-- Console Status Footer -->
+    <g transform="translate(20, 310)">
+      <rect width="912" height="80" rx="6" class="inner-box"/>
+      <text x="16" y="28" class="mono text-sec">✓ Resiliência Ativa: Quedas de internet na filial retêm eventos na tabela Outbox local.</text>
+      <text x="16" y="52" class="mono text-sec">✓ Ao restabelecer link, worker realiza flush idempotente com confirmação de broker sem travar operador de caixa.</text>
+    </g>
+  </g>
+</svg>

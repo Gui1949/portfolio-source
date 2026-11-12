@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 580" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0d0f12; }
+      .surface { fill: #13151a; stroke: #272a33; stroke-width: 1; }
+      .card-ready { fill: #0f1d19; stroke: #059669; stroke-width: 1.5; }
+      .card-prep { fill: #13161c; stroke: #3b82f6; stroke-width: 1.5; }
+      .card-wait { fill: #13151a; stroke: #272a33; stroke-width: 1; }
+      .title { fill: #f0f2f5; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 14px; font-weight: 600; }
+      .mono { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
+      .text-sec { fill: #8b92a0; font-size: 12px; }
+      .text-pri { fill: #e6e8ec; font-size: 13px; }
+      .text-dim { fill: #525866; font-size: 11px; }
+      .badge-green { fill: #064e3b; stroke: #059669; }
+      .badge-text-green { fill: #34d399; font-size: 11px; font-weight: 600; }
+      .badge-blue { fill: #1e293b; stroke: #3b82f6; }
+      .badge-text-blue { fill: #60a5fa; font-size: 11px; font-weight: 600; }
+      .dot-red { fill: #ef4444; }
+      .dot-yellow { fill: #f59e0b; }
+      .dot-green { fill: #10b981; }
+      .bar-line { stroke: #272a33; stroke-width: 1; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="580" rx="12" class="bg"/>
+
+  <!-- Chrome Header -->
+  <rect width="1000" height="42" rx="12" fill="#14171d"/>
+  <rect y="30" width="1000" height="12" fill="#14171d"/>
+  <circle cx="24" cy="21" r="5" class="dot-red"/>
+  <circle cx="40" cy="21" r="5" class="dot-yellow"/>
+  <circle cx="56" cy="21" r="5" class="dot-green"/>
+  <text x="500" y="26" text-anchor="middle" class="mono text-sec">gourmetflow-kds · Monitor de Cozinha &amp; Expedição Central</text>
+  <line x1="0" y1="42" x2="1000" y2="42" class="bar-line"/>
+
+  <!-- Subheader Navigation / Tabs -->
+  <g transform="translate(24, 56)">
+    <rect width="952" height="46" rx="8" class="surface"/>
+    <text x="20" y="28" class="mono text-pri" font-weight="600">TODAS AS ESTAÇÕES (4)</text>
+    <rect x="220" y="10" width="130" height="26" rx="4" fill="#1a1d24"/>
+    <text x="285" y="27" text-anchor="middle" class="mono text-sec">Grelha (2)</text>
+    <rect x="360" y="10" width="130" height="26" rx="4" fill="#1a1d24"/>
+    <text x="425" y="27" text-anchor="middle" class="mono text-sec">Forno Pizza (1)</text>
+    <rect x="500" y="10" width="110" height="26" rx="4" fill="#1a1d24"/>
+    <text x="555" y="27" text-anchor="middle" class="mono text-sec">Bar (1)</text>
+    
+    <text x="930" y="28" text-anchor="end" class="mono badge-text-green">● WebSocket Ativo (0ms lag)</text>
+  </g>
+
+  <!-- KDS Order Cards Grid -->
+  <g transform="translate(24, 116)">
+    <!-- Card 1: Ready for Expedition -->
+    <g transform="translate(0, 0)">
+      <rect width="304" height="440" rx="8" class="card-ready"/>
+      <rect width="304" height="40" rx="8" fill="#122b22"/>
+      <rect y="30" width="304" height="10" fill="#122b22"/>
+      <text x="16" y="25" class="mono text-pri" font-weight="700">MESA 08 · SALÃO</text>
+      <text x="288" y="25" text-anchor="end" class="mono badge-text-green font-bold">18 min</text>
+
+      <g transform="translate(16, 56)">
+        <rect width="272" height="26" rx="4" class="badge-green"/>
+        <text x="136" y="17" text-anchor="middle" class="mono badge-text-green">PRONTO PARA EXPEDIÇÃO</text>
+        
+        <g transform="translate(0, 44)">
+          <text x="0" y="20" class="mono text-pri" font-weight="600">✓ Bife Ancho (x2)</text>
+          <text x="0" y="38" class="mono text-dim">Estação: Grelha · Ponto p/ menos</text>
+
+          <text x="0" y="76" class="mono text-pri" font-weight="600">✓ Batata Rústica com Alecrim</text>
+          <text x="0" y="94" class="mono text-dim">Estação: Grelha · Concluído</text>
+
+          <text x="0" y="132" class="mono text-pri" font-weight="600">✓ Caipirinha Limão Siciliano (x2)</text>
+          <text x="0" y="150" class="mono text-dim">Estação: Bar · Concluído</text>
+        </g>
+
+        <!-- Dispatch Button -->
+        <g transform="translate(0, 310)">
+          <rect width="272" height="38" rx="6" fill="#059669"/>
+          <text x="136" y="24" text-anchor="middle" class="mono text-pri" font-weight="700">CHAMAR GARÇOM</text>
+        </g>
+      </g>
+    </g>
+
+    <!-- Card 2: In Preparation -->
+    <g transform="translate(324, 0)">
+      <rect width="304" height="440" rx="8" class="card-prep"/>
+      <rect width="304" height="40" rx="8" fill="#152438"/>
+      <rect y="30" width="304" height="10" fill="#152438"/>
+      <text x="16" y="25" class="mono text-pri" font-weight="700">DELIVERY #104 · IFOOD</text>
+      <text x="288" y="25" text-anchor="end" class="mono badge-text-blue font-bold">09 min</text>
+
+      <g transform="translate(16, 56)">
+        <rect width="272" height="26" rx="4" class="badge-blue"/>
+        <text x="136" y="17" text-anchor="middle" class="mono badge-text-blue">EM PREPARO NA COZINHA</text>
+        
+        <g transform="translate(0, 44)">
+          <text x="0" y="20" class="mono text-pri" font-weight="600">✓ Refrigerante Lata (x2)</text>
+          <text x="0" y="38" class="mono text-dim">Estação: Bar · Pronto na bandeja</text>
+
+          <text x="0" y="76" class="mono text-pri" font-weight="600">⟳ Pizza Margherita Grande</text>
+          <text x="0" y="94" class="mono text-dim">Estação: Forno · No forno (restam 4m)</text>
+
+          <text x="0" y="132" class="mono text-sec">Pudim de Leite Condensado</text>
+          <text x="0" y="150" class="mono text-dim">Estação: Copa · Em separação</text>
+        </g>
+
+        <!-- Timer progress -->
+        <g transform="translate(0, 310)">
+          <rect width="272" height="38" rx="6" fill="#1e293b" stroke="#3b82f6" stroke-width="1"/>
+          <text x="136" y="24" text-anchor="middle" class="mono badge-text-blue" font-weight="600">SLA: 11 MIN RESTANTES</text>
+        </g>
+      </g>
+    </g>
+
+    <!-- Card 3: Received / New -->
+    <g transform="translate(648, 0)">
+      <rect width="304" height="440" rx="8" class="card-wait"/>
+      <rect width="304" height="40" rx="8" fill="#1a1d24"/>
+      <rect y="30" width="304" height="10" fill="#1a1d24"/>
+      <text x="16" y="25" class="mono text-pri" font-weight="700">MESA 14 · VARANDA</text>
+      <text x="288" y="25" text-anchor="end" class="mono text-sec font-bold">02 min</text>
+
+      <g transform="translate(16, 56)">
+        <rect width="272" height="26" rx="4" fill="#20242e"/>
+        <text x="136" y="17" text-anchor="middle" class="mono text-sec">AGUARDANDO ACEITE</text>
+        
+        <g transform="translate(0, 44)">
+          <text x="0" y="20" class="mono text-sec">Picanha na Brasa Especial</text>
+          <text x="0" y="38" class="mono text-dim">Estação: Grelha · Aguardando chef</text>
+
+          <text x="0" y="76" class="mono text-sec">Salada Caesar com Frango</text>
+          <text x="0" y="94" class="mono text-dim">Estação: Copa · Aguardando</text>
+
+          <text x="0" y="132" class="mono text-sec">Chopp Artesanal 500ml (x3)</text>
+          <text x="0" y="150" class="mono text-dim">Estação: Bar · Aguardando</text>
+        </g>
+
+        <!-- Start Button -->
+        <g transform="translate(0, 310)">
+          <rect width="272" height="38" rx="6" fill="#272a33"/>
+          <text x="136" y="24" text-anchor="middle" class="mono text-sec" font-weight="600">ACEITAR COMANDA</text>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

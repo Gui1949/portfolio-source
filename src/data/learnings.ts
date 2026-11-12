@@ -7,6 +7,7 @@ export interface RealWorldProject {
   highlights: string[];
   technologies: string[];
   githubUrl: string;
+  previewImage: string;
   status: string;
 }
 
@@ -34,6 +35,7 @@ export const realWorldProjects: RealWorldProject[] = [
     ],
     technologies: ["TypeScript", "Node.js", "RabbitMQ", "Clean Architecture", "MSSQL"],
     githubUrl: "https://github.com/Gui1949/retail-order-sync",
+    previewImage: "/previews/retail-order-sync.svg",
     status: "Produção"
   },
   {
@@ -50,6 +52,7 @@ export const realWorldProjects: RealWorldProject[] = [
     ],
     technologies: ["TypeScript", "Node.js", "Event-Driven", "WebSockets", "State Machine"],
     githubUrl: "https://github.com/Gui1949/restaurant-kitchen-hub",
+    previewImage: "/previews/restaurant-kds.svg",
     status: "Produção"
   },
   {
@@ -66,6 +69,7 @@ export const realWorldProjects: RealWorldProject[] = [
     ],
     technologies: ["TypeScript", "Node.js", "HMAC SHA-256", "Clean Architecture", "Fintech Domain"],
     githubUrl: "https://github.com/Gui1949/fintech-payment-gateway",
+    previewImage: "/previews/fintech-payment-gateway.svg",
     status: "Produção"
   }
 ];
