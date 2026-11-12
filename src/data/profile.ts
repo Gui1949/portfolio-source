@@ -8,7 +8,6 @@ export interface Experience {
 
 export interface Certification {
   name: string;
-  issuer?: string;
 }
 
 export interface ProfileData {
@@ -31,91 +30,91 @@ export interface ProfileData {
 
 export const profileData: ProfileData = {
   name: "Guilherme Santiago Floriano",
-  title: "Desenvolvedor de Software Sênior | Tech Lead",
+  title: "Tech Lead & Desenvolvedor de Software Sênior",
   location: "Guarulhos, São Paulo, Brasil",
   email: "guilhermesantiago12@gmail.com",
   github: "https://github.com/Gui1949",
   linkedin: "https://linkedin.com/in/guilherme-floriano-092023210",
-  bio: "Desenvolvedor Sênior e Tech Lead com mais de 8 anos de experiência sólida em arquitetura e integração de sistemas de missão crítica, mensageria de alta performance e engenharia de software full stack com ecossistema JavaScript/TypeScript.",
+  bio: "Desenvolvedor de Software Sênior e Tech Lead com mais de 8 anos de experiência em arquitetura de integrações, mensageria de alta performance e engenharia full stack no ecossistema Node.js, TypeScript e React. Histórico consolidado em automação de fluxos críticos entre ERPs, CRMs e plataformas de pagamento.",
   stats: [
-    { label: "Experiência", value: "8+ Anos", description: "Arquitetura e liderança técnica" },
-    { label: "Otimização Contábil", value: "15d ➔ 1d", description: "Integração PDV & Sankhya via RabbitMQ" },
-    { label: "Automação Comercial", value: "100%", description: "Eliminação de digitação manual de pedidos" },
-    { label: "Acessos Diários", value: "+3.000", description: "Portal do Cliente em produção" }
+    { label: "Experiência de Mercado", value: "8+ anos", description: "Liderança técnica e arquitetura de software" },
+    { label: "Fechamento Contábil", value: "15d → 1d", description: "Otimização de rotinas via RabbitMQ e Sankhya" },
+    { label: "Automação Comercial", value: "100%", description: "Eliminação da entrada manual de pedidos" },
+    { label: "Volume de Usuários", value: "3.000+/dia", description: "Acessos diários suportados no Portal do Cliente" }
   ],
   skills: [
     {
-      category: "Linguagens & Ecossistema",
-      items: ["TypeScript", "Node.js", "React", "Next.js", "Express", "NestJS", "Java 8", "Python", "SQL"]
+      category: "Linguagens & Runtimes",
+      items: ["TypeScript", "Node.js", "Java 8", "Python", "SQL (T-SQL, PL/SQL)", "C / C++"]
+    },
+    {
+      category: "Frontend & Mobile",
+      items: ["React", "Next.js", "React Native", "Tailwind CSS", "Redux", "Clean Architecture"]
     },
     {
       category: "Integrações & Mensageria",
-      items: ["RabbitMQ", "APIs RESTful", "WebSockets", "SSO Azure AD", "Integrações ERP/CRM (Sankhya/Bitrix)", "FIDCs"]
+      items: ["RabbitMQ", "APIs RESTful", "WebSockets", "SSO Azure AD / Entra ID", "Sankhya ERP", "Bitrix24"]
     },
     {
-      category: "Banco de Dados & Storage",
-      items: ["SQL Server (MSSQL)", "T-SQL", "Stored Procedures", "Triggers", "Oracle Database"]
+      category: "Bancos de Dados",
+      items: ["SQL Server (MSSQL)", "Oracle Database", "Modelagem Relacional", "Stored Procedures", "Triggers"]
     },
     {
       category: "DevOps & Observabilidade",
-      items: ["Datadog", "PM2 (pm2.io)", "Jenkins CI/CD", "Docker", "Git / GitHub Actions", "Heroku / Netlify"]
-    },
-    {
-      category: "Mobile & Frontend",
-      items: ["React Native (iOS & Android)", "Tailwind CSS", "Redux", "Clean Architecture", "SOLID"]
+      items: ["Datadog", "PM2", "Jenkins CI/CD", "Git", "GitHub Actions", "Docker", "Linux"]
     }
   ],
   experiences: [
     {
       company: "Medsystems Comércio Importação e Exportação Ltda",
       role: "Analista de Sistemas (Desenvolvedor Sênior / Tech Lead)",
-      period: "Janeiro de 2022 – Presente",
-      badges: ["Node.js", "TypeScript", "React", "Next.js", "RabbitMQ", "Datadog", "Jenkins", "Sankhya ERP", "Bitrix24"],
+      period: "Jan 2022 – Presente",
+      badges: ["Node.js", "TypeScript", "React", "RabbitMQ", "Datadog", "Jenkins", "Sankhya", "Bitrix24"],
       description: [
-        "Arquitetura e integração de plataformas corporativas conectando fluxos de negócio em tempo real.",
-        "Implementação de observabilidade avançada com Datadog e PM2, garantindo alta disponibilidade e resposta rápida a incidentes.",
-        "Arquitetura de mensageria com RabbitMQ entre PDV e ERP Sankhya, reduzindo o fechamento contábil de 15 dias para 1 dia.",
-        "Implantação de Jenkins CI/CD do zero, blindando e automatizando deploy das aplicações.",
-        "Integração corporativa de autenticação via Single Sign-On (SSO) com Microsoft Azure.",
-        "Desenvolvimento e publicação de aplicativos móveis em React Native integrados nativamente ao Sankhya e Bitrix.",
-        "Liderança de time de engenharia (6 desenvolvedores) em projeto Next.js/NestJS/MSSQL sob metodologias ágeis."
+        "Arquitetura e desenvolvimento de barramentos de integração entre ERP Sankhya, CRM Bitrix24 e terminais de venda.",
+        "Implementação de mensageria com RabbitMQ entre PDVs e retaguarda contábil, reduzindo o tempo de fechamento mensal de 15 dias para 1 dia.",
+        "Estruturação de observabilidade com Datadog e PM2 para monitoramento de latência e detecção precoce de anomalias em serviços web.",
+        "Implantação de pipelines de CI/CD via Jenkins, estabelecendo validações automáticas de build e deploys seguros.",
+        "Integração corporativa de autenticação com Microsoft Azure SSO para unificação de acessos corporativos.",
+        "Desenvolvimento e distribuição de aplicativos móveis em React Native para operações internas e de campo.",
+        "Liderança técnica de equipe de desenvolvimento (6 engenheiros) em sistemas corporativos com Next.js, NestJS e SQL Server."
       ]
     },
     {
       company: "Farmarin Indústria e Comércio Ltda",
       role: "Analista de TI Jr. / Assistente / Estagiário",
-      period: "Setembro de 2018 – Dezembro de 2021",
-      badges: ["React", "Node.js", "Python", "SQL Server", "VMware ESXi", "Jaspersoft", "ANVISA RDC 301"],
+      period: "Set 2018 – Dez 2021",
+      badges: ["React", "Node.js", "Python", "SQL Server", "VMware ESXi", "RDC 301 ANVISA"],
       description: [
-        "Desenvolvimento de aplicações fullstack com ReactJS, Node.js e Express, com deploy em nuvem.",
-        "Criação de procedures SQL, triggers e dashboards personalizados nativos no ERP Sankhya.",
-        "Desenvolvimento e validação de sistemas computadorizados em conformidade com a norma RDC 301 da ANVISA.",
-        "Desenvolvimento de robôs de automação em Python e Kivy e gestão de virtualização VMware ESXi."
+        "Desenvolvimento de aplicações web internas com React e Node.js para suporte a operações reguladas.",
+        "Criação de procedures SQL, triggers de consistência e relatórios analíticos no ERP Sankhya via iReport.",
+        "Validação de sistemas computadorizados em conformidade com as normas RDC 301 da ANVISA para a indústria farmacêutica.",
+        "Desenvolvimento de rotinas de automação em Python e administração de infraestrutura virtualizada com VMware ESXi."
       ]
     }
   ],
   certifications: [
-    { name: "Node.JS Specialist" },
+    { name: "Node.js Specialist" },
     { name: "React Professional" },
     { name: "Advanced Python Techniques" },
-    { name: "C#: Formação Básica" },
+    { name: "C# Formação Básica" },
     { name: "CTO Summit" }
   ],
   education: [
     {
       degree: "Pós-graduação em Engenharia de Software",
       institution: "Pontifícia Universidade Católica de Minas Gerais (PUC-MG)",
-      period: "2022 - 2023"
+      period: "2022 – 2023"
     },
     {
       degree: "Graduação em Redes de Computadores",
       institution: "Faculdade Eniac",
-      period: "2018 - 2020"
+      period: "2018 – 2020"
     },
     {
       degree: "Técnico em Informática",
       institution: "ETEC Escola Técnica Estadual de São Paulo",
-      period: "2015 - 2017"
+      period: "2015 – 2017"
     }
   ]
 };

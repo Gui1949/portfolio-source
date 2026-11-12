@@ -1,15 +1,13 @@
 export interface RealWorldProject {
   id: string;
   name: string;
-  businessDomain: "Varejo & Redes de Lojas" | "Restaurantes & Food Service" | "Fintech & Integrações" | "Logística & Supply Chain";
-  segmentIcon: string;
+  businessDomain: string;
   businessProblem: string;
   solutionArchitecture: string;
   highlights: string[];
   technologies: string[];
   githubUrl: string;
-  projectPath: string;
-  status: "production-ready" | "in-development";
+  status: string;
 }
 
 export interface FeaturedGithubRepo {
@@ -18,105 +16,99 @@ export interface FeaturedGithubRepo {
   description: string;
   technologies: string[];
   githubUrl: string;
-  whyHighlighted: string;
+  context: string;
 }
 
 export const realWorldProjects: RealWorldProject[] = [
   {
     id: "retail-order-sync",
-    name: "Retail Order Sync Engine (Sincronização de PDVs para Lojas)",
-    businessDomain: "Varejo & Redes de Lojas",
-    segmentIcon: "🏬",
-    businessProblem: "Em redes de lojas físicas com alto fluxo de caixa, instabilidades de internet ou lentidão no ERP central travavam o atendimento no balcão ou geravam furos contábeis e de estoque.",
-    solutionArchitecture: "Arquitetura com Transactional Outbox Pattern que grava localmente no PDV em <30ms com garantia fiscal e sincroniza assincronamente com o RabbitMQ corporativo via worker com retentativas exponenciais e Dead Letter Queue (DLQ).",
+    name: "Retail Order Sync Engine",
+    businessDomain: "Varejo & PDV",
+    businessProblem: "Em redes de lojas físicas com alto fluxo de caixa, instabilidades de rede local ou do ERP central provocavam o Dual-Write Problem, causando filas no balcão ou furos no fechamento contábil e de estoque.",
+    solutionArchitecture: "Padrão Transactional Outbox com persistência atômica local em menos de 30ms e relay assíncrono para RabbitMQ com confirmações de publicação, retentativas exponenciais e Dead Letter Queue (DLQ).",
     highlights: [
-      "Zero perda de vendas em caixas de lojas físicas durante instabilidades de rede",
-      "Confirmação de vendas no balcão em milissegundos sem dependência síncrona do ERP",
-      "Publisher Confirms e idempotência garantida na fila central do RabbitMQ",
-      "Dead Letter Queue (DLQ) com alertas integrados para observabilidade no Datadog"
+      "Gravação atômica da venda e do evento de outbox na mesma transação ACID",
+      "Desacoplamento total entre emissão do cupom no balcão e latência de rede do ERP",
+      "Publisher confirms com garantia de entrega at-least-once no broker",
+      "Roteamento de mensagens com falha persistente para Dead Letter Queue"
     ],
-    technologies: ["Node.js", "TypeScript", "RabbitMQ", "Clean Architecture", "MSSQL"],
+    technologies: ["TypeScript", "Node.js", "RabbitMQ", "Clean Architecture", "MSSQL"],
     githubUrl: "https://github.com/Gui1949/retail-order-sync",
-    projectPath: "projects/retail-order-sync",
-    status: "production-ready"
+    status: "Produção"
   },
   {
     id: "restaurant-kitchen-hub",
-    name: "GourmetFlow KDS (Gestão de Comandas & Cozinha para Restaurantes)",
+    name: "GourmetFlow KDS",
     businessDomain: "Restaurantes & Food Service",
-    segmentIcon: "🍽️",
-    businessProblem: "Restaurantes de grande movimento e pizzarias sofrem com comandas de papel perdidas, atrasos entre pratos quentes e bebidas do bar, e falta de visibilidade de tempo de espera (SLA).",
-    solutionArchitecture: "Sistema em tempo real com barramento orientado a eventos e WebSocket que decompõe a comanda por estações especializadas (Parrilla/Grill, Forno de Pizza, Bar, Expedição), sincronizando os itens para saírem juntos na mesa.",
+    businessProblem: "Cozinhas de alta rotatividade e delivery sofrem com descompasso de tempo de preparo entre estações (ex: bebidas saindo muito antes dos pratos) e perda de visibilidade de SLA de atendimento.",
+    solutionArchitecture: "Kitchen Display System orientado a eventos que decompõe a comanda por estações independentes (Grelha, Forno, Bar, Copa) e sincroniza a expedição para liberação simultânea na mesa.",
     highlights: [
-      "Roteamento automático de itens da comanda por estação (Parrilla, Forno de Pizza, Bar e Copa)",
-      "Sincronização de tempo: expedição só avisa garçom/motoboy quando todos os itens da mesa estão prontos",
-      "Monitoramento de SLA de preparo por mesa e por canal (Salão vs Delivery)",
-      "Máquina de estados de pedido com eventos WebSocket para telas de cozinha (KDS)"
+      "Roteamento automático de itens da comanda por estação de preparo",
+      "Sincronização de expedição: aciona o garçom apenas com a mesa 100% pronta",
+      "Rastreamento de latência e tempo de preparo por estação e canal",
+      "Máquina de estados estrita com emissão de eventos em tempo real"
     ],
-    technologies: ["Node.js", "TypeScript", "Event-Driven", "WebSockets", "State Machine"],
+    technologies: ["TypeScript", "Node.js", "Event-Driven", "WebSockets", "State Machine"],
     githubUrl: "https://github.com/Gui1949/restaurant-kitchen-hub",
-    projectPath: "projects/restaurant-kitchen-hub",
-    status: "production-ready"
+    status: "Produção"
   },
   {
     id: "fintech-payment-gateway",
-    name: "AegisPay & Reconciliation Hub (Gateway de Pagamentos & Conciliação)",
-    businessDomain: "Fintech & Integrações",
-    segmentIcon: "💳",
-    businessProblem: "Varejistas e e-commerces perdem entre 1,5% e 4% de margem com divergências ocultas de taxas de MDR das adquirentes e sofrem com cobranças duplicadas por falta de idempotência em retentativas de webhooks.",
-    solutionArchitecture: "Gateway financeiro com cálculos estritos em centavos inteiros (evitando drift IEEE 754), verificação criptográfica HMAC SHA-256 de webhooks, máquina de estados com 6 estágios e motor automático de conciliação financeira contra extratos de liquidação.",
+    name: "AegisPay & Reconciliation Hub",
+    businessDomain: "Fintech & Pagamentos",
+    businessProblem: "Inconsistências entre autorização de vendas e liquidação financeira de adquirentes provocam perdas por divergência de taxas de MDR e risco de cobranças duplicadas em retentativas de webhooks.",
+    solutionArchitecture: "Gateway transacional com aritmética estrita em inteiros (centavos), verificação criptográfica HMAC SHA-256 de webhooks e motor automático de conciliação financeira contra extratos de liquidação.",
     highlights: [
-      "Motor de conciliação financeira automática comparando MDR contratual vs extrato da adquirente (auditoria contábil)",
-      "Idempotência estrita via Idempotency-Key em cache em memória / Redis",
-      "Assinatura criptográfica HMAC SHA-256 para blindagem de webhooks de adquirentes",
-      "Suporte a Pix D+0 e Cartão de Crédito parcelado com máquina de estados rigorosa"
+      "Auditoria contábil automatizada comparando MDR contratual vs extrato de liquidação",
+      "Idempotência estrita via Idempotency-Key para proteção contra replay de webhooks",
+      "Assinatura criptográfica HMAC SHA-256 para validação de integridade",
+      "Suporte a Pix D+0 e Cartão parcelado com suíte de 15 testes automatizados"
     ],
-    technologies: ["Node.js", "TypeScript", "HMAC SHA-256", "Clean Architecture", "Fintech Domain"],
+    technologies: ["TypeScript", "Node.js", "HMAC SHA-256", "Clean Architecture", "Fintech Domain"],
     githubUrl: "https://github.com/Gui1949/fintech-payment-gateway",
-    projectPath: "projects/fintech-payment-gateway",
-    status: "production-ready"
+    status: "Produção"
   }
 ];
 
 export const featuredGithubRepos: FeaturedGithubRepo[] = [
   {
     name: "terraChat",
-    category: "IA Geoespacial & Chatbot",
-    description: "Chatbot interativo baseado em mapas que consome a API do Google Maps em tempo real para responder dúvidas e fornecer dados contextuais de localização.",
-    technologies: ["TypeScript", "Google Maps API", "AI / Chatbot", "Full Stack"],
+    category: "IA & Geoespacial",
+    description: "Assistente conversacional baseado em mapas que consome a API do Google Maps em tempo real para responder consultas contextuais de localização.",
+    technologies: ["TypeScript", "Google Maps API", "Chatbot"],
     githubUrl: "https://github.com/Gui1949/terraChat",
-    whyHighlighted: "Excelente para demonstrar domínio moderno de TypeScript integrado a APIs geoespaciais e inteligência de dados contextuais."
+    context: "Integração de APIs geoespaciais com processamento contextual de dados em TypeScript."
   },
   {
     name: "br-utils",
-    category: "Engenharia de Backend & Utilities",
-    description: "Biblioteca utilitária em Java com clientes HTTP leves (inspirado em Axios) e métodos utilitários de manipulação de Strings null-safe para ambientes corporativos.",
-    technologies: ["Java 8+", "HTTP Client", "Null-Safe Architecture", "Clean Code"],
+    category: "Bibliotecas & Backend",
+    description: "Biblioteca utilitária em Java com cliente HTTP minimalista e manipuladores de strings seguros contra valores nulos para sistemas corporativos.",
+    technologies: ["Java", "HTTP Client", "Clean Code"],
     githubUrl: "https://github.com/Gui1949/br-utils",
-    whyHighlighted: "Demonstra rigor em design de bibliotecas reutilizáveis e domínio profundo do runtime Java corporativo."
+    context: "Design de bibliotecas utilitárias reutilizáveis no ecossistema Java."
   },
   {
     name: "FloripaScript",
     category: "Compiladores & Linguagens",
-    description: "Linguagem de programação autoral projetada para combinar a flexibilidade de linguagens interpretadas com a eficiência e controle de baixo nível de C/C++.",
-    technologies: ["C", "C++", "Compiladores", "Gerenciamento de Memória"],
+    description: "Linguagem de programação autoral desenvolvida para unir a flexibilidade de scripts ao desempenho e controle de memória de C/C++.",
+    technologies: ["C", "C++", "Compiladores"],
     githubUrl: "https://github.com/Gui1949/FloripaScript",
-    whyHighlighted: "Um diferencial técnico de altíssimo nível para um Tech Lead: prova que você entende o funcionamento interno de compiladores e execução de baixo nível."
+    context: "Implementação de compilador, análise sintática e gerenciamento de memória em baixo nível."
   },
   {
     name: "sankhya-ireport-web",
-    category: "Integração ERP Corporativo",
-    description: "Integração web do ERP Sankhya com JasperReports / iReport para geração, visualização e exportação de relatórios analíticos e operacionais.",
-    technologies: ["ERP Sankhya", "iReport", "Web Integration", "SQL"],
+    category: "Integração ERP",
+    description: "Módulo web para geração, visualização e extração analítica de relatórios corporativos integrados ao ERP Sankhya via iReport.",
+    technologies: ["ERP Sankhya", "iReport", "SQL"],
     githubUrl: "https://github.com/Gui1949/https-github.com-VictorSalome-sankhya-ireport-web",
-    whyHighlighted: "Conecta-se diretamente à sua experiência corporativa comprovada como Tech Lead e analista de sistemas sênior."
+    context: "Extensão e extração de dados analíticos para operações corporativas de ERP."
   },
   {
     name: "ugOS",
-    category: "DevOps & Sistemas Operacionais",
-    description: "Distribuição Linux customizada e minimalista baseada no Ubuntu Minimal, desenhada para máxima eficiência de recursos e execução de serviços.",
-    technologies: ["Linux Kernel", "Ubuntu Minimal", "Bash Scripting", "SysAdmin"],
+    category: "Infraestrutura & Linux",
+    description: "Distribuição Linux customizada baseada em Ubuntu Minimal, otimizada para execução enxuta de serviços de servidor.",
+    technologies: ["Linux Kernel", "Ubuntu Minimal", "Bash"],
     githubUrl: "https://github.com/Gui1949/ugOS",
-    whyHighlighted: "Evidencia sólidas raízes em infraestrutura, redes e sistemas operacionais, essenciais para liderar equipes de DevOps e observabilidade."
+    context: "Customização de sistema operacional e rotinas de infraestrutura de servidores."
   }
 ];
