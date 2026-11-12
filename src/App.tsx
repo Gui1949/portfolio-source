@@ -6,15 +6,15 @@ import {
   Mail, 
   MapPin, 
   Award, 
-  Calendar, 
   CheckCircle2, 
   Code2, 
-  Activity, 
   ShieldCheck, 
-  Bot
+  Bot,
+  Building2,
+  FolderGit2
 } from 'lucide-react';
 import { profileData } from './data/profile';
-import { dailyLearnings } from './data/learnings';
+import { realWorldProjects } from './data/learnings';
 
 const GithubIcon: React.FC<{ className?: string }> = ({ className = "w-4 h-4" }) => (
   <svg className={className} fill="currentColor" viewBox="0 0 24 24">
@@ -51,8 +51,8 @@ export const App: React.FC = () => {
           <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-slate-400">
             <a href="#sobre" className="hover:text-indigo-400 transition-colors">Sobre</a>
             <a href="#metricas" className="hover:text-indigo-400 transition-colors">Resultados</a>
-            <a href="#evolucao" className="text-cyan-400 hover:text-cyan-300 font-semibold flex items-center gap-1.5 transition-colors">
-              <Sparkles className="w-4 h-4" /> Evolução Diária
+            <a href="#projetos-reais" className="text-cyan-400 hover:text-cyan-300 font-semibold flex items-center gap-1.5 transition-colors">
+              <Sparkles className="w-4 h-4" /> Produtos Reais
             </a>
             <a href="#skills" className="hover:text-indigo-400 transition-colors">Stack</a>
             <a href="#experiencia" className="hover:text-indigo-400 transition-colors">Carreira</a>
@@ -95,14 +95,14 @@ export const App: React.FC = () => {
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/90 border border-slate-700/80 text-xs font-semibold text-cyan-300 mb-6 shadow-sm">
               <span className="flex h-2 w-2 rounded-full bg-cyan-400 animate-pulse" />
-              Pipeline Ativo: Novos Aprendizados Codificados Diariamente
+              Desenvolvimento Contínuo de Produtos Reais para Empresas
             </div>
 
             <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-white mb-6 leading-tight">
-              Arquitetura de Sistemas, <br />
+              Sistemas Corporativos, <br />
               <span className="bg-gradient-to-r from-indigo-400 via-cyan-400 to-teal-300 bg-clip-text text-transparent">
-                Integrações de Alta Escala
-              </span> & Resiliência.
+                Produtos Reais & Integrações
+              </span> de Alto Impacto.
             </h1>
 
             <p className="text-lg sm:text-xl text-slate-300 mb-8 leading-relaxed">
@@ -114,19 +114,19 @@ export const App: React.FC = () => {
                 <MapPin className="w-4 h-4 text-indigo-400" /> {profileData.location}
               </span>
               <span className="flex items-center gap-1.5">
-                <Activity className="w-4 h-4 text-emerald-400" /> Datadog & Observabilidade
+                <Building2 className="w-4 h-4 text-cyan-400" /> Soluções para Lojas, Restaurantes & Varejo
               </span>
               <span className="flex items-center gap-1.5">
-                <ShieldCheck className="w-4 h-4 text-cyan-400" /> SSO Azure & RabbitMQ
+                <ShieldCheck className="w-4 h-4 text-emerald-400" /> Resiliência com RabbitMQ & Datadog
               </span>
             </div>
 
             <div className="flex flex-wrap gap-4">
               <a
-                href="#evolucao"
+                href="#projetos-reais"
                 className="px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-cyan-500 hover:from-indigo-500 hover:to-cyan-400 text-white font-semibold flex items-center gap-2 shadow-lg shadow-indigo-500/25 transition-all"
               >
-                <Sparkles className="w-5 h-5" /> Ver Desafios Diários
+                <Sparkles className="w-5 h-5" /> Ver Produtos de Mercado
               </a>
               <a
                 href="#experiencia"
@@ -156,64 +156,79 @@ export const App: React.FC = () => {
         </div>
       </section>
 
-      {/* Daily Evolution Hub - Requested by user */}
-      <section id="evolucao" className="py-20 relative">
+      {/* Real-World Business Projects Hub */}
+      <section id="projetos-reais" className="py-20 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
             <div>
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/60 border border-cyan-800/50 text-xs font-semibold text-cyan-300 mb-3">
-                <Sparkles className="w-3.5 h-3.5 text-cyan-400" /> Aprendizado Contínuo & Prática Diária
+                <Sparkles className="w-3.5 h-3.5 text-cyan-400" /> Software Enterprise Aplicado
               </div>
               <h2 className="text-3xl sm:text-4xl font-extrabold text-white">
-                Diário de Evolução Técnica
+                Módulos & Produtos Reais de Negócio
               </h2>
               <p className="text-slate-400 mt-2 max-w-2xl text-sm sm:text-base">
-                Todos os dias, a equipe de agentes autônomos no Maestri pesquisa tópicos de ponta, implementa código com testes e enriquece este repositório.
+                Projetos práticos desenvolvidos para resolver dores operacionais e comerciais reais (redes de varejo, restaurantes, ERPs e e-commerce).
               </p>
             </div>
             <div className="mt-4 md:mt-0 flex items-center gap-2 text-xs font-semibold text-slate-400">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-              {dailyLearnings.length} Aprendizado(s) Registrado(s)
+              {realWorldProjects.length} Produto(s) em Produção / Portfólio
             </div>
           </div>
 
-          <div className="space-y-6">
-            {dailyLearnings.map((item) => (
+          <div className="space-y-8">
+            {realWorldProjects.map((item) => (
               <div 
-                key={item.day}
+                key={item.id}
                 className="group relative rounded-2xl bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-800 hover:border-cyan-500/50 p-6 sm:p-8 transition-all duration-300 shadow-xl hover:shadow-cyan-500/10"
               >
                 <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
                   <div className="flex items-center gap-3">
-                    <span className="px-3.5 py-1.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-bold text-sm">
-                      Day {String(item.day).padStart(2, '0')}
+                    <span className="text-2xl p-2 rounded-xl bg-slate-800/80 border border-slate-700">
+                      {item.segmentIcon}
                     </span>
-                    <span className="text-xs text-slate-400 flex items-center gap-1.5">
-                      <Calendar className="w-3.5 h-3.5 text-slate-500" /> {item.date}
-                    </span>
-                    <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-indigo-950/80 text-indigo-300 border border-indigo-800/60">
-                      {item.category}
-                    </span>
+                    <div>
+                      <span className="text-xs font-bold uppercase tracking-wider text-cyan-400">
+                        {item.businessDomain}
+                      </span>
+                      <h3 className="text-xl sm:text-2xl font-bold text-white group-hover:text-cyan-300 transition-colors">
+                        {item.name}
+                      </h3>
+                    </div>
                   </div>
 
                   <div className="flex items-center gap-2">
                     <span className="inline-flex items-center gap-1.5 text-xs font-medium text-emerald-400 bg-emerald-950/40 px-3 py-1 rounded-full border border-emerald-800/40">
-                      <CheckCircle2 className="w-3.5 h-3.5" /> Codificado & Validado
+                      <CheckCircle2 className="w-3.5 h-3.5" /> Pronto para Produção
                     </span>
                   </div>
                 </div>
 
-                <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 group-hover:text-cyan-300 transition-colors">
-                  {item.title}
-                </h3>
+                {/* Business problem vs technical solution */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                  <div className="bg-red-950/20 border border-red-900/30 rounded-xl p-4">
+                    <div className="text-xs font-bold uppercase tracking-wider text-red-400 mb-1">
+                      ⚠️ O Desafio de Negócio
+                    </div>
+                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                      {item.businessProblem}
+                    </p>
+                  </div>
 
-                <p className="text-slate-300 text-sm sm:text-base leading-relaxed mb-6">
-                  {item.summary}
-                </p>
+                  <div className="bg-cyan-950/20 border border-cyan-900/30 rounded-xl p-4">
+                    <div className="text-xs font-bold uppercase tracking-wider text-cyan-400 mb-1">
+                      💡 A Arquitetura Implementada
+                    </div>
+                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                      {item.solutionArchitecture}
+                    </p>
+                  </div>
+                </div>
 
                 <div className="bg-slate-950/90 rounded-xl p-5 border border-slate-800/80 mb-6">
                   <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3 flex items-center gap-2">
-                    <Terminal className="w-3.5 h-3.5 text-cyan-400" /> Destaques de Arquitetura & Implementação
+                    <Terminal className="w-3.5 h-3.5 text-cyan-400" /> Destaques de Engenharia & Funcionalidades
                   </h4>
                   <ul className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
                     {item.highlights.map((h, i) => (
@@ -235,8 +250,9 @@ export const App: React.FC = () => {
                   </div>
 
                   <div className="flex items-center gap-3">
+                    <FolderGit2 className="w-4 h-4 text-slate-500" />
                     <span className="text-xs text-slate-400 font-mono">
-                      Pasta: <code className="text-cyan-300">{item.codePath}</code>
+                      Pasta: <code className="text-cyan-300">{item.projectPath}</code>
                     </span>
                   </div>
                 </div>
@@ -254,10 +270,10 @@ export const App: React.FC = () => {
               <Bot className="w-3.5 h-3.5 text-indigo-400" /> Maestri Spatial Architecture
             </div>
             <h2 className="text-3xl font-extrabold text-white">
-              Equipe Autônoma de Agentes no Maestri Canvas
+              Equipe Autônoma de Engenharia no Maestri Canvas
             </h2>
             <p className="text-slate-400 mt-2 text-sm">
-              Criados e conectados na tela do Maestri para garantir evolução de estudos diária e sincronização com o GitHub.
+              Criados e conectados na tela do Maestri com foco exclusivo em conceber e codificar produtos de software reais.
             </p>
           </div>
 
@@ -267,9 +283,9 @@ export const App: React.FC = () => {
                 💡
               </div>
               <div className="text-xs font-bold uppercase tracking-wider text-amber-400 mb-1">Farol</div>
-              <h3 className="font-bold text-white text-base mb-2">Curator de Aprendizado</h3>
+              <h3 className="font-bold text-white text-base mb-2">Curator de Produtos</h3>
               <p className="text-xs text-slate-400 leading-relaxed">
-                Analisa o currículo, descobre novas tecnologias, define a teoria e planeja o desafio de código diário.
+                Mapeia dores de negócios reais (varejo, food service, fintechs) e define a arquitetura dos produtos.
               </p>
             </div>
 
@@ -280,7 +296,7 @@ export const App: React.FC = () => {
               <div className="text-xs font-bold uppercase tracking-wider text-orange-400 mb-1">Forja</div>
               <h3 className="font-bold text-white text-base mb-2">Engenheiro de Código</h3>
               <p className="text-xs text-slate-400 leading-relaxed">
-                Implementa os códigos práticos, microsserviços, padrões de arquitetura e testes automatizados.
+                Implementa os produtos reais com Clean Architecture, regras de negócio ricas, persistência e testes.
               </p>
             </div>
 
@@ -291,7 +307,7 @@ export const App: React.FC = () => {
               <div className="text-xs font-bold uppercase tracking-wider text-blue-400 mb-1">Hermes</div>
               <h3 className="font-bold text-white text-base mb-2">DevOps & GitHub</h3>
               <p className="text-xs text-slate-400 leading-relaxed">
-                Controla o Git, formata commits semânticos, gerencia automações e sincroniza com o GitHub (@Gui1949).
+                Versionamento profissional, commits semânticos e publicação no GitHub (@Gui1949).
               </p>
             </div>
 
@@ -302,7 +318,7 @@ export const App: React.FC = () => {
               <div className="text-xs font-bold uppercase tracking-wider text-purple-400 mb-1">Prisma</div>
               <h3 className="font-bold text-white text-base mb-2">Curador de Portfólio</h3>
               <p className="text-xs text-slate-400 leading-relaxed">
-                Atualiza este portfólio web dinamicamente a cada dia com o novo projeto entregue pela Forja.
+                Apresenta os sistemas com foco em valor de negócio e resultados operacionais nesta aplicação web.
               </p>
             </div>
           </div>
@@ -442,7 +458,7 @@ export const App: React.FC = () => {
       <footer className="mt-auto py-10 bg-slate-950 border-t border-slate-800/80 text-center text-xs text-slate-500">
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div>
-            © {new Date().getFullYear()} Guilherme Santiago Floriano. Portfólio & Evolução Contínua.
+            © {new Date().getFullYear()} Guilherme Santiago Floriano. Portfólio de Produtos de Software & Engenharia.
           </div>
           <div className="flex items-center gap-4">
             <a href={profileData.github} target="_blank" rel="noreferrer" className="hover:text-slate-300">GitHub: @Gui1949</a>
