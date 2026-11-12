@@ -107,14 +107,17 @@ export const App: React.FC = () => {
           </a>
 
           <nav className="flex items-center gap-4 sm:gap-6 text-xs text-zinc-400">
+            <a href="#trajetoria" className="hover:text-zinc-200 transition-colors">
+              Trajetória
+            </a>
             <a href="#projetos" className="hover:text-zinc-200 transition-colors text-sky-400 font-medium">
               Sistemas Corporativos ({currentProjectIndex + 1}/{realWorldProjects.length})
             </a>
             <a href="#repositorios" className="hover:text-zinc-200 transition-colors hidden sm:inline">
               GitHub
             </a>
-            <a href="#trajetoria" className="hover:text-zinc-200 transition-colors">
-              Trajetória
+            <a href="#competencias" className="hover:text-zinc-200 transition-colors hidden sm:inline">
+              Competências
             </a>
           </nav>
         </div>
@@ -201,6 +204,118 @@ export const App: React.FC = () => {
                 </div>
               </div>
             ))}
+          </div>
+        </section>
+
+        {/* Professional Experience */}
+        <section id="trajetoria" className="space-y-6">
+          <div className="pb-3 border-b border-zinc-800">
+            <h2 className="text-xl font-semibold text-zinc-100 tracking-tight">
+              Trajetória Profissional
+            </h2>
+            <p className="text-xs text-zinc-400 mt-1">
+              Histórico com foco em integrações corporativas, liderança técnica e confiabilidade
+            </p>
+          </div>
+
+          <div className="space-y-6">
+            {profileData.experiences.map((exp, idx) => (
+              <div key={idx} className="p-5 sm:p-6 rounded-lg bg-[#111317] border border-zinc-800 space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
+                  <div>
+                    <h3 className="text-base font-semibold text-zinc-100">
+                      {exp.role}
+                    </h3>
+                    <div className="text-xs text-zinc-400 mt-0.5">
+                      {exp.company}
+                    </div>
+                  </div>
+                  <span className="text-xs text-zinc-500 font-mono">
+                    {exp.period}
+                  </span>
+                </div>
+
+                <ul className="space-y-2 text-xs sm:text-sm text-zinc-300">
+                  {exp.description.map((item, dIdx) => (
+                    <li key={dIdx} className="flex items-start gap-2.5">
+                      <span className="text-zinc-600 select-none mt-1">―</span>
+                      <span className="leading-relaxed">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="flex flex-wrap gap-1.5 pt-3 border-t border-zinc-850">
+                  {exp.badges.map((b, bIdx) => (
+                    <span key={bIdx} className="text-[11px] font-mono px-2 py-0.5 rounded bg-zinc-850 text-zinc-400">
+                      {b}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Competencies & Education Grid */}
+        <section id="competencias" className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-6 border-t border-zinc-800">
+          {/* Skills by Category */}
+          <div className="space-y-4">
+            <h2 className="text-base font-semibold text-zinc-100">
+              Competências Técnicas
+            </h2>
+            <div className="space-y-3">
+              {profileData.skills.map((group, idx) => (
+                <div key={idx} className="p-3.5 rounded bg-[#111317] border border-zinc-800">
+                  <span className="text-xs font-mono text-zinc-400 block mb-2">
+                    {group.category}
+                  </span>
+                  <div className="flex flex-wrap gap-1.5">
+                    {group.items.map((item, sIdx) => (
+                      <span key={sIdx} className="text-xs px-2 py-0.5 rounded bg-zinc-850 text-zinc-300">
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Education & Certs */}
+          <div className="space-y-6">
+            <div className="space-y-4">
+              <h2 className="text-base font-semibold text-zinc-100">
+                Formação Acadêmica
+              </h2>
+              <div className="space-y-2.5">
+                {profileData.education.map((edu, idx) => (
+                  <div key={idx} className="p-3.5 rounded bg-[#111317] border border-zinc-800">
+                    <div className="text-xs font-medium text-zinc-200">
+                      {edu.degree}
+                    </div>
+                    <div className="text-xs text-zinc-400 mt-0.5">
+                      {edu.institution}
+                    </div>
+                    <div className="text-[11px] text-zinc-500 font-mono mt-1">
+                      {edu.period}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              <h2 className="text-base font-semibold text-zinc-100">
+                Certificações
+              </h2>
+              <div className="flex flex-wrap gap-2">
+                {profileData.certifications.map((cert, idx) => (
+                  <span key={idx} className="text-xs px-2.5 py-1 rounded bg-[#111317] border border-zinc-800 text-zinc-300">
+                    {cert.name}
+                  </span>
+                ))}
+              </div>
+            </div>
           </div>
         </section>
 
@@ -891,118 +1006,6 @@ export const App: React.FC = () => {
                 </div>
               </a>
             ))}
-          </div>
-        </section>
-
-        {/* Professional Experience */}
-        <section id="trajetoria" className="space-y-6">
-          <div className="pb-3 border-b border-zinc-800">
-            <h2 className="text-xl font-semibold text-zinc-100 tracking-tight">
-              Trajetória Profissional
-            </h2>
-            <p className="text-xs text-zinc-400 mt-1">
-              Histórico com foco em integrações corporativas, liderança técnica e confiabilidade
-            </p>
-          </div>
-
-          <div className="space-y-6">
-            {profileData.experiences.map((exp, idx) => (
-              <div key={idx} className="p-5 sm:p-6 rounded-lg bg-[#111317] border border-zinc-800 space-y-4">
-                <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
-                  <div>
-                    <h3 className="text-base font-semibold text-zinc-100">
-                      {exp.role}
-                    </h3>
-                    <div className="text-xs text-zinc-400 mt-0.5">
-                      {exp.company}
-                    </div>
-                  </div>
-                  <span className="text-xs text-zinc-500 font-mono">
-                    {exp.period}
-                  </span>
-                </div>
-
-                <ul className="space-y-2 text-xs sm:text-sm text-zinc-300">
-                  {exp.description.map((item, dIdx) => (
-                    <li key={dIdx} className="flex items-start gap-2.5">
-                      <span className="text-zinc-600 select-none mt-1">―</span>
-                      <span className="leading-relaxed">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="flex flex-wrap gap-1.5 pt-3 border-t border-zinc-850">
-                  {exp.badges.map((b, bIdx) => (
-                    <span key={bIdx} className="text-[11px] font-mono px-2 py-0.5 rounded bg-zinc-850 text-zinc-400">
-                      {b}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Competencies & Education Grid */}
-        <section id="competencias" className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-6 border-t border-zinc-800">
-          {/* Skills by Category */}
-          <div className="space-y-4">
-            <h2 className="text-base font-semibold text-zinc-100">
-              Competências Técnicas
-            </h2>
-            <div className="space-y-3">
-              {profileData.skills.map((group, idx) => (
-                <div key={idx} className="p-3.5 rounded bg-[#111317] border border-zinc-800">
-                  <span className="text-xs font-mono text-zinc-400 block mb-2">
-                    {group.category}
-                  </span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {group.items.map((item, sIdx) => (
-                      <span key={sIdx} className="text-xs px-2 py-0.5 rounded bg-zinc-850 text-zinc-300">
-                        {item}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Education & Certs */}
-          <div className="space-y-6">
-            <div className="space-y-4">
-              <h2 className="text-base font-semibold text-zinc-100">
-                Formação Acadêmica
-              </h2>
-              <div className="space-y-2.5">
-                {profileData.education.map((edu, idx) => (
-                  <div key={idx} className="p-3.5 rounded bg-[#111317] border border-zinc-800">
-                    <div className="text-xs font-medium text-zinc-200">
-                      {edu.degree}
-                    </div>
-                    <div className="text-xs text-zinc-400 mt-0.5">
-                      {edu.institution}
-                    </div>
-                    <div className="text-[11px] text-zinc-500 font-mono mt-1">
-                      {edu.period}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="space-y-3">
-              <h2 className="text-base font-semibold text-zinc-100">
-                Certificações
-              </h2>
-              <div className="flex flex-wrap gap-2">
-                {profileData.certifications.map((cert, idx) => (
-                  <span key={idx} className="text-xs px-2.5 py-1 rounded bg-[#111317] border border-zinc-800 text-zinc-300">
-                    {cert.name}
-                  </span>
-                ))}
-              </div>
-            </div>
           </div>
         </section>
       </main>
