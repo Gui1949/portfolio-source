@@ -57,6 +57,24 @@ export const realWorldProjects: RealWorldProject[] = [
     githubUrl: "https://github.com/Gui1949/restaurant-kitchen-hub",
     projectPath: "projects/restaurant-kitchen-hub",
     status: "production-ready"
+  },
+  {
+    id: "fintech-payment-gateway",
+    name: "AegisPay & Reconciliation Hub (Gateway de Pagamentos & Conciliação)",
+    businessDomain: "Fintech & Integrações",
+    segmentIcon: "💳",
+    businessProblem: "Varejistas e e-commerces perdem entre 1,5% e 4% de margem com divergências ocultas de taxas de MDR das adquirentes e sofrem com cobranças duplicadas por falta de idempotência em retentativas de webhooks.",
+    solutionArchitecture: "Gateway financeiro com cálculos estritos em centavos inteiros (evitando drift IEEE 754), verificação criptográfica HMAC SHA-256 de webhooks, máquina de estados com 6 estágios e motor automático de conciliação financeira contra extratos de liquidação.",
+    highlights: [
+      "Motor de conciliação financeira automática comparando MDR contratual vs extrato da adquirente (auditoria contábil)",
+      "Idempotência estrita via Idempotency-Key em cache em memória / Redis",
+      "Assinatura criptográfica HMAC SHA-256 para blindagem de webhooks de adquirentes",
+      "Suporte a Pix D+0 e Cartão de Crédito parcelado com máquina de estados rigorosa"
+    ],
+    technologies: ["Node.js", "TypeScript", "HMAC SHA-256", "Clean Architecture", "Fintech Domain"],
+    githubUrl: "https://github.com/Gui1949/fintech-payment-gateway",
+    projectPath: "projects/fintech-payment-gateway",
+    status: "production-ready"
   }
 ];
 
