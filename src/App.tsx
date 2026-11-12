@@ -1,7 +1,6 @@
 import React from 'react';
 import { 
   Terminal, 
-  Layers, 
   Sparkles, 
   Mail, 
   MapPin, 
@@ -11,10 +10,12 @@ import {
   ShieldCheck, 
   Bot,
   Building2,
-  FolderGit2
+  FolderGit2,
+  ExternalLink,
+  Star
 } from 'lucide-react';
 import { profileData } from './data/profile';
-import { realWorldProjects } from './data/learnings';
+import { realWorldProjects, featuredGithubRepos } from './data/learnings';
 
 const GithubIcon: React.FC<{ className?: string }> = ({ className = "w-4 h-4" }) => (
   <svg className={className} fill="currentColor" viewBox="0 0 24 24">
@@ -52,11 +53,11 @@ export const App: React.FC = () => {
             <a href="#sobre" className="hover:text-indigo-400 transition-colors">Sobre</a>
             <a href="#metricas" className="hover:text-indigo-400 transition-colors">Resultados</a>
             <a href="#projetos-reais" className="text-cyan-400 hover:text-cyan-300 font-semibold flex items-center gap-1.5 transition-colors">
-              <Sparkles className="w-4 h-4" /> Produtos Reais
+              <Sparkles className="w-4 h-4" /> Produtos de Mercado
             </a>
+            <a href="#github-destaques" className="hover:text-indigo-400 transition-colors">Projetos GitHub</a>
             <a href="#skills" className="hover:text-indigo-400 transition-colors">Stack</a>
             <a href="#experiencia" className="hover:text-indigo-400 transition-colors">Carreira</a>
-            <a href="#agentes" className="hover:text-indigo-400 transition-colors">Agentes Maestri</a>
           </nav>
 
           <div className="flex items-center gap-3">
@@ -65,7 +66,7 @@ export const App: React.FC = () => {
               target="_blank"
               rel="noreferrer"
               className="p-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 transition-colors"
-              title="GitHub"
+              title="GitHub: Gui1949"
             >
               <GithubIcon className="w-4 h-4" />
             </a>
@@ -95,14 +96,14 @@ export const App: React.FC = () => {
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/90 border border-slate-700/80 text-xs font-semibold text-cyan-300 mb-6 shadow-sm">
               <span className="flex h-2 w-2 rounded-full bg-cyan-400 animate-pulse" />
-              Desenvolvimento Contínuo de Produtos Reais para Empresas
+              Engenharia de Software de Alto Impacto & Produtos Corporativos
             </div>
 
             <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-white mb-6 leading-tight">
-              Sistemas Corporativos, <br />
+              Arquitetura de Sistemas, <br />
               <span className="bg-gradient-to-r from-indigo-400 via-cyan-400 to-teal-300 bg-clip-text text-transparent">
                 Produtos Reais & Integrações
-              </span> de Alto Impacto.
+              </span> de Missão Crítica.
             </h1>
 
             <p className="text-lg sm:text-xl text-slate-300 mb-8 leading-relaxed">
@@ -114,10 +115,10 @@ export const App: React.FC = () => {
                 <MapPin className="w-4 h-4 text-indigo-400" /> {profileData.location}
               </span>
               <span className="flex items-center gap-1.5">
-                <Building2 className="w-4 h-4 text-cyan-400" /> Soluções para Lojas, Restaurantes & Varejo
+                <Building2 className="w-4 h-4 text-cyan-400" /> Varejo, Lojas, Restaurantes & ERP
               </span>
               <span className="flex items-center gap-1.5">
-                <ShieldCheck className="w-4 h-4 text-emerald-400" /> Resiliência com RabbitMQ & Datadog
+                <ShieldCheck className="w-4 h-4 text-emerald-400" /> RabbitMQ, Datadog & Resiliência
               </span>
             </div>
 
@@ -129,10 +130,10 @@ export const App: React.FC = () => {
                 <Sparkles className="w-5 h-5" /> Ver Produtos de Mercado
               </a>
               <a
-                href="#experiencia"
+                href="#github-destaques"
                 className="px-6 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 font-semibold border border-slate-800 flex items-center gap-2 transition-all"
               >
-                <Layers className="w-5 h-5 text-slate-400" /> Trajetória Profissional
+                <FolderGit2 className="w-5 h-5 text-slate-400" /> Repositórios no GitHub
               </a>
             </div>
           </div>
@@ -156,24 +157,24 @@ export const App: React.FC = () => {
         </div>
       </section>
 
-      {/* Real-World Business Projects Hub */}
+      {/* Real-World Business Products Section */}
       <section id="projetos-reais" className="py-20 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
             <div>
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/60 border border-cyan-800/50 text-xs font-semibold text-cyan-300 mb-3">
-                <Sparkles className="w-3.5 h-3.5 text-cyan-400" /> Software Enterprise Aplicado
+                <Sparkles className="w-3.5 h-3.5 text-cyan-400" /> Soluções Enterprise Prontas para Produção
               </div>
               <h2 className="text-3xl sm:text-4xl font-extrabold text-white">
-                Módulos & Produtos Reais de Negócio
+                Produtos Reais de Negócio
               </h2>
               <p className="text-slate-400 mt-2 max-w-2xl text-sm sm:text-base">
-                Projetos práticos desenvolvidos para resolver dores operacionais e comerciais reais (redes de varejo, restaurantes, ERPs e e-commerce).
+                Módulos de software criados para resolver dores operacionais e comerciais concretas com arquitetura de alta escala.
               </p>
             </div>
             <div className="mt-4 md:mt-0 flex items-center gap-2 text-xs font-semibold text-slate-400">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-              {realWorldProjects.length} Produto(s) em Produção / Portfólio
+              {realWorldProjects.length} Produto(s) Públicos no GitHub
             </div>
           </div>
 
@@ -198,10 +199,18 @@ export const App: React.FC = () => {
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-3">
                     <span className="inline-flex items-center gap-1.5 text-xs font-medium text-emerald-400 bg-emerald-950/40 px-3 py-1 rounded-full border border-emerald-800/40">
-                      <CheckCircle2 className="w-3.5 h-3.5" /> Pronto para Produção
+                      <CheckCircle2 className="w-3.5 h-3.5" /> Repositório Público
                     </span>
+                    <a
+                      href={item.githubUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 transition-colors"
+                    >
+                      <GithubIcon className="w-3.5 h-3.5" /> Ver Código <ExternalLink className="w-3 h-3 ml-0.5" />
+                    </a>
                   </div>
                 </div>
 
@@ -252,7 +261,7 @@ export const App: React.FC = () => {
                   <div className="flex items-center gap-3">
                     <FolderGit2 className="w-4 h-4 text-slate-500" />
                     <span className="text-xs text-slate-400 font-mono">
-                      Pasta: <code className="text-cyan-300">{item.projectPath}</code>
+                      Repositório: <a href={item.githubUrl} target="_blank" rel="noreferrer" className="text-cyan-300 hover:underline">{item.githubUrl.replace('https://github.com/', '')}</a>
                     </span>
                   </div>
                 </div>
@@ -262,8 +271,78 @@ export const App: React.FC = () => {
         </div>
       </section>
 
+      {/* Featured Public Repos from Guilherme's GitHub */}
+      <section id="github-destaques" className="py-20 bg-slate-900/40 border-y border-slate-800/80">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl mx-auto mb-16 text-center">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-950/60 border border-indigo-800/50 text-xs font-semibold text-indigo-300 mb-3">
+              <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" /> Ecossistema Open Source & Autorais
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-white">
+              Repositórios Relevantes no GitHub (@Gui1949)
+            </h2>
+            <p className="text-slate-400 mt-3 text-base">
+              Projetos públicos que comprovam a amplitude técnica do Guilherme: de compiladores e baixo nível em C, passando por Java corporativo, chatbots com IA geoespacial e extensões ERP.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {featuredGithubRepos.map((repo, idx) => (
+              <div 
+                key={idx} 
+                className="p-6 rounded-2xl bg-slate-950/80 border border-slate-800 hover:border-indigo-500/50 transition-all flex flex-col justify-between shadow-lg"
+              >
+                <div>
+                  <div className="flex items-center justify-between gap-2 mb-2">
+                    <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-indigo-950 text-indigo-300 border border-indigo-800/50">
+                      {repo.category}
+                    </span>
+                    <a
+                      href={repo.githubUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-slate-400 hover:text-white transition-colors"
+                      title="Abrir no GitHub"
+                    >
+                      <ExternalLink className="w-4 h-4" />
+                    </a>
+                  </div>
+
+                  <h3 className="text-lg font-bold text-white mb-2 font-mono">
+                    {repo.name}
+                  </h3>
+
+                  <p className="text-xs sm:text-sm text-slate-300 mb-4 leading-relaxed">
+                    {repo.description}
+                  </p>
+
+                  <div className="bg-slate-900/60 rounded-xl p-3 border border-slate-800/80 mb-4">
+                    <div className="text-[11px] font-semibold text-amber-400/90 mb-1">
+                      ⭐ Por que é relevante no perfil:
+                    </div>
+                    <div className="text-xs text-slate-300 italic">
+                      "{repo.whyHighlighted}"
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <div className="flex flex-wrap gap-1.5 pt-3 border-t border-slate-800/80">
+                    {repo.technologies.map((t, tIdx) => (
+                      <span key={tIdx} className="text-[11px] px-2 py-0.5 rounded bg-slate-900 text-slate-400 border border-slate-800">
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Autonomous Maestri Agents Workflow Section */}
-      <section id="agentes" className="py-16 bg-slate-900/50 border-y border-slate-800/80">
+      <section id="agentes" className="py-16 bg-slate-900/50 border-b border-slate-800/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-12">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-950/60 border border-indigo-800/50 text-xs font-semibold text-indigo-300 mb-3">
@@ -285,7 +364,7 @@ export const App: React.FC = () => {
               <div className="text-xs font-bold uppercase tracking-wider text-amber-400 mb-1">Farol</div>
               <h3 className="font-bold text-white text-base mb-2">Curator de Produtos</h3>
               <p className="text-xs text-slate-400 leading-relaxed">
-                Mapeia dores de negócios reais (varejo, food service, fintechs) e define a arquitetura dos produtos.
+                Mapeia dores reais de negócio (varejo, food service, fintechs) e define a arquitetura dos produtos.
               </p>
             </div>
 

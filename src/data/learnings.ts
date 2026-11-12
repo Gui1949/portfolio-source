@@ -7,8 +7,18 @@ export interface RealWorldProject {
   solutionArchitecture: string;
   highlights: string[];
   technologies: string[];
+  githubUrl: string;
   projectPath: string;
   status: "production-ready" | "in-development";
+}
+
+export interface FeaturedGithubRepo {
+  name: string;
+  category: string;
+  description: string;
+  technologies: string[];
+  githubUrl: string;
+  whyHighlighted: string;
 }
 
 export const realWorldProjects: RealWorldProject[] = [
@@ -26,6 +36,7 @@ export const realWorldProjects: RealWorldProject[] = [
       "Dead Letter Queue (DLQ) com alertas integrados para observabilidade no Datadog"
     ],
     technologies: ["Node.js", "TypeScript", "RabbitMQ", "Clean Architecture", "MSSQL"],
+    githubUrl: "https://github.com/Gui1949/retail-order-sync",
     projectPath: "projects/retail-order-sync",
     status: "production-ready"
   },
@@ -43,7 +54,51 @@ export const realWorldProjects: RealWorldProject[] = [
       "Máquina de estados de pedido com eventos WebSocket para telas de cozinha (KDS)"
     ],
     technologies: ["Node.js", "TypeScript", "Event-Driven", "WebSockets", "State Machine"],
+    githubUrl: "https://github.com/Gui1949/restaurant-kitchen-hub",
     projectPath: "projects/restaurant-kitchen-hub",
     status: "production-ready"
+  }
+];
+
+export const featuredGithubRepos: FeaturedGithubRepo[] = [
+  {
+    name: "terraChat",
+    category: "IA Geoespacial & Chatbot",
+    description: "Chatbot interativo baseado em mapas que consome a API do Google Maps em tempo real para responder dúvidas e fornecer dados contextuais de localização.",
+    technologies: ["TypeScript", "Google Maps API", "AI / Chatbot", "Full Stack"],
+    githubUrl: "https://github.com/Gui1949/terraChat",
+    whyHighlighted: "Excelente para demonstrar domínio moderno de TypeScript integrado a APIs geoespaciais e inteligência de dados contextuais."
+  },
+  {
+    name: "br-utils",
+    category: "Engenharia de Backend & Utilities",
+    description: "Biblioteca utilitária em Java com clientes HTTP leves (inspirado em Axios) e métodos utilitários de manipulação de Strings null-safe para ambientes corporativos.",
+    technologies: ["Java 8+", "HTTP Client", "Null-Safe Architecture", "Clean Code"],
+    githubUrl: "https://github.com/Gui1949/br-utils",
+    whyHighlighted: "Demonstra rigor em design de bibliotecas reutilizáveis e domínio profundo do runtime Java corporativo."
+  },
+  {
+    name: "FloripaScript",
+    category: "Compiladores & Linguagens",
+    description: "Linguagem de programação autoral projetada para combinar a flexibilidade de linguagens interpretadas com a eficiência e controle de baixo nível de C/C++.",
+    technologies: ["C", "C++", "Compiladores", "Gerenciamento de Memória"],
+    githubUrl: "https://github.com/Gui1949/FloripaScript",
+    whyHighlighted: "Um diferencial técnico de altíssimo nível para um Tech Lead: prova que você entende o funcionamento interno de compiladores e execução de baixo nível."
+  },
+  {
+    name: "sankhya-ireport-web",
+    category: "Integração ERP Corporativo",
+    description: "Integração web do ERP Sankhya com JasperReports / iReport para geração, visualização e exportação de relatórios analíticos e operacionais.",
+    technologies: ["ERP Sankhya", "iReport", "Web Integration", "SQL"],
+    githubUrl: "https://github.com/Gui1949/https-github.com-VictorSalome-sankhya-ireport-web",
+    whyHighlighted: "Conecta-se diretamente à sua experiência corporativa comprovada como Tech Lead e analista de sistemas sênior."
+  },
+  {
+    name: "ugOS",
+    category: "DevOps & Sistemas Operacionais",
+    description: "Distribuição Linux customizada e minimalista baseada no Ubuntu Minimal, desenhada para máxima eficiência de recursos e execução de serviços.",
+    technologies: ["Linux Kernel", "Ubuntu Minimal", "Bash Scripting", "SysAdmin"],
+    githubUrl: "https://github.com/Gui1949/ugOS",
+    whyHighlighted: "Evidencia sólidas raízes em infraestrutura, redes e sistemas operacionais, essenciais para liderar equipes de DevOps e observabilidade."
   }
 ];
