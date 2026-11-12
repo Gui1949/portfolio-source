@@ -12,14 +12,12 @@ import {
   Clock,
   Layers,
   Monitor,
-  Calendar,
   ExternalLink,
-  Workflow,
   ChevronLeft,
   ChevronRight
 } from 'lucide-react';
 import { profileData } from './data/profile';
-import { realWorldProjects, featuredGithubRepos, sprintMethodology, type RealWorldProject } from './data/learnings';
+import { realWorldProjects, featuredGithubRepos, type RealWorldProject } from './data/learnings';
 
 const GithubIcon: React.FC<{ className?: string }> = ({ className = "w-4 h-4" }) => (
   <svg className={className} fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -38,7 +36,7 @@ export const App: React.FC = () => {
   const [currentProjectIndex, setCurrentProjectIndex] = useState<number>(0);
 
   // Interactive state for AegisPay Hub Spotlight inside carousel
-  const [activeTab, setActiveTab] = useState<'preview' | 'sprint' | 'roi' | 'security' | 'lifecycle' | 'tests'>('preview');
+  const [activeTab, setActiveTab] = useState<'preview' | 'roi' | 'security' | 'lifecycle' | 'tests'>('preview');
   const [monthlyVolume, setMonthlyVolume] = useState<number>(1000000); // R$ 1.000.000
   const [mdrLeakageRate, setMdrLeakageRate] = useState<number>(2.5); // 2.5%
   const [activeStateStep, setActiveStateStep] = useState<number>(0);
@@ -109,9 +107,6 @@ export const App: React.FC = () => {
           </a>
 
           <nav className="flex items-center gap-4 sm:gap-6 text-xs text-zinc-400">
-            <a href="#metodologia" className="hover:text-zinc-200 transition-colors hidden sm:inline">
-              Sprints Semanais
-            </a>
             <a href="#projetos" className="hover:text-zinc-200 transition-colors text-sky-400 font-medium">
               Sistemas Corporativos ({currentProjectIndex + 1}/{realWorldProjects.length})
             </a>
@@ -209,63 +204,6 @@ export const App: React.FC = () => {
           </div>
         </section>
 
-        {/* ENGINEERING METHODOLOGY: 1 PROJECT PER WEEK WITH CONTINUOUS DAILY PROGRESSION */}
-        <section id="metodologia" className="space-y-4">
-          <div className="p-5 sm:p-6 rounded-xl bg-[#0f1115] border border-zinc-800 space-y-5">
-            <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-zinc-800/80 pb-4">
-              <div>
-                <div className="flex items-center gap-2 mb-1">
-                  <Workflow className="w-4 h-4 text-sky-400" />
-                  <span className="text-[11px] font-mono uppercase tracking-wider text-sky-400 font-semibold">
-                    Metodologia de Engenharia Autônoma
-                  </span>
-                </div>
-                <h2 className="text-lg sm:text-xl font-bold text-zinc-100">
-                  {sprintMethodology.title}
-                </h2>
-                <p className="text-xs text-zinc-400 mt-1 max-w-2xl">
-                  {sprintMethodology.subtitle}
-                </p>
-              </div>
-
-              <div className="flex items-center gap-2 self-start sm:self-auto">
-                <span className="text-xs font-mono px-2.5 py-1 rounded bg-zinc-800/90 text-zinc-300 border border-zinc-700">
-                  Cadência: 1 Semana = 1 Sistema Completo
-                </span>
-              </div>
-            </div>
-
-            {/* 5-Day Sprint Pipeline */}
-            <div className="grid grid-cols-1 sm:grid-cols-5 gap-3">
-              {sprintMethodology.phases.map((phase, idx) => (
-                <div key={idx} className="p-3.5 rounded-lg bg-[#0a0b0e] border border-zinc-850 flex flex-col justify-between space-y-2">
-                  <div>
-                    <div className="flex items-center justify-between text-xs font-mono mb-1">
-                      <span className="text-sky-400 font-semibold">{phase.day}</span>
-                      <span className="text-[10px] text-zinc-600">D+{(idx)}</span>
-                    </div>
-                    <div className="text-xs font-semibold text-zinc-200">
-                      {phase.focus}
-                    </div>
-                  </div>
-                  <p className="text-[11px] text-zinc-400 leading-relaxed">
-                    {phase.description}
-                  </p>
-                </div>
-              ))}
-            </div>
-
-            <div className="pt-2 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs text-zinc-400 border-t border-zinc-850">
-              <span className="font-mono text-[11px] text-zinc-400">
-                Squad Autônomo Maestri: <strong className="text-zinc-200">Farol</strong> (Domínio) → <strong className="text-zinc-200">Forja</strong> (Código) → <strong className="text-zinc-200">Prisma</strong> (Vitrine) → <strong className="text-zinc-200">Hermes</strong> (DevOps)
-              </span>
-              <span className="text-[11px] font-mono text-emerald-400">
-                Abaixo, cada projeto em sua respectiva tela em formato Carousel compacto
-              </span>
-            </div>
-          </div>
-        </section>
-
         {/* ENTERPRISE SYSTEMS SECTION WITH INTERACTIVE CAROUSEL */}
         <section id="projetos" className="space-y-6">
           {/* Section Header & Carousel Selector Controls */}
@@ -273,17 +211,17 @@ export const App: React.FC = () => {
             <div>
               <div className="flex items-center gap-2 mb-1">
                 <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-sky-950/80 text-sky-300 border border-sky-800/50">
-                  {currentProject.sprintBadge}
+                  {currentProject.businessDomain}
                 </span>
                 <span className="text-xs text-zinc-500 font-mono">
-                  Tags: {currentProject.versionTag}
+                  {currentProject.versionTag}
                 </span>
               </div>
               <h2 className="text-xl sm:text-2xl font-bold text-zinc-100 tracking-tight">
                 Sistemas Corporativos em Produção
               </h2>
               <p className="text-xs text-zinc-400 mt-1">
-                Navegue pelo carrossel para explorar os 3 sistemas reais desenvolvidos na cadência de 1 projeto por semana.
+                Navegue pelo carrossel para explorar os 3 sistemas corporativos em produção.
               </p>
             </div>
 
@@ -324,7 +262,7 @@ export const App: React.FC = () => {
                 <span className="font-mono text-[10px] text-zinc-500">0{idx + 1}.</span>
                 <span className="font-semibold">{proj.name.split(' ')[0]}</span>
                 <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-zinc-900 text-zinc-400">
-                  {proj.sprintWeek}
+                  {proj.versionTag}
                 </span>
               </button>
             ))}
@@ -431,17 +369,6 @@ export const App: React.FC = () => {
                       Interface Operacional (Print do Cockpit)
                     </button>
                     <button
-                      onClick={() => setActiveTab('sprint')}
-                      className={`px-3 py-1.5 rounded text-xs font-medium transition-colors flex items-center gap-1.5 ${
-                        activeTab === 'sprint'
-                          ? 'bg-zinc-800 text-zinc-100 border border-zinc-700'
-                          : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-850'
-                      }`}
-                    >
-                      <Calendar className="w-3.5 h-3.5 text-amber-400" />
-                      Sprint Semanal (Evolução Diária)
-                    </button>
-                    <button
                       onClick={() => setActiveTab('roi')}
                       className={`px-3 py-1.5 rounded text-xs font-medium transition-colors flex items-center gap-1.5 ${
                         activeTab === 'roi'
@@ -530,43 +457,6 @@ export const App: React.FC = () => {
                         <p className="leading-relaxed text-[11px] text-zinc-300">
                           Ao contrário de tabelas genéricas, este cockpit reflete a operação de tesouraria de grandes redes: exibe a esteira de janelas de liquidação (Pix SPI, Débito CIP e Cartão D+30), validação criptográfica HMAC-SHA256 e o dossiê formal de disputa (<code className="text-red-400 font-mono">DISP-2026-099014</code>) para contestar divergências de MDR direto no extrato bancário.
                         </p>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Tab: Weekly Sprint Progression */}
-                  {activeTab === 'sprint' && (
-                    <div className="p-4 rounded bg-[#0c0d10] border border-zinc-850 space-y-4">
-                      <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 pb-2 border-b border-zinc-850">
-                        <h4 className="text-sm font-semibold text-zinc-100">
-                          Ciclo de Evolução Diária da Sprint (Semana 03)
-                        </h4>
-                        <span className="text-xs font-mono text-sky-400">
-                          AegisPay · 100% de cobertura dos critérios enterprise
-                        </span>
-                      </div>
-
-                      <div className="space-y-2.5">
-                        {currentProject.weeklyEvolution.map((step, idx) => (
-                          <div key={idx} className="p-3 rounded bg-[#111317] border border-zinc-800 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                            <div className="flex items-center gap-3">
-                              <span className="w-12 text-center text-xs font-mono font-bold px-2 py-1 rounded bg-zinc-850 text-sky-400 border border-zinc-750">
-                                {step.day}
-                              </span>
-                              <div>
-                                <div className="text-xs font-semibold text-zinc-200">
-                                  {step.phase}
-                                </div>
-                                <div className="text-[11px] text-zinc-400 mt-0.5">
-                                  {step.deliverable}
-                                </div>
-                              </div>
-                            </div>
-                            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-950/70 text-emerald-400 border border-emerald-800/40 self-start sm:self-auto">
-                              Entregue & Testado
-                            </span>
-                          </div>
-                        ))}
                       </div>
                     </div>
                   )}
@@ -874,31 +764,6 @@ export const App: React.FC = () => {
                     <p className="text-zinc-300 leading-relaxed">
                       {currentProject.solutionArchitecture}
                     </p>
-                  </div>
-                </div>
-
-                {/* Weekly Evolution Timeline */}
-                <div className="p-3.5 rounded bg-[#0c0d10] border border-zinc-850 space-y-2">
-                  <div className="flex items-center justify-between text-xs font-medium text-zinc-300">
-                    <span>Evolução Contínua na {currentProject.sprintWeek}</span>
-                    <span className="text-[10px] font-mono text-zinc-500">5 dias de melhorias iterativas</span>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-5 gap-2 pt-1">
-                    {currentProject.weeklyEvolution.map((evo, eIdx) => (
-                      <div key={eIdx} className="p-2 rounded bg-[#111317] border border-zinc-800 text-[11px] space-y-1">
-                        <div className="flex items-center justify-between font-mono text-sky-400 font-semibold">
-                          <span>{evo.day}</span>
-                          <span className="text-[9px] text-zinc-500">fase</span>
-                        </div>
-                        <div className="font-semibold text-zinc-200 text-[10px] truncate">
-                          {evo.phase}
-                        </div>
-                        <div className="text-[10px] text-zinc-400 line-clamp-2">
-                          {evo.deliverable}
-                        </div>
-                      </div>
-                    ))}
                   </div>
                 </div>
 
