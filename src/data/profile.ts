@@ -35,7 +35,7 @@ export const profileData: ProfileData = {
   email: "guilhermesantiago12@gmail.com",
   github: "https://github.com/Gui1949",
   linkedin: "https://linkedin.com/in/guilherme-floriano-092023210",
-  bio: "Desenvolvedor de Software Sênior e Tech Lead com mais de 8 anos de experiência em arquitetura de integrações, mensageria de alta performance e engenharia full stack no ecossistema Node.js, TypeScript e React. Histórico consolidado em automação de fluxos críticos entre ERPs, CRMs e plataformas de pagamento.",
+  bio: "Desenvolvedor de Software Sênior e Tech Lead com mais de 8 anos de experiência em arquitetura de integrações corporativas, mensageria de alta resiliência e engenharia full stack no ecossistema Node.js, TypeScript e React. Histórico consolidado em automação de fluxos críticos entre ERPs, adquirentes e plataformas financeiras.",
   stats: [
     { label: "Experiência de Mercado", value: "8+ anos", description: "Liderança técnica e arquitetura de software" },
     { label: "Fechamento Contábil", value: "15d → 1d", description: "Otimização de rotinas via RabbitMQ e Sankhya" },
@@ -45,19 +45,19 @@ export const profileData: ProfileData = {
   skills: [
     {
       category: "Linguagens & Runtimes",
-      items: ["TypeScript", "Node.js", "Java 8", "Python", "SQL (T-SQL, PL/SQL)", "C / C++"]
+      items: ["TypeScript", "Node.js (20+)", "Java 8", "Python", "SQL (T-SQL, PL/SQL)", "C / C++"]
     },
     {
       category: "Frontend & Mobile",
       items: ["React", "Next.js", "React Native", "Tailwind CSS", "Redux", "Clean Architecture"]
     },
     {
-      category: "Integrações & Mensageria",
-      items: ["RabbitMQ", "APIs RESTful", "WebSockets", "SSO Azure AD / Entra ID", "Sankhya ERP", "Bitrix24"]
+      category: "Fintech, Integrações & Mensageria",
+      items: ["RabbitMQ", "HMAC SHA-256", "Idempotência Estrita", "Conciliação MDR", "APIs RESTful", "WebSockets", "SSO Azure AD", "Sankhya ERP"]
     },
     {
-      category: "Bancos de Dados",
-      items: ["SQL Server (MSSQL)", "Oracle Database", "Modelagem Relacional", "Stored Procedures", "Triggers"]
+      category: "Bancos de Dados & Consistência",
+      items: ["SQL Server (MSSQL)", "Oracle Database", "Modelagem Relacional", "Integer Cents Accounting", "Stored Procedures", "Triggers"]
     },
     {
       category: "DevOps & Observabilidade",
