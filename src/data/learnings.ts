@@ -11,6 +11,12 @@ export interface SecurityAndReliabilitySpec {
   reconciliationAudit: string;
 }
 
+export interface WeeklyEvolutionStep {
+  day: string;
+  phase: string;
+  deliverable: string;
+}
+
 export interface RealWorldProject {
   id: string;
   name: string;
@@ -29,6 +35,11 @@ export interface RealWorldProject {
   isNew?: boolean;
   securitySpec?: SecurityAndReliabilitySpec;
   keyUseCases?: { title: string; desc: string }[];
+  previewImage: string;
+  previewAlt: string;
+  sprintWeek: string;
+  sprintBadge: string;
+  weeklyEvolution: WeeklyEvolutionStep[];
 }
 
 export interface FeaturedGithubRepo {
@@ -40,6 +51,38 @@ export interface FeaturedGithubRepo {
   context: string;
 }
 
+export const sprintMethodology = {
+  title: "Cadência de Engenharia: 1 Projeto por Semana com Melhoria Contínua Diária",
+  subtitle: "Em vez de códigos descartáveis de estudo, cada sprint semanal desenvolve e aprofunda um produto corporativo completo com padrões enterprise de produção.",
+  phases: [
+    {
+      day: "Segunda-feira",
+      focus: "Kickoff & Domínio",
+      description: "Modelagem DDD, contratos de interface e especificação de requisitos reais de negócio (sem exercícios genéricos)."
+    },
+    {
+      day: "Terça-feira",
+      focus: "Core & Persistência ACID",
+      description: "Implementação das entidades e regras de negócio com precisão matemática (Integer Cents) e persistência atômica."
+    },
+    {
+      day: "Quarta-feira",
+      focus: "Eventos & Integrações",
+      description: "Mensageria assíncrona (RabbitMQ), webhooks criptográficos HMAC SHA-256 e idempotência contra replay attacks."
+    },
+    {
+      day: "Quinta-feira",
+      focus: "Interfaces Operacionais & Telemetria",
+      description: "Telas especializadas com identidade visual bespoke única (NOC de varejo, KDS touchscreen, cockpit de conciliação)."
+    },
+    {
+      day: "Sexta-feira",
+      focus: "Hardening & Publicação",
+      description: "Bateria de testes automatizados nativos (Node.js test runner), tags de release semântica e deploy no GitHub Pages."
+    }
+  ]
+};
+
 export const realWorldProjects: RealWorldProject[] = [
   {
     id: "fintech-payment-gateway",
@@ -48,6 +91,10 @@ export const realWorldProjects: RealWorldProject[] = [
     version: "v1.0.0",
     versionTag: "v1.3.0 & fintech-payment-gateway-v1.0.0",
     isNew: true,
+    sprintWeek: "Semana 03",
+    sprintBadge: "Semana Atual · Evolução Diária",
+    previewImage: "/previews/fintech-payment-gateway.svg",
+    previewAlt: "Cockpit Executivo AegisPay de Auditoria e Conciliação de Recebíveis e Disputa Automática",
     businessDomain: "Fintech, Meios de Pagamento & Varejo Omnichannel",
     businessProblem: "No varejo e e-commerce de alto volume, a operação financeira sofre com o abismo temporal entre a autorização imediata da compra e sua liquidação bancária diferida (Pix em D+0 imediato vs Cartão de Crédito em D+30 e parcelado em até 12x de D+30 a D+360). Instabilidades de rede geram retries agressivos de webhooks com risco severo de cobranças duplicadas e replay attacks. Além disso, divergências silenciosas de taxas de MDR (Merchant Discount Rate) cobradas incorretamente por adquirentes e arredondamentos indevidos drenam entre 1,5% e 4% da margem líquida das empresas sem conciliação automatizada.",
     solutionArchitecture: "Clean Architecture e DDD com precisão financeira estrita em inteiros (Integer Cents, eliminando desvios IEEE 754 float), Idempotência estrita via Idempotency-Key com hash SHA-256 do payload, verificação criptográfica de webhooks HMAC SHA-256 com timingSafeEqual para anulação de timing attacks, máquina de estados imutável e motor automatizado de conciliação contábil que audita a expectativa contratada contra o arquivo de liquidação real da adquirente.",
@@ -59,6 +106,13 @@ export const realWorldProjects: RealWorldProject[] = [
       "Verificação criptográfica HMAC SHA-256 com timingSafeEqual para webhooks de adquirentes",
       "Precisão financeira absoluta em centavos inteiros (Integer Cents), anulando erros de float",
       "100% dos testes aprovados (15/15) via Node.js test runner nativo cobrindo todos os fluxos críticos"
+    ],
+    weeklyEvolution: [
+      { day: "Seg", phase: "Domínio & DDD", deliverable: "Modelagem de Entidades Financeiras e Aritmética estrita em Centavos Inteiros." },
+      { day: "Ter", phase: "State Machine & Idempotência", deliverable: "Ciclo PENDING -> AUTHORIZED -> SETTLED com cache de hash SHA-256." },
+      { day: "Qua", phase: "Criptografia & Webhooks", deliverable: "Assinatura HMAC SHA-256 com crypto.timingSafeEqual contra timing attacks." },
+      { day: "Qui", phase: "Conciliação & Interface", deliverable: "Motor de conciliação MDR e Cockpit executivo de auditoria de extratos EDI." },
+      { day: "Sex", phase: "Hardening & Testes", deliverable: "Bateria de 15 testes de integração no runner nativo do Node.js 20+." }
     ],
     metrics: [
       {
@@ -112,6 +166,10 @@ export const realWorldProjects: RealWorldProject[] = [
     tagline: "Motor de sincronização resiliente para caixas de lojas físicas e retaguarda contábil em larga escala",
     version: "v1.0.0",
     versionTag: "v1.1.0",
+    sprintWeek: "Semana 01",
+    sprintBadge: "Semana 01 · Estabilizado",
+    previewImage: "/previews/retail-order-sync.svg",
+    previewAlt: "Console NOC Industrial e Telemetria de Sincronização de Caixas de Varejo",
     businessDomain: "Varejo & PDV Omnichannel",
     businessProblem: "Em redes de lojas físicas com alto fluxo de caixa, instabilidades no link de internet ou picos de latência do ERP central provocavam o Dual-Write Problem. Isso causava bloqueio nas filas de balcão ou descompasso grave no fechamento de inventário e contabilidade fiscal.",
     solutionArchitecture: "Padrão Transactional Outbox com persistência atômica local em menos de 30ms na base local do PDV e relay assíncrono para RabbitMQ com Publisher Confirms, retentativas com backoff exponencial e Dead Letter Queue (DLQ).",
@@ -121,6 +179,13 @@ export const realWorldProjects: RealWorldProject[] = [
       "Desacoplamento total entre emissão do cupom no balcão e latência de rede do ERP",
       "Publisher confirms com garantia de entrega at-least-once no broker RabbitMQ",
       "Roteamento de mensagens com falha persistente para Dead Letter Queue (DLQ)"
+    ],
+    weeklyEvolution: [
+      { day: "Seg", phase: "Dual-Write Analysis", deliverable: "Mapeamento dos gargalos de PDV e modelagem da tabela de Outbox transacional." },
+      { day: "Ter", phase: "ACID Local Storage", deliverable: "Persistência em lote local com benchmark de latência inferior a 30ms." },
+      { day: "Qua", phase: "RabbitMQ Relay & DLQ", deliverable: "Relay assíncrono com publisher confirms, ack manual e fila de mensagens mortas." },
+      { day: "Qui", phase: "NOC Telemetry & Console", deliverable: "Interface NOC para monitoramento de lojas físicas e status de replicação de eventos." },
+      { day: "Sex", phase: "Chaos & WAN Drops", deliverable: "Simulações de queda total de internet com recuperação automática e garantia at-least-once." }
     ],
     metrics: [
       {
@@ -154,6 +219,10 @@ export const realWorldProjects: RealWorldProject[] = [
     tagline: "Kitchen Display System em tempo real com orquestração de estações e expedição sincronizada",
     version: "v1.0.0",
     versionTag: "v1.2.0",
+    sprintWeek: "Semana 02",
+    sprintBadge: "Semana 02 · Estabilizado",
+    previewImage: "/previews/restaurant-kds.svg",
+    previewAlt: "Painel Touchscreen Kitchen Display System (KDS) por Estações de Cozinha",
     businessDomain: "Restaurantes & Food Service",
     businessProblem: "Cozinhas de alta rotatividade e operações delivery sofrem com o descompasso de tempo de preparo entre estações (bebidas esquentando na copa enquanto a grelha ainda não finalizou a carne), gerando perda de SLA e pratos entregues frios.",
     solutionArchitecture: "Kitchen Display System orientado a eventos que decompõe a comanda por estações independentes (Grelha, Forno, Bar, Copa) via WebSockets e sincroniza a expedição final para liberação simultânea dos itens na mesa.",
@@ -163,6 +232,13 @@ export const realWorldProjects: RealWorldProject[] = [
       "Sincronização de expedição: aciona o garçom apenas quando a mesa estiver 100% pronta",
       "Rastreamento de latência e tempo de preparo por estação e canal de venda",
       "Máquina de estados estrita com emissão de eventos em tempo real via WebSockets"
+    ],
+    weeklyEvolution: [
+      { day: "Seg", phase: "Decomposição de Comandas", deliverable: "Modelagem de comandas multi-itens e roteamento por postos de preparo." },
+      { day: "Ter", phase: "WebSockets & Event Bus", deliverable: "Barramento bidirecional em tempo real para sincronização instantânea de pedidos." },
+      { day: "Qua", phase: "Algoritmo de Sincronia", deliverable: "Pacing de preparação para que carnes e guarnições finalizem no mesmo minuto." },
+      { day: "Qui", phase: "Touch KDS Interface", deliverable: "Interface tátil de alta visibilidade e contraste para ambiente hostil de cozinha." },
+      { day: "Sex", phase: "Stress & Peak Load", deliverable: "Validação sob carga de 500 pedidos simultâneos sem perda de sincronismo de mesa." }
     ],
     metrics: [
       {

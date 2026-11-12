@@ -10,10 +10,14 @@ import {
   Calculator,
   Percent,
   Clock,
-  Layers
+  Layers,
+  Monitor,
+  Calendar,
+  ExternalLink,
+  Workflow
 } from 'lucide-react';
 import { profileData } from './data/profile';
-import { realWorldProjects, featuredGithubRepos, type RealWorldProject } from './data/learnings';
+import { realWorldProjects, featuredGithubRepos, sprintMethodology, type RealWorldProject } from './data/learnings';
 
 const GithubIcon: React.FC<{ className?: string }> = ({ className = "w-4 h-4" }) => (
   <svg className={className} fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -29,7 +33,7 @@ const LinkedinIcon: React.FC<{ className?: string }> = ({ className = "w-4 h-4" 
 
 export const App: React.FC = () => {
   // Interactive state for AegisPay Hub Spotlight
-  const [activeTab, setActiveTab] = useState<'roi' | 'security' | 'lifecycle' | 'tests'>('roi');
+  const [activeTab, setActiveTab] = useState<'preview' | 'sprint' | 'roi' | 'security' | 'lifecycle' | 'tests'>('preview');
   const [monthlyVolume, setMonthlyVolume] = useState<number>(1000000); // R$ 1.000.000
   const [mdrLeakageRate, setMdrLeakageRate] = useState<number>(2.5); // 2.5%
   const [activeStateStep, setActiveStateStep] = useState<number>(0);
@@ -58,95 +62,104 @@ export const App: React.FC = () => {
     },
     {
       state: "CAPTURED",
-      title: "Captura Confirmada via Webhook HMAC",
-      timing: "Pix D+0 / Cartão D+0",
-      desc: "Venda formalizada. Webhook da adquirente recebido e validado com criptografia HMAC SHA-256 via timingSafeEqual.",
-      guard: "Garantia de que requisições falsificadas ou replays de rede sejam sumariamente rejeitados."
+      title: "Captura & Confirmação de Venda",
+      timing: "T+800ms",
+      desc: "Confirmação do débito no banco do cliente e liberação imediata do pedido comercial.",
+      guard: "Webhook assinado com HMAC SHA-256 validado via crypto.timingSafeEqual."
     },
     {
-      state: "SETTLED",
-      title: "Conciliação Aprovada (Auditoria MATCHED)",
-      timing: "D+0 (Pix) até D+360 (Cartão 12x)",
-      desc: "Motor contábil cruza extrato de repasse bancário com MDR contratual. Valor líquido transferido com 100% de conferência.",
-      guard: "Se a adquirente cobrar MDR divergente do contrato, a transação é retida como DIVERGENT para estorno."
+      state: "SETTLED / DIVERGENT",
+      title: "Liquidação Bancária & Auditoria MDR",
+      timing: "D+0 (Pix) até D+30 (Cartão)",
+      desc: "Entrada do extrato da adquirente. O motor de conciliação audita a taxa contratada e acusa match ou divergência.",
+      guard: "Comparação exata de centavos contratados vs centavos liquidados. Emite alerta contábil se houver desvio."
     }
   ];
 
   return (
-    <div className="min-h-screen bg-[#0c0d10] text-[#e6e8ec] antialiased selection:bg-zinc-800 selection:text-white">
-      {/* Top Header */}
-      <header className="sticky top-0 z-50 bg-[#0c0d10]/90 backdrop-blur-md border-b border-zinc-800/70">
+    <div className="min-h-screen bg-[#090a0d] text-zinc-100 font-sans selection:bg-zinc-700 selection:text-white">
+      {/* Navigation Header */}
+      <header className="sticky top-0 z-50 backdrop-blur-md bg-[#090a0d]/90 border-b border-zinc-800/80">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <span className="font-medium text-sm text-zinc-100 tracking-tight">
-              Guilherme Floriano
-            </span>
-            <span className="text-zinc-600">/</span>
-            <span className="text-xs text-zinc-400 font-mono">Tech Lead</span>
+          <a href="#" className="font-mono text-sm tracking-tight text-zinc-200 hover:text-white transition-colors">
+            guilherme.floriano<span className="text-zinc-500 font-normal">.dev</span>
+          </a>
+
+          <nav className="flex items-center gap-4 sm:gap-6 text-xs text-zinc-400">
+            <a href="#metodologia" className="hover:text-zinc-200 transition-colors hidden sm:inline">
+              Sprints Semanais
+            </a>
+            <a href="#aegispay" className="hover:text-zinc-200 transition-colors text-sky-400 font-medium">
+              AegisPay (Ativo)
+            </a>
+            <a href="#projetos" className="hover:text-zinc-200 transition-colors">
+              Sistemas
+            </a>
+            <a href="#repositorios" className="hover:text-zinc-200 transition-colors hidden sm:inline">
+              GitHub
+            </a>
+            <a href="#trajetoria" className="hover:text-zinc-200 transition-colors">
+              Trajetória
+            </a>
+          </nav>
+        </div>
+      </header>
+
+      <main className="max-w-5xl mx-auto px-4 sm:px-6 py-10 sm:py-16 space-y-16 sm:space-y-24">
+        {/* Profile Hero */}
+        <section className="space-y-6">
+          <div className="space-y-3">
+            <div className="flex items-center gap-2">
+              <span className="inline-block w-2 h-2 rounded-full bg-emerald-500" />
+              <span className="text-xs font-mono text-zinc-400">
+                Disponível para Liderança Técnica & Arquitetura Sênior
+              </span>
+            </div>
+            
+            <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-zinc-100">
+              {profileData.name}
+            </h1>
+            
+            <p className="text-lg sm:text-xl text-zinc-300 font-normal">
+              {profileData.title}
+            </p>
           </div>
 
-          <nav className="hidden sm:flex items-center gap-6 text-xs text-zinc-400">
-            <a href="#aegispay" className="hover:text-zinc-200 transition-colors flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
-              AegisPay Hub
-            </a>
-            <a href="#projetos" className="hover:text-zinc-200 transition-colors">Sistemas Corporativos</a>
-            <a href="#repositorios" className="hover:text-zinc-200 transition-colors">Código Aberto</a>
-            <a href="#trajetoria" className="hover:text-zinc-200 transition-colors">Trajetória</a>
-            <a href="#competencias" className="hover:text-zinc-200 transition-colors">Competências</a>
-          </nav>
+          <p className="text-sm sm:text-base text-zinc-300 leading-relaxed max-w-3xl">
+            {profileData.bio}
+          </p>
 
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-3 pt-1">
+            <a
+              href={`mailto:${profileData.email}`}
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-md text-xs font-medium text-zinc-100 bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 transition-colors"
+            >
+              <Mail className="w-3.5 h-3.5" />
+              <span>{profileData.email}</span>
+            </a>
             <a
               href={profileData.github}
               target="_blank"
               rel="noreferrer"
-              className="p-1.5 text-zinc-400 hover:text-zinc-200 transition-colors"
-              title="GitHub"
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-md text-xs font-medium text-zinc-300 bg-zinc-850 hover:bg-zinc-800 border border-zinc-750 transition-colors"
             >
-              <GithubIcon className="w-4 h-4" />
+              <GithubIcon className="w-3.5 h-3.5" />
+              <span>GitHub (@Gui1949)</span>
+              <ArrowUpRight className="w-3 h-3 text-zinc-500" />
             </a>
             <a
               href={profileData.linkedin}
               target="_blank"
               rel="noreferrer"
-              className="p-1.5 text-zinc-400 hover:text-zinc-200 transition-colors"
-              title="LinkedIn"
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-md text-xs font-medium text-zinc-300 bg-zinc-850 hover:bg-zinc-800 border border-zinc-750 transition-colors"
             >
-              <LinkedinIcon className="w-4 h-4" />
-            </a>
-            <a
-              href={`mailto:${profileData.email}`}
-              className="ml-2 inline-flex items-center gap-1.5 px-3 py-1 rounded text-xs font-medium bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700/60 transition-colors"
-            >
-              <Mail className="w-3.5 h-3.5" /> Contato
+              <LinkedinIcon className="w-3.5 h-3.5" />
+              <span>LinkedIn</span>
+              <ArrowUpRight className="w-3 h-3 text-zinc-500" />
             </a>
           </div>
-        </div>
-      </header>
 
-      <main className="max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-16 space-y-20">
-        {/* Hero Section */}
-        <section className="space-y-6">
-          <div className="inline-flex items-center gap-2 text-xs text-zinc-400 font-mono">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-            Disponível para liderança técnica, fintechs e arquitetura de integrações
-          </div>
-
-          <div className="space-y-3">
-            <h1 className="text-3xl sm:text-4xl font-semibold text-zinc-100 tracking-tight leading-snug">
-              {profileData.name}
-            </h1>
-            <p className="text-lg text-zinc-300 font-medium">
-              {profileData.title}
-            </p>
-          </div>
-
-          <p className="text-sm sm:text-base text-zinc-400 leading-relaxed max-w-3xl">
-            {profileData.bio}
-          </p>
-
-          <div className="flex flex-wrap items-center gap-4 text-xs text-zinc-500 font-mono pt-2">
+          <div className="flex flex-wrap items-center gap-2 pt-2 text-xs text-zinc-400 font-mono">
             <span className="inline-flex items-center gap-1">
               <MapPin className="w-3.5 h-3.5 text-zinc-400" /> {profileData.location}
             </span>
@@ -176,13 +189,70 @@ export const App: React.FC = () => {
           </div>
         </section>
 
+        {/* ENGINEERING METHODOLOGY: 1 PROJECT PER WEEK WITH CONTINUOUS DAILY PROGRESSION */}
+        <section id="metodologia" className="space-y-4">
+          <div className="p-5 sm:p-6 rounded-xl bg-[#0f1115] border border-zinc-800 space-y-5">
+            <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-zinc-800/80 pb-4">
+              <div>
+                <div className="flex items-center gap-2 mb-1">
+                  <Workflow className="w-4 h-4 text-sky-400" />
+                  <span className="text-[11px] font-mono uppercase tracking-wider text-sky-400 font-semibold">
+                    Metodologia de Engenharia Autônoma
+                  </span>
+                </div>
+                <h2 className="text-lg sm:text-xl font-bold text-zinc-100">
+                  {sprintMethodology.title}
+                </h2>
+                <p className="text-xs text-zinc-400 mt-1 max-w-2xl">
+                  {sprintMethodology.subtitle}
+                </p>
+              </div>
+
+              <div className="flex items-center gap-2 self-start sm:self-auto">
+                <span className="text-xs font-mono px-2.5 py-1 rounded bg-zinc-800/90 text-zinc-300 border border-zinc-700">
+                  Cadência: 1 Semana = 1 Sistema Completo
+                </span>
+              </div>
+            </div>
+
+            {/* 5-Day Sprint Pipeline */}
+            <div className="grid grid-cols-1 sm:grid-cols-5 gap-3">
+              {sprintMethodology.phases.map((phase, idx) => (
+                <div key={idx} className="p-3.5 rounded-lg bg-[#0a0b0e] border border-zinc-850 flex flex-col justify-between space-y-2">
+                  <div>
+                    <div className="flex items-center justify-between text-xs font-mono mb-1">
+                      <span className="text-sky-400 font-semibold">{phase.day}</span>
+                      <span className="text-[10px] text-zinc-600">D+{(idx)}</span>
+                    </div>
+                    <div className="text-xs font-semibold text-zinc-200">
+                      {phase.focus}
+                    </div>
+                  </div>
+                  <p className="text-[11px] text-zinc-400 leading-relaxed">
+                    {phase.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            <div className="pt-2 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs text-zinc-400 border-t border-zinc-850">
+              <span className="font-mono text-[11px] text-zinc-400">
+                Squad Autônomo Maestri: <strong className="text-zinc-200">Farol</strong> (Domínio) → <strong className="text-zinc-200">Forja</strong> (Código) → <strong className="text-zinc-200">Prisma</strong> (Vitrine) → <strong className="text-zinc-200">Hermes</strong> (DevOps)
+              </span>
+              <span className="text-[11px] font-mono text-emerald-400">
+                Cada projeto possui repositório público e prints bespoke únicos
+              </span>
+            </div>
+          </div>
+        </section>
+
         {/* FEATURED PRODUCT SHOWCASE: AegisPay & Financial Reconciliation Hub */}
         <section id="aegispay" className="space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 pb-3 border-b border-zinc-800">
             <div>
               <div className="flex items-center gap-2 mb-1">
-                <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-blue-950/70 text-blue-300 border border-blue-800/50">
-                  Lançamento de Produto
+                <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-sky-950/80 text-sky-300 border border-sky-800/50">
+                  {aegisProject.sprintBadge}
                 </span>
                 <span className="text-xs text-zinc-400 font-mono">
                   Tags: {aegisProject.versionTag}
@@ -263,6 +333,28 @@ export const App: React.FC = () => {
             <div className="pt-3 border-t border-zinc-850 space-y-4">
               <div className="flex flex-wrap items-center gap-2 border-b border-zinc-800 pb-2">
                 <button
+                  onClick={() => setActiveTab('preview')}
+                  className={`px-3 py-1.5 rounded text-xs font-medium transition-colors flex items-center gap-1.5 ${
+                    activeTab === 'preview'
+                      ? 'bg-zinc-800 text-zinc-100 border border-zinc-700'
+                      : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-850'
+                  }`}
+                >
+                  <Monitor className="w-3.5 h-3.5 text-sky-400" />
+                  Interface Operacional (Print do Cockpit)
+                </button>
+                <button
+                  onClick={() => setActiveTab('sprint')}
+                  className={`px-3 py-1.5 rounded text-xs font-medium transition-colors flex items-center gap-1.5 ${
+                    activeTab === 'sprint'
+                      ? 'bg-zinc-800 text-zinc-100 border border-zinc-700'
+                      : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-850'
+                  }`}
+                >
+                  <Calendar className="w-3.5 h-3.5 text-amber-400" />
+                  Sprint Semanal (Evolução Diária)
+                </button>
+                <button
                   onClick={() => setActiveTab('roi')}
                   className={`px-3 py-1.5 rounded text-xs font-medium transition-colors flex items-center gap-1.5 ${
                     activeTab === 'roi'
@@ -307,6 +399,94 @@ export const App: React.FC = () => {
                   15 Testes Automatizados (100% Pass)
                 </button>
               </div>
+
+              {/* Tab: Bespoke Operational Print */}
+              {activeTab === 'preview' && (
+                <div className="p-4 rounded bg-[#0c0d10] border border-zinc-850 space-y-3">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-zinc-850">
+                    <div>
+                      <h4 className="text-sm font-semibold text-zinc-100 flex items-center gap-2">
+                        <span>Cockpit Institucional de Tesouraria & Conciliação de Recebíveis</span>
+                        <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-sky-950 text-sky-400 border border-sky-800/40">
+                          Identidade Visual Bespoke
+                        </span>
+                      </h4>
+                      <p className="text-xs text-zinc-400 mt-0.5">
+                        Visão executiva em tempo real: cronograma de liquidação (D+0 Pix a D+30 Cartão), share por adquirente e contestação de desvios contábeis.
+                      </p>
+                    </div>
+
+                    <a 
+                      href={aegisProject.previewImage} 
+                      target="_blank" 
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1 text-xs font-mono text-zinc-400 hover:text-zinc-200 self-start sm:self-auto"
+                    >
+                      <span>Abrir vetor em alta resolução</span>
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </div>
+
+                  {/* Mockup Frame */}
+                  <div className="rounded-lg overflow-hidden border border-zinc-800 bg-[#070b14] shadow-2xl">
+                    <img 
+                      src={aegisProject.previewImage} 
+                      alt={aegisProject.previewAlt}
+                      className="w-full h-auto block"
+                    />
+                  </div>
+
+                  <div className="p-3 rounded bg-[#111317] border border-zinc-800 text-xs text-zinc-400 space-y-1">
+                    <div className="font-semibold text-zinc-200">
+                      Diferencial de Design Financeiro & Unslop:
+                    </div>
+                    <p className="leading-relaxed text-[11px] text-zinc-300">
+                      Ao contrário de tabelas genéricas, este cockpit reflete a operação de tesouraria de grandes redes: exibe a esteira de janelas de liquidação (Pix SPI, Débito CIP e Cartão D+30), validação criptográfica HMAC-SHA256 e o dossiê formal de disputa (<code className="text-red-400 font-mono">DISP-2026-099014</code>) para contestar divergências de MDR direto no extrato bancário.
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {/* Tab: Weekly Sprint Progression */}
+              {activeTab === 'sprint' && (
+                <div className="p-4 rounded bg-[#0c0d10] border border-zinc-850 space-y-4">
+                  <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 pb-2 border-b border-zinc-850">
+                    <h4 className="text-sm font-semibold text-zinc-100">
+                      Ciclo de Evolução Diária da Sprint (Semana 03)
+                    </h4>
+                    <span className="text-xs font-mono text-sky-400">
+                      AegisPay · 100% de cobertura dos critérios enterprise
+                    </span>
+                  </div>
+
+                  <div className="space-y-2.5">
+                    {aegisProject.weeklyEvolution.map((step, idx) => (
+                      <div key={idx} className="p-3 rounded bg-[#111317] border border-zinc-800 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div className="flex items-center gap-3">
+                          <span className="w-12 text-center text-xs font-mono font-bold px-2 py-1 rounded bg-zinc-850 text-sky-400 border border-zinc-750">
+                            {step.day}
+                          </span>
+                          <div>
+                            <div className="text-xs font-semibold text-zinc-200">
+                              {step.phase}
+                            </div>
+                            <div className="text-[11px] text-zinc-400 mt-0.5">
+                              {step.deliverable}
+                            </div>
+                          </div>
+                        </div>
+                        <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-950/70 text-emerald-400 border border-emerald-800/40 self-start sm:self-auto">
+                          Entregue & Testado
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="pt-1 text-[11px] text-zinc-500 font-mono">
+                    Cadência semanal: o projeto é aprofundado a cada dia útil, acumulando valor técnico real em vez de criar múltiplos projetos superficiais.
+                  </div>
+                </div>
+              )}
 
               {/* Tab 1: ROI & MDR Loss Prevention Calculator */}
               {activeTab === 'roi' && (
@@ -562,31 +742,34 @@ export const App: React.FC = () => {
                 Outros Sistemas Corporativos em Produção
               </h2>
               <p className="text-xs text-zinc-400 mt-1">
-                Aplicações de alta resiliência projetadas para resolver desafios operacionais de varejo e restaurantes
+                Aplicações de alta resiliência projetadas para resolver desafios operacionais de redes de lojas físicas e restaurantes
               </p>
             </div>
             <span className="text-xs text-zinc-500 font-mono">
-              Total: 3 módulos corporativos
+              Total: 3 módulos corporativos (1 por semana)
             </span>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-8">
             {otherProjects.map((project) => (
               <article 
                 key={project.id}
-                className="p-5 sm:p-6 rounded-lg bg-[#111317] border border-zinc-800 hover:border-zinc-700 transition-colors"
+                className="p-5 sm:p-6 rounded-lg bg-[#111317] border border-zinc-800 hover:border-zinc-750 transition-colors space-y-5"
               >
-                <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 mb-4">
+                <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
                   <div>
-                    <div className="flex items-center gap-2 mb-1">
+                    <div className="flex items-center gap-2 mb-1.5">
                       <span className="text-xs font-mono px-2 py-0.5 rounded bg-zinc-800/80 text-zinc-300 border border-zinc-750">
                         {project.businessDomain}
                       </span>
-                      <span className="text-xs text-zinc-500 font-mono">
+                      <span className="text-xs font-mono px-2 py-0.5 rounded bg-emerald-950/60 text-emerald-400 border border-emerald-800/40">
+                        {project.sprintBadge}
+                      </span>
+                      <span className="text-xs text-zinc-500 font-mono hidden sm:inline">
                         Status: {project.status}
                       </span>
                     </div>
-                    <h3 className="text-base font-semibold text-zinc-100">
+                    <h3 className="text-lg font-semibold text-zinc-100">
                       {project.name}
                     </h3>
                     <p className="text-xs text-zinc-400 mt-0.5">
@@ -606,8 +789,43 @@ export const App: React.FC = () => {
                   </a>
                 </div>
 
+                {/* BESPOKE OPERATIONAL SCREENSHOT / PRINT */}
+                <div className="p-3.5 rounded-lg bg-[#0a0b0e] border border-zinc-850 space-y-2.5">
+                  <div className="flex items-center justify-between text-xs pb-1.5 border-b border-zinc-850">
+                    <span className="font-semibold text-zinc-300 flex items-center gap-2">
+                      <Monitor className="w-3.5 h-3.5 text-zinc-400" />
+                      <span>Interface do Sistema ({project.id === 'retail-order-sync' ? 'Console NOC Industrial' : 'Monitor Touchscreen KDS'})</span>
+                    </span>
+                    <a 
+                      href={project.previewImage} 
+                      target="_blank" 
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1 font-mono text-[11px] text-zinc-400 hover:text-zinc-200"
+                    >
+                      <span>Ver SVG</span>
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </div>
+
+                  <div className="rounded overflow-hidden border border-zinc-800 bg-black/60 shadow-xl">
+                    <img 
+                      src={project.previewImage} 
+                      alt={project.previewAlt}
+                      className="w-full h-auto block"
+                    />
+                  </div>
+
+                  <div className="text-[11px] text-zinc-400 pt-1 leading-relaxed">
+                    {project.id === 'retail-order-sync' ? (
+                      <span><strong>Identidade Visual Única:</strong> Console NOC de Varejo com telemetria de conectividade de lojas físicas, topologia de mensageria com RabbitMQ e stream em tempo real de logs de replicação com o ERP.</span>
+                    ) : (
+                      <span><strong>Identidade Visual Única:</strong> Display Touchscreen KDS de Alta Visibilidade para Cozinha Industrial, com colunas divididas por estações de preparo (Parrilla/Grill, Pizza, Bar, Expedição) e botões de ação tátil.</span>
+                    )}
+                  </div>
+                </div>
+
                 {/* Metrics */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                   {project.metrics.map((m, mIdx) => (
                     <div key={mIdx} className="p-2.5 rounded bg-[#0c0d10] border border-zinc-850">
                       <div className="text-sm font-semibold text-zinc-200 font-mono">
@@ -620,7 +838,7 @@ export const App: React.FC = () => {
                   ))}
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs mb-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
                   <div className="space-y-1">
                     <span className="font-medium text-zinc-400 uppercase tracking-wide text-[10px]">
                       Contexto de Negócio
@@ -639,7 +857,32 @@ export const App: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="p-3 rounded bg-[#0c0d10] border border-zinc-850 space-y-2 mb-4">
+                {/* Weekly Evolution Timeline */}
+                <div className="p-3.5 rounded bg-[#0c0d10] border border-zinc-850 space-y-2">
+                  <div className="flex items-center justify-between text-xs font-medium text-zinc-300">
+                    <span>Evolução Contínua na {project.sprintWeek}</span>
+                    <span className="text-[10px] font-mono text-zinc-500">5 dias de melhorias iterativas</span>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-5 gap-2 pt-1">
+                    {project.weeklyEvolution.map((evo, eIdx) => (
+                      <div key={eIdx} className="p-2 rounded bg-[#111317] border border-zinc-800 text-[11px] space-y-1">
+                        <div className="flex items-center justify-between font-mono text-sky-400 font-semibold">
+                          <span>{evo.day}</span>
+                          <span className="text-[9px] text-zinc-500">fase</span>
+                        </div>
+                        <div className="font-semibold text-zinc-200 text-[10px] truncate">
+                          {evo.phase}
+                        </div>
+                        <div className="text-[10px] text-zinc-400 line-clamp-2">
+                          {evo.deliverable}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="p-3 rounded bg-[#0c0d10] border border-zinc-850 space-y-2">
                   <span className="font-medium text-zinc-400 uppercase tracking-wide text-[10px]">
                     Critérios de Implementação
                   </span>
