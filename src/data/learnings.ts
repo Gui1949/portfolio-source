@@ -105,14 +105,14 @@ export const realWorldProjects: RealWorldProject[] = [
       "Idempotência estrita via Idempotency-Key e hash SHA-256 para prevenção a replay attacks",
       "Verificação criptográfica HMAC SHA-256 com timingSafeEqual para webhooks de adquirentes",
       "Precisão financeira absoluta em centavos inteiros (Integer Cents), anulando erros de float",
-      "100% dos testes aprovados (15/15) via Node.js test runner nativo cobrindo todos os fluxos críticos"
+      "25 testes automatizados aprovados (100% pass) em 7 suítes — incluindo Benchmark Suite com 71.637 ops/seg e Chaos Test com 100% dos ataques neutralizados"
     ],
     weeklyEvolution: [
       { day: "Seg", phase: "Domínio & DDD", deliverable: "Modelagem de Entidades Financeiras e Aritmética estrita em Centavos Inteiros." },
       { day: "Ter", phase: "State Machine & Idempotência", deliverable: "Ciclo PENDING -> AUTHORIZED -> SETTLED com cache de hash SHA-256." },
       { day: "Qua", phase: "Criptografia & Webhooks", deliverable: "Assinatura HMAC SHA-256 com crypto.timingSafeEqual contra timing attacks." },
       { day: "Qui", phase: "Conciliação & Interface", deliverable: "Motor de conciliação MDR e Cockpit executivo de auditoria de extratos EDI." },
-      { day: "Sex", phase: "Hardening & Testes", deliverable: "Bateria de 15 testes de integração no runner nativo do Node.js 20+." }
+      { day: "Sex", phase: "Hardening & Benchmarks", deliverable: "25 testes automatizados (100% pass): Benchmark 71.637 ops/seg, 10.000 tx/lote em 25,5ms, p99 46,9µs, Chaos Test 100% neutralizado." }
     ],
     metrics: [
       {
