@@ -1,0 +1,221 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 580" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #070d18; }
+      .nav-bg { fill: #0d172a; stroke: #1e293b; stroke-width: 1; }
+      .card-bg { fill: #0e182b; stroke: #1e2e4a; stroke-width: 1; }
+      .card-accent { fill: #13223d; stroke: #253d66; stroke-width: 1; }
+      .inner-box { fill: #080f1e; stroke: #1b2c47; stroke-width: 1; }
+      .mono { font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace; font-feature-settings: "tnum" 1; }
+      .sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+      .text-title { fill: #f8fafc; font-size: 14px; font-weight: 600; }
+      .text-sub { fill: #94a3b8; font-size: 11px; }
+      .text-muted { fill: #64748b; font-size: 11px; }
+      .text-num-lg { fill: #38bdf8; font-size: 20px; font-weight: 700; }
+      .text-val { fill: #e2e8f0; font-size: 12px; }
+      .badge-spi { fill: #032e2b; stroke: #0d9488; }
+      .badge-spi-text { fill: #2dd4bf; font-size: 10px; font-weight: 700; }
+      .badge-warn { fill: #451a03; stroke: #d97706; }
+      .badge-warn-text { fill: #fbbf24; font-size: 10px; font-weight: 700; }
+      .badge-alert { fill: #3f0b0b; stroke: #ef4444; }
+      .badge-alert-text { fill: #fca5a5; font-size: 10px; font-weight: 700; }
+      .div-line { stroke: #1e2e4a; stroke-width: 1; }
+      .bar-active { fill: #0284c7; }
+    </style>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="1000" height="580" rx="12" class="bg"/>
+
+  <!-- Top Navigation Bar -->
+  <rect width="1000" height="52" rx="12" class="nav-bg"/>
+  <rect y="40" width="1000" height="12" fill="#0d172a"/>
+  
+  <g transform="translate(24, 16)">
+    <rect width="22" height="22" rx="4" fill="#0284c7"/>
+    <path d="M4 6 L11 2 L18 6 V11 C18 15.5 11 19 11 19 C11 19 4 15.5 4 11 Z" fill="#ffffff" transform="scale(0.8) translate(3, 2)"/>
+    <text x="32" y="16" class="sans text-title" letter-spacing="0.5">AEGIS FIDC HUB <tspan fill="#38bdf8" font-size="11px" font-weight="400">| SECURITIZATION &amp; CUSTODY ENGINE</tspan></text>
+  </g>
+
+  <g transform="translate(560, 16)">
+    <rect width="135" height="22" rx="4" fill="#032e2b" stroke="#0d9488" stroke-width="1"/>
+    <circle cx="10" cy="11" r="3.5" fill="#2dd4bf"/>
+    <text x="20" y="15" class="mono text-sub" fill="#2dd4bf" font-size="10px">SEFAZ MOD-11 : VALID</text>
+
+    <rect x="145" width="140" height="22" rx="4" fill="#0f1f38" stroke="#1d4ed8" stroke-width="1"/>
+    <circle cx="155" cy="11" r="3.5" fill="#38bdf8"/>
+    <text x="165" y="15" class="mono text-sub" fill="#93c5fd" font-size="10px">ANTI-DOUBLE PLEDGE</text>
+
+    <rect x="295" width="125" height="22" rx="4" fill="#1e1b4b" stroke="#4f46e5" stroke-width="1"/>
+    <text x="303" y="15" class="mono text-sub" fill="#c7d2fe" font-size="10px">BASE 252 D.U. (B3)</text>
+  </g>
+  <line x1="0" y1="52" x2="1000" y2="52" class="div-line"/>
+
+  <!-- Left Sidebar: Lote de Cessão e Totais Financeiros Invariantes -->
+  <g transform="translate(20, 68)">
+    <rect width="320" height="492" rx="8" class="card-bg"/>
+    <rect width="320" height="40" rx="8" fill="#13223d"/>
+    <rect y="30" width="320" height="10" fill="#13223d"/>
+    <text x="16" y="25" class="sans text-title" font-size="13px">LOTE DE CESSÃO ATIVO</text>
+    <rect x="235" y="10" width="70" height="20" rx="4" class="badge-spi"/>
+    <text x="245" y="24" class="mono badge-spi-text">ABERTO</text>
+    
+    <g transform="translate(16, 52)">
+      <text x="0" y="14" class="mono text-sub">ID DO LOTE:</text>
+      <text x="100" y="14" class="mono text-val" font-weight="600">LOT-2026-NFE-0089</text>
+
+      <text x="0" y="32" class="mono text-sub">CEDENTE:</text>
+      <text x="100" y="32" class="mono text-val">11.222.333/0001-81</text>
+
+      <text x="0" y="50" class="mono text-sub">CESSIONÁRIO:</text>
+      <text x="100" y="50" class="mono text-val">33.000.167/0001-01 (FIDC)</text>
+
+      <text x="0" y="68" class="mono text-sub">DATA REF:</text>
+      <text x="100" y="68" class="mono text-val">14/11/2026 (D+0)</text>
+
+      <text x="0" y="86" class="mono text-sub">TAXA ANUAL:</text>
+      <text x="100" y="86" class="mono text-val" fill="#38bdf8" font-weight="700">18.5000% a.a. (252 du)</text>
+    </g>
+
+    <!-- Financial Invariant Card (RN-04) -->
+    <g transform="translate(14, 155)">
+      <rect width="292" height="185" rx="6" class="inner-box"/>
+      <rect width="292" height="28" rx="6" fill="#111c30"/>
+      <rect y="20" width="292" height="8" fill="#111c30"/>
+      <text x="12" y="19" class="sans text-sub" fill="#38bdf8" font-weight="700">INVARIANTE MATEMÁTICA RN-04</text>
+      <text x="210" y="19" class="mono text-sub" fill="#10b981">INTEG: 100%</text>
+
+      <g transform="translate(12, 42)">
+        <text x="0" y="14" class="mono text-sub">TOTAL FACE (¢):</text>
+        <text x="268" y="14" text-anchor="end" class="mono text-val" font-weight="700">R$ 4.850.000,00</text>
+        <text x="268" y="27" text-anchor="end" class="mono text-muted" font-size="9px">485.000.000 centavos inteiros</text>
+
+        <text x="0" y="50" class="mono text-sub">DESÁGIO PRO-RATA:</text>
+        <text x="268" y="50" text-anchor="end" class="mono text-val" fill="#f87171" font-weight="700">- R$ 184.220,00</text>
+        <text x="268" y="63" text-anchor="end" class="mono text-muted" font-size="9px">18.422.000 centavos retidos</text>
+
+        <line x1="0" y1="74" x2="268" y2="74" stroke="#1e2e4a" stroke-dasharray="3 3"/>
+
+        <text x="0" y="94" class="mono text-sub" fill="#38bdf8" font-weight="700">LÍQUIDO A CEDER:</text>
+        <text x="268" y="94" text-anchor="end" class="mono text-val" fill="#34d399" font-weight="700" font-size="13px">R$ 4.665.780,00</text>
+        <text x="268" y="108" text-anchor="end" class="mono text-muted" font-size="9px">466.578.000 centavos liberados</text>
+
+        <text x="0" y="128" class="mono text-sub">FLOAT DRIFT DISCREPANCY:</text>
+        <text x="268" y="128" text-anchor="end" class="mono text-val" fill="#2dd4bf" font-weight="700">0.0000 ¢ (ZERO)</text>
+      </g>
+    </g>
+
+    <!-- FSM State Indicator -->
+    <g transform="translate(14, 355)">
+      <rect width="292" height="120" rx="6" class="card-accent"/>
+      <text x="12" y="22" class="sans text-title" font-size="12px">MÁQUINA DE ESTADOS DO LOTE</text>
+      
+      <g transform="translate(12, 42)">
+        <rect x="0" y="0" width="75" height="32" rx="4" fill="#0284c7"/>
+        <text x="37" y="20" text-anchor="middle" class="mono" fill="#ffffff" font-size="10px" font-weight="700">ABERTO</text>
+
+        <text x="86" y="20" class="mono" fill="#64748b">→</text>
+
+        <rect x="100" y="0" width="75" height="32" rx="4" fill="#1e293b"/>
+        <text x="137" y="20" text-anchor="middle" class="mono" fill="#94a3b8" font-size="10px">FECHADO</text>
+
+        <text x="186" y="20" class="mono" fill="#64748b">→</text>
+
+        <rect x="200" y="0" width="80" height="32" rx="4" fill="#1e293b"/>
+        <text x="240" y="20" text-anchor="middle" class="mono" fill="#94a3b8" font-size="10px">LIQUIDADO</text>
+      </g>
+      <text x="12" y="100" class="sans text-muted" font-size="10px">Operação atômica: valida lote e trava chaves antes do commit</text>
+    </g>
+  </g>
+
+  <!-- Right Content: Monitoramento de Duplicatas & Detecção de Lastro -->
+  <g transform="translate(355, 68)">
+    <rect width="625" height="340" rx="8" class="card-bg"/>
+    <rect width="625" height="40" rx="8" fill="#13223d"/>
+    <rect y="30" width="625" height="10" fill="#13223d"/>
+    <text x="16" y="25" class="sans text-title" font-size="13px">CUSTÓDIA DE DUPLICATAS MERCANTIS LASTREADAS EM NF-E</text>
+    <text x="500" y="25" class="mono text-sub" fill="#38bdf8">14 TÍTULOS CEDIDOS</text>
+
+    <!-- Table Header -->
+    <g transform="translate(16, 52)">
+      <rect width="593" height="24" fill="#0d172a" rx="4"/>
+      <text x="10" y="16" class="mono text-sub" font-size="10px">CHAVE NF-E (44 DÍGITOS MOD-11)</text>
+      <text x="250" y="16" class="mono text-sub" font-size="10px">VALOR FACE</text>
+      <text x="360" y="16" class="mono text-sub" font-size="10px">VENCIMENTO</text>
+      <text x="460" y="16" class="mono text-sub" font-size="10px">STATUS FSM</text>
+      <text x="545" y="16" class="mono text-sub" font-size="10px">SEFAZ</text>
+    </g>
+
+    <!-- Table Rows -->
+    <g transform="translate(16, 82)">
+      <!-- Row 1 -->
+      <rect width="593" height="36" fill="#091120" rx="4"/>
+      <text x="10" y="22" class="mono text-val" font-size="11px">3526 1111 2223 3300 0181 5500 1000 0000 0110 ...</text>
+      <text x="250" y="22" class="mono text-val" font-weight="700">R$ 1.500.000,00</text>
+      <text x="360" y="22" class="mono text-sub">30/12/2026 (46d)</text>
+      <rect x="455" y="9" width="65" height="18" rx="3" class="badge-spi"/>
+      <text x="466" y="22" class="mono badge-spi-text">CEDIDA</text>
+      <text x="548" y="22" class="mono text-sub" fill="#10b981">✓ OK</text>
+
+      <!-- Row 2 -->
+      <g transform="translate(0, 42)">
+        <rect width="593" height="36" fill="#0b1426" rx="4"/>
+        <text x="10" y="22" class="mono text-val" font-size="11px">3526 1111 2223 3300 0181 5500 1000 0000 0210 ...</text>
+        <text x="250" y="22" class="mono text-val" font-weight="700">R$ 2.100.000,00</text>
+        <text x="360" y="22" class="mono text-sub">15/01/2027 (62d)</text>
+        <rect x="455" y="9" width="65" height="18" rx="3" class="badge-spi"/>
+        <text x="466" y="22" class="mono badge-spi-text">CEDIDA</text>
+        <text x="548" y="22" class="mono text-sub" fill="#10b981">✓ OK</text>
+      </g>
+
+      <!-- Row 3 -->
+      <g transform="translate(0, 84)">
+        <rect width="593" height="36" fill="#091120" rx="4"/>
+        <text x="10" y="22" class="mono text-val" font-size="11px">3526 1111 2223 3300 0181 5500 1000 0000 0310 ...</text>
+        <text x="250" y="22" class="mono text-val" font-weight="700">R$ 750.000,00</text>
+        <text x="360" y="22" class="mono text-sub">10/12/2026 (26d)</text>
+        <rect x="455" y="9" width="65" height="18" rx="3" class="badge-spi"/>
+        <text x="466" y="22" class="mono badge-spi-text">CEDIDA</text>
+        <text x="548" y="22" class="mono text-sub" fill="#10b981">✓ OK</text>
+      </g>
+
+      <!-- Row 4 -->
+      <g transform="translate(0, 126)">
+        <rect width="593" height="36" fill="#0b1426" rx="4"/>
+        <text x="10" y="22" class="mono text-val" font-size="11px">3526 1111 2223 3300 0181 5500 1000 0000 0410 ...</text>
+        <text x="250" y="22" class="mono text-val" font-weight="700">R$ 500.000,00</text>
+        <text x="360" y="22" class="mono text-sub">20/12/2026 (36d)</text>
+        <rect x="455" y="9" width="65" height="18" rx="3" fill="#1e293b"/>
+        <text x="463" y="22" class="mono" fill="#94a3b8" font-size="10px">EMITIDA</text>
+        <text x="548" y="22" class="mono text-sub" fill="#10b981">✓ OK</text>
+      </g>
+
+      <!-- Row 5 (Blocked attempt) -->
+      <g transform="translate(0, 168)">
+        <rect width="593" height="36" fill="#200d0d" rx="4" stroke="#7f1d1d" stroke-width="1"/>
+        <text x="10" y="22" class="mono text-val" fill="#fca5a5" font-size="11px">3526 1111 2223 3300 0181 5500 1000 0000 9910 ...</text>
+        <text x="250" y="22" class="mono text-val" fill="#fca5a5" font-weight="700">R$ 3.000.000,00</text>
+        <text x="360" y="22" class="mono text-sub" fill="#f87171">RE-CESSÃO REJEITADA</text>
+        <rect x="455" y="9" width="75" height="18" rx="3" class="badge-alert"/>
+        <text x="461" y="22" class="mono badge-alert-text">BLOQUEIO</text>
+        <text x="548" y="22" class="mono text-sub" fill="#ef4444">✕ DUPL</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Bottom Panel: Ledger Anti-Double Pledging Security Banner -->
+  <g transform="translate(355, 420)">
+    <rect width="625" height="140" rx="8" fill="#111a2e" stroke="#1d4ed8" stroke-width="1"/>
+    <rect width="6" height="140" rx="3" fill="#3b82f6"/>
+    
+    <g transform="translate(20, 16)">
+      <text x="0" y="16" class="sans text-title" fill="#60a5fa">SHIELD DE SEGURANÇA: PREVENÇÃO RIGOROSA A CESSÃO DUPLICADA</text>
+      <text x="0" y="38" class="sans text-sub" font-size="11px" fill="#cbd5e1">O LedgerDeRecebiveis indexa cada Chave NF-e em memória e no banco com constraint única e bloqueio atômico.</text>
+      <text x="0" y="56" class="sans text-sub" font-size="11px" fill="#94a3b8">Mesmo que o mesmo título seja submetido simultaneamente para outro fundo cessionário (duplo penhor), o sistema</text>
+      <text x="0" y="74" class="sans text-sub" font-size="11px" fill="#94a3b8">dispara imediatamente <tspan fill="#f87171" font-weight="700">CessaoDuplicadaError</tspan>, preservando o patrimônio do fundo e a conformidade B3/CVM.</text>
+      
+      <rect x="0" y="86" width="310" height="22" rx="4" fill="#0d1b33" stroke="#2563eb" stroke-width="1"/>
+      <text x="8" y="101" class="mono text-sub" fill="#93c5fd" font-size="10px">LEDGER INDEX: 14 TITULOS ATIVOS · ZERO COLISAO</text>
+    </g>
+  </g>
+</svg>

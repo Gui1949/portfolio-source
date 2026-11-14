@@ -85,6 +85,82 @@ export const sprintMethodology = {
 
 export const realWorldProjects: RealWorldProject[] = [
   {
+    id: "fidc-receivables-hub",
+    name: "FIDC Receivables & Securitization Hub",
+    tagline: "Motor de securitização e cessão de duplicatas com validação SEFAZ mod-11, zero float drift e ledger anti-duplo penhor",
+    version: "v1.0.0",
+    versionTag: "v1.0.0",
+    isNew: true,
+    sprintWeek: "Semana 04",
+    sprintBadge: "Novo Produto · Evolução Diária",
+    previewImage: "/previews/fidc-receivables-hub.svg",
+    previewAlt: "Cockpit FIDC de Securitização, Custódia de Duplicatas e Prevenção a Dupla Cessão",
+    businessDomain: "Mercado de Capitais, FIDCs & Securitização de Crédito",
+    businessProblem: "Fundos de Investimento em Direitos Creditórios (FIDCs) e fintechs de antecipação sofrem com três vulnerabilidades críticas: 1) O risco de cessão duplicada (duplo penhor), onde a mesma NF-e é cedida simultaneamente para dois fundos distintos gerando disputas judiciais e perdas patrimoniais; 2) 'Drift' acumulado de ponto flutuante (IEEE 754 float) no cálculo de deságio pro-rata dia sobre milhares de duplicatas, drenando centenas de reais em frações de centavos não auditáveis; 3) Aceite de duplicatas 'frias' sem validação prévia de lastro SEFAZ com dígito verificador módulo 11.",
+    solutionArchitecture: "Domain-Driven Design (DDD) e Clean Architecture com Value Objects rigorosos: ChaveNFe com algoritmo oficial SEFAZ módulo 11 de 44 dígitos; ValorMonetario com precisão estrita em centavos inteiros (Integer Cents); Cnpj com duplo DV da Receita Federal; e TaxaDeDesagio pro-rata dia base 252 dias úteis. Inclui Máquinas de Estados Finitas (FSM) para Duplicata e LoteDeCessao, além do LedgerDeRecebiveis que bloqueia idempotentemente qualquer re-cessão fraudulenta com CessaoDuplicadaError.",
+    operationalImpact: "Blindagem de 100% contra duplo penhor de títulos mercantis, eliminação de 100% de inconsistências de ponto flutuante na esteira contábil e auditoria atômica da invariante matemática RN-04 (face = líquido + deságio).",
+    highlights: [
+      "Validação SEFAZ Módulo 11 da chave de 44 dígitos antes de qualquer transação",
+      "Ledger de Recebíveis com bloqueio estrito e idempotente contra cessão duplicada (duplo penhor)",
+      "Motor de Deságio com base 252 dias úteis e precisão absoluta em centavos inteiros (Integer Cents)",
+      "Invariante matemática RN-04: soma do valor de face idêntica à soma do líquido + deságio",
+      "Máquinas de estados finitas (FSM) para o ciclo de vida do Lote e das Duplicatas mercantis",
+      "16 testes automatizados com cobertura total de invariantes negociais e tolerância a falhas"
+    ],
+    weeklyEvolution: [
+      { day: "Seg", phase: "Domínio & DDD", deliverable: "Value Objects SEFAZ mod-11, CNPJ duplo DV, Integer Cents e FSM de Duplicata e Lote." },
+      { day: "Ter", phase: "Persistência ACID", deliverable: "Repositórios atômicos e garantia transacional do Ledger de Recebíveis." },
+      { day: "Qua", phase: "Mensageria & Registradoras", deliverable: "Integração assíncrona com B3/Cerc/CIP e disparo de eventos de cessão." },
+      { day: "Qui", phase: "Cockpit & Telemetria", deliverable: "Interface operacional para análise de borderôs, risco de crédito e conciliação." },
+      { day: "Sex", phase: "Hardening & Release", deliverable: "Bateria de testes de estresse, validação matemática com 10.000 títulos e release v1.0.0." }
+    ],
+    metrics: [
+      {
+        label: "Risco de Dupla Cessão",
+        value: "0 Ocorrências",
+        description: "Bloqueio atômico de duplo penhor via LedgerDeRecebiveis"
+      },
+      {
+        label: "Validação de Lastro",
+        value: "Módulo 11",
+        description: "Rejeição imediata de Chaves NF-e fraudulentas ou adulteradas"
+      },
+      {
+        label: "Precisão Financeira",
+        value: "Integer Cents",
+        description: "Zero drift de float: integridade matemática centavo a centavo"
+      },
+      {
+        label: "Base de Deságio",
+        value: "252 d.u. (B3)",
+        description: "Cálculo pro-rata dia de deságio composto padrão de mercado"
+      }
+    ],
+    securitySpec: {
+      idempotencyStrategy: "Ledger de Recebíveis indexa a Chave NF-e como constraint primária em memória e persistência. Qualquer tentativa de submeter a mesma chave para outro lote ou fundo gera CessaoDuplicadaError.",
+      cryptography: "Validação algorítmica de módulo 11 sobre os 44 dígitos da NF-e com pesos de 2 a 9 e dupla checagem de dígitos verificadores de CNPJ pela norma RFB nº 1.863/2018.",
+      precisionModel: "Aritmética financeira em centavos inteiros (Integer Cents). Multiplicações e divisões utilizam Math.round() com garantia estrita da invariante RN-04: valFace === valLiquido + desagio.",
+      reconciliationAudit: "Operação atômica validate-then-commit no fechamento do lote de cessão: todas as duplicatas são validadas e travadas antes de qualquer alteração de custódia."
+    },
+    keyUseCases: [
+      {
+        title: "Prevenção a Duplo Penhor de NF-e",
+        desc: "Impede que o mesmo título faturado seja antecipado em mais de uma instituição financeira simultaneamente."
+      },
+      {
+        title: "Auditoria de Borderôs e Deságio Composto",
+        desc: "Calcula o valor presente exato de cada duplicata considerando o prazo em dias úteis até o vencimento."
+      },
+      {
+        title: "Liquidação e Baixa Automática de Duplicatas",
+        desc: "Coordena a transição de estado de CEDIDA para LIQUIDADA mediante confirmação de pagamento do sacado."
+      }
+    ],
+    technologies: ["TypeScript", "Node.js", "Clean Architecture", "DDD", "SEFAZ Mod-11", "Integer Cents", "Finite State Machine", "Native Test Runner"],
+    githubUrl: "https://github.com/Gui1949/fidc-receivables-hub",
+    status: "Produção (v1.0.0)"
+  },
+  {
     id: "fintech-payment-gateway",
     name: "AegisPay & Financial Reconciliation Hub",
     tagline: "Gateway transacional e motor de auditoria contábil com garantia matemática e criptográfica contra vazamento de receita",
