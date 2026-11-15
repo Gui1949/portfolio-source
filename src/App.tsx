@@ -336,7 +336,7 @@ export const App: React.FC = () => {
                 Sistemas Corporativos em Produção
               </h2>
               <p className="text-xs text-zinc-400 mt-1">
-                Navegue pelo carrossel para explorar os 3 sistemas corporativos em produção.
+                Navegue pelo carrossel para explorar os {realWorldProjects.length} sistemas corporativos em produção.
               </p>
             </div>
 
@@ -843,7 +843,11 @@ export const App: React.FC = () => {
                   <div className="flex items-center justify-between text-xs pb-1.5 border-b border-zinc-850">
                     <span className="font-semibold text-zinc-300 flex items-center gap-2">
                       <Monitor className="w-3.5 h-3.5 text-zinc-400" />
-                      <span>Interface Operacional ({currentProject.id === 'retail-order-sync' ? 'Console NOC Industrial' : 'Monitor Touchscreen KDS'})</span>
+                      <span>Interface Operacional ({
+                        currentProject.id === 'retail-order-sync' ? 'Console NOC Industrial' :
+                        currentProject.id === 'fidc-receivables-hub' ? 'Cockpit FIDC de Securitização' :
+                        'Monitor Touchscreen KDS'
+                      })</span>
                     </span>
                     <a 
                       href={currentProject.previewImage} 
@@ -867,6 +871,8 @@ export const App: React.FC = () => {
                   <div className="text-[11px] text-zinc-400 pt-1 leading-relaxed">
                     {currentProject.id === 'retail-order-sync' ? (
                       <span><strong>Identidade Visual Única:</strong> Console NOC de Varejo com telemetria de conectividade de lojas físicas, topologia de mensageria com RabbitMQ e stream em tempo real de logs de replicação com o ERP.</span>
+                    ) : currentProject.id === 'fidc-receivables-hub' ? (
+                      <span><strong>Identidade Visual Única:</strong> Cockpit Executivo FIDC para custódia de duplicatas, monitoramento de garantias e esteira de cessão com validação SEFAZ mod-11 e proteção anti-duplo penhor.</span>
                     ) : (
                       <span><strong>Identidade Visual Única:</strong> Display Touchscreen KDS de Alta Visibilidade para Cozinha Industrial, com colunas divididas por estações de preparo (Parrilla/Grill, Pizza, Bar, Expedição) e botões de ação tátil.</span>
                     )}
