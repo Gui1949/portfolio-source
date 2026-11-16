@@ -88,59 +88,59 @@ export const realWorldProjects: RealWorldProject[] = [
     id: "fidc-receivables-hub",
     name: "FIDC Receivables & Securitization Hub",
     tagline: "Motor de securitização e cessão de duplicatas com validação SEFAZ mod-11, zero float drift e ledger anti-duplo penhor",
-    version: "v1.0.0",
-    versionTag: "v1.0.0",
+    version: "v1.2.0",
+    versionTag: "v1.2.0",
     isNew: true,
     sprintWeek: "Módulo FIDC",
-    sprintBadge: "Arquitetura Transacional ACID",
+    sprintBadge: "ACID & Outbox Resiliente",
     previewImage: "/previews/fidc-receivables-hub.svg",
     previewAlt: "Cockpit FIDC de Securitização, Custódia de Duplicatas e Prevenção a Dupla Cessão",
     businessDomain: "Mercado de Capitais, FIDCs & Securitização de Crédito",
     businessProblem: "Fundos de Investimento em Direitos Creditórios (FIDCs) e fintechs de antecipação sofrem com três vulnerabilidades críticas: 1) O risco de cessão duplicada (duplo penhor), onde a mesma NF-e é cedida simultaneamente para dois fundos distintos gerando disputas judiciais e perdas patrimoniais; 2) 'Drift' acumulado de ponto flutuante (IEEE 754 float) no cálculo de deságio pro-rata dia sobre milhares de duplicatas, drenando centenas de reais em frações de centavos não auditáveis; 3) Aceite de duplicatas 'frias' sem validação prévia de lastro SEFAZ com dígito verificador módulo 11.",
-    solutionArchitecture: "Clean Architecture e Domain-Driven Design (DDD) com garantia transacional ACID: orquestração de cessão via Unit of Work com rollback atômico em falha de qualquer duplicata; Lock Manager granular com ordenação lexicográfica de Chaves NF-e para eliminação matemática de deadlocks; proteção estrita contra race conditions em submissões concorrentes (Promise.all); Value Objects com algoritmo oficial SEFAZ Módulo 11 (44 dígitos), CNPJ duplo DV, Integer Cents (zero float drift) e cálculo pro-rata dia base 252 dias úteis; Máquinas de Estados Finitas (FSM) e Ledger de Recebíveis anti-duplo penhor.",
-    operationalImpact: "Blindagem de 100% contra duplo penhor e cessões concorrentes simultâneas, rollback atômico garantido via Unit of Work sem estados inconsistentes e eliminação total de inconsistências contábeis e drift de ponto flutuante.",
+    solutionArchitecture: "Clean Architecture e DDD com garantia transacional e mensageria desacoplada: Transactional Outbox Pattern comutado atomicamente no Unit of Work (eliminação do Dual-Write entre banco e broker); Webhook Dispatcher assinado via HMAC-SHA256 com crypto.timingSafeEqual, controle estrito de timestamp (tolerância anti-replay de 300s) e retries automáticos com Dead Letter Queue (DLQ); Lock Manager granular com ordenação lexicográfica anti-deadlock e proteção anti-race condition (Promise.all); Value Objects SEFAZ Módulo 11 (44 dígitos), CNPJ duplo DV e Integer Cents com cálculo pro-rata dia base 252 d.u.",
+    operationalImpact: "Eliminação total do Dual-Write e de perdas de eventos em instabilidades de rede das registradoras (B3/Cerc/CIP), blindagem criptográfica HMAC-SHA256 contra adulteração de webhooks, proteção contra replay attacks e tolerância a falhas com isolamento de mensagens venenosas em DLQ.",
     highlights: [
-      "Arquitetura transacional ACID com Unit of Work e rollback atômico total em caso de falha",
-      "Lock Manager com ordenação lexicográfica de chaves NF-e para prevenção matemática de deadlocks",
-      "Proteção anti-race condition validada sob concorrência simultânea real (Promise.all)",
-      "Ledger de Recebíveis com bloqueio atômico e idempotente contra cessão duplicada (duplo penhor)",
-      "Validação SEFAZ Módulo 11 da chave de 44 dígitos e motor de deságio com base 252 dias úteis",
-      "21 testes automatizados (100% pass em 15 suítes) cobrindo invariantes de domínio e concorrência ACID"
+      "Transactional Outbox Pattern integrado ao Unit of Work, eliminando 100% do Dual-Write",
+      "Webhook Dispatcher com assinatura criptográfica HMAC-SHA256 validada com crypto.timingSafeEqual",
+      "Proteção estrita anti-replay attack com janela máxima de tolerância de 300 segundos",
+      "Política de retries exponenciais com isolamento de mensagens mortas em Dead Letter Queue (DLQ)",
+      "Lock Manager com ordenação lexicográfica de chaves NF-e para eliminação de deadlocks sob concorrência",
+      "27 testes automatizados (100% pass em 21 suítes) cobrindo domínio, persistência ACID e resiliência assíncrona"
     ],
     weeklyEvolution: [
       { day: "Fase 1", phase: "Domínio & DDD", deliverable: "Value Objects SEFAZ mod-11, CNPJ duplo DV, Integer Cents e FSM de Duplicata e Lote." },
-      { day: "Fase 2", phase: "Persistência ACID & Locks", deliverable: "Unit of Work com rollback atômico, Lock Manager anti-deadlock e 21 testes (100% pass)." },
-      { day: "Fase 3", phase: "Mensageria & Registradoras", deliverable: "Integração assíncrona com B3/Cerc/CIP e disparo de eventos de custódia." },
+      { day: "Fase 2", phase: "Persistência ACID & Locks", deliverable: "Unit of Work com rollback atômico, Lock Manager anti-deadlock e proteção contra race condition." },
+      { day: "Fase 3", phase: "Mensageria & Outbox Resiliente", deliverable: "Transactional Outbox atômico, Webhook HMAC timing-safe, anti-replay 300s, DLQ e 27 testes (100% pass)." },
       { day: "Fase 4", phase: "Cockpit & Telemetria", deliverable: "Interface operacional para análise de borderôs, risco de crédito e conciliação." },
       { day: "Fase 5", phase: "Hardening & Release", deliverable: "Validação matemática sob estresse com 10.000 títulos e release v1.0.0." }
     ],
     metrics: [
       {
-        label: "Garantia Transacional",
-        value: "ACID UoW",
-        description: "Rollback atômico de todo o lote em falha parcial e commit isolado"
+        label: "Consistência de Eventos",
+        value: "ACID Outbox",
+        description: "Zero Dual-Write: gravação atômica de eventos e entidades no mesmo commit"
+      },
+      {
+        label: "Segurança de Webhook",
+        value: "HMAC Timing-Safe",
+        description: "Assinatura SHA-256 com tolerância anti-replay de 300s e roteamento para DLQ"
       },
       {
         label: "Prevenção Concorrente",
         value: "Anti-Deadlock",
-        description: "Lock Manager com ordenação lexicográfica e proteção contra race condition"
-      },
-      {
-        label: "Risco de Dupla Cessão",
-        value: "0 Ocorrências",
-        description: "Bloqueio atômico de duplo penhor via LedgerDeRecebiveis"
+        description: "Lock Manager com ordenação lexicográfica de chaves e barreira anti-race condition"
       },
       {
         label: "Testes Automatizados",
-        value: "21 (100% Pass)",
-        description: "15 suítes no test runner nativo cobrindo domínio e persistência ACID"
+        value: "27 (100% Pass)",
+        description: "21 suítes no runner nativo cobrindo domínio, ACID, outbox e resiliência"
       }
     ],
     securitySpec: {
-      idempotencyStrategy: "Ledger de Recebíveis indexa a Chave NF-e como constraint primária. Submissões concorrentes são serializadas pelo Lock Manager e tentativas duplicadas disparam CessaoDuplicadaError.",
-      cryptography: "Validação algorítmica de módulo 11 sobre os 44 dígitos da NF-e com pesos de 2 a 9 e dupla checagem de dígitos verificadores de CNPJ pela norma RFB nº 1.863/2018.",
-      precisionModel: "Aritmética financeira estrita em centavos inteiros (Integer Cents), anulando erros de arredondamento IEEE 754 float e garantindo a invariante RN-04: valFace === valLiquido + desagio.",
-      reconciliationAudit: "Unit of Work atômico: validação de elegibilidade, aquisição ordenada de travas no Lock Manager e gravação em lote com garantia de rollback integral se qualquer título for rejeitado."
+      idempotencyStrategy: "Ledger de Recebíveis com constraint primária por Chave NF-e e locks ordenados lexicograficamente. Outbox Relay garante entrega at-least-once com idempotência no receptor.",
+      cryptography: "Validação oficial SEFAZ mod-11 de 44 dígitos e assinatura de webhooks via HMAC-SHA256 com crypto.timingSafeEqual, bloqueando timing attacks e rejeitando payloads com defasagem > 300s.",
+      precisionModel: "Aritmética estrita em centavos inteiros (Integer Cents), anulando drift de float IEEE 754 e preservando a invariante contábil RN-04: valFace === valLiquido + desagio.",
+      reconciliationAudit: "Unit of Work atômico integrando o Transactional Outbox: eventos de cessão e alterações contábeis são comutados atomicamente, roteando falhas persistentes para DLQ para auditoria."
     },
     keyUseCases: [
       {
@@ -156,9 +156,9 @@ export const realWorldProjects: RealWorldProject[] = [
         desc: "Coordena a transição de estado de CEDIDA para LIQUIDADA mediante confirmação de pagamento do sacado."
       }
     ],
-    technologies: ["TypeScript", "Node.js", "Clean Architecture", "DDD", "SEFAZ Mod-11", "Integer Cents", "Finite State Machine", "Native Test Runner"],
+    technologies: ["TypeScript", "Node.js", "Transactional Outbox", "HMAC SHA-256", "Dead Letter Queue (DLQ)", "Clean Architecture", "DDD", "Lock Manager", "Native Test Runner"],
     githubUrl: "https://github.com/Gui1949/fidc-receivables-hub",
-    status: "Produção (v1.0.0)"
+    status: "Produção (v1.2.0)"
   },
   {
     id: "fintech-payment-gateway",
