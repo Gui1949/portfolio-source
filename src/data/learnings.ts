@@ -88,59 +88,59 @@ export const realWorldProjects: RealWorldProject[] = [
     id: "fidc-receivables-hub",
     name: "FIDC Receivables & Securitization Hub",
     tagline: "Motor de securitização e cessão de duplicatas com validação SEFAZ mod-11, zero float drift e ledger anti-duplo penhor",
-    version: "v1.2.0",
-    versionTag: "v1.2.0",
+    version: "v1.3.0",
+    versionTag: "v1.3.0",
     isNew: true,
     sprintWeek: "Módulo FIDC",
-    sprintBadge: "ACID & Outbox Resiliente",
+    sprintBadge: "Telemetria & Custódia CVM 175",
     previewImage: "/previews/fidc-receivables-hub.svg",
     previewAlt: "Cockpit FIDC de Securitização, Custódia de Duplicatas e Prevenção a Dupla Cessão",
     businessDomain: "Mercado de Capitais, FIDCs & Securitização de Crédito",
     businessProblem: "Fundos de Investimento em Direitos Creditórios (FIDCs) e fintechs de antecipação sofrem com três vulnerabilidades críticas: 1) O risco de cessão duplicada (duplo penhor), onde a mesma NF-e é cedida simultaneamente para dois fundos distintos gerando disputas judiciais e perdas patrimoniais; 2) 'Drift' acumulado de ponto flutuante (IEEE 754 float) no cálculo de deságio pro-rata dia sobre milhares de duplicatas, drenando centenas de reais em frações de centavos não auditáveis; 3) Aceite de duplicatas 'frias' sem validação prévia de lastro SEFAZ com dígito verificador módulo 11.",
-    solutionArchitecture: "Clean Architecture e DDD com garantia transacional e mensageria desacoplada: Transactional Outbox Pattern comutado atomicamente no Unit of Work (eliminação do Dual-Write entre banco e broker); Webhook Dispatcher assinado via HMAC-SHA256 com crypto.timingSafeEqual, controle estrito de timestamp (tolerância anti-replay de 300s) e retries automáticos com Dead Letter Queue (DLQ); Lock Manager granular com ordenação lexicográfica anti-deadlock e proteção anti-race condition (Promise.all); Value Objects SEFAZ Módulo 11 (44 dígitos), CNPJ duplo DV e Integer Cents com cálculo pro-rata dia base 252 d.u.",
-    operationalImpact: "Eliminação total do Dual-Write e de perdas de eventos em instabilidades de rede das registradoras (B3/Cerc/CIP), blindagem criptográfica HMAC-SHA256 contra adulteração de webhooks, proteção contra replay attacks e tolerância a falhas com isolamento de mensagens venenosas em DLQ.",
+    solutionArchitecture: "Clean Architecture e DDD com observabilidade nativa e esteira transacional resiliente: CockpitSnapshot consolidado para governança CVM 175 com cálculo exato da Taxa Média Ponderada Anual de Deságio (RN-11) ponderada estritamente por volume financeiro; telemetria de latência SEFAZ Mod-11 com histogramas determinísticos (p50, p95 e p99); probes de Liveness e Readiness com monitoramento de saturação de Outbox e degradação automática por mensagens em DLQ (RN-12); Transactional Outbox Pattern integrado ao Unit of Work com eliminação do Dual-Write; Webhook Dispatcher HMAC-SHA256 timing-safe com tolerância anti-replay de 300s; e Lock Manager lexicográfico anti-deadlock.",
+    operationalImpact: "Governança executiva aderente à Resolução CVM 175 com auditoria contínua de limites por cedente/sacado, detecção preventiva de degradação da esteira antes de paradas de liquidação, cálculo financeiro fidedigno da taxa média ponderada e telemetria de precisão sobre a latência de validação SEFAZ.",
     highlights: [
-      "Transactional Outbox Pattern integrado ao Unit of Work, eliminando 100% do Dual-Write",
-      "Webhook Dispatcher com assinatura criptográfica HMAC-SHA256 validada com crypto.timingSafeEqual",
-      "Proteção estrita anti-replay attack com janela máxima de tolerância de 300 segundos",
-      "Política de retries exponenciais com isolamento de mensagens mortas em Dead Letter Queue (DLQ)",
-      "Lock Manager com ordenação lexicográfica de chaves NF-e para eliminação de deadlocks sob concorrência",
-      "27 testes automatizados (100% pass em 21 suítes) cobrindo domínio, persistência ACID e resiliência assíncrona"
+      "Taxa Média Ponderada Anual de Deságio (RN-11) calculada estritamente por volume financeiro ponderado",
+      "CockpitSnapshot de Custódia executivo para enquadramento regulatório CVM 175 e risco operacional",
+      "Histograma determinístico de latência SEFAZ Mod-11 com percentis p50, p95 e p99 em tempo real",
+      "Probes de Liveness/Readiness e degradação automática do Cockpit por saturação de Outbox e DLQ (RN-12)",
+      "Transactional Outbox Pattern atômico integrado ao Unit of Work e Webhook HMAC-SHA256 timing-safe",
+      "38 testes automatizados aprovados (100% pass em 27 suítes) cobrindo domínio, ACID, eventos e observabilidade"
     ],
     weeklyEvolution: [
       { day: "Fase 1", phase: "Domínio & DDD", deliverable: "Value Objects SEFAZ mod-11, CNPJ duplo DV, Integer Cents e FSM de Duplicata e Lote." },
       { day: "Fase 2", phase: "Persistência ACID & Locks", deliverable: "Unit of Work com rollback atômico, Lock Manager anti-deadlock e proteção contra race condition." },
-      { day: "Fase 3", phase: "Mensageria & Outbox Resiliente", deliverable: "Transactional Outbox atômico, Webhook HMAC timing-safe, anti-replay 300s, DLQ e 27 testes (100% pass)." },
-      { day: "Fase 4", phase: "Cockpit & Telemetria", deliverable: "Interface operacional para análise de borderôs, risco de crédito e conciliação." },
-      { day: "Fase 5", phase: "Hardening & Release", deliverable: "Validação matemática sob estresse com 10.000 títulos e release v1.0.0." }
+      { day: "Fase 3", phase: "Mensageria & Outbox Resiliente", deliverable: "Transactional Outbox atômico, Webhook HMAC timing-safe, anti-replay 300s e tolerância a falhas com DLQ." },
+      { day: "Fase 4", phase: "Telemetria & Cockpit CVM 175", deliverable: "Taxa ponderada RN-11, histograma SEFAZ p95/p99, probes Liveness/Readiness e 38 testes (100% pass)." },
+      { day: "Fase 5", phase: "Hardening & Stress Test", deliverable: "Validação matemática sob estresse com 10.000 títulos e release v1.0.0." }
     ],
     metrics: [
       {
-        label: "Consistência de Eventos",
-        value: "ACID Outbox",
-        description: "Zero Dual-Write: gravação atômica de eventos e entidades no mesmo commit"
+        label: "Taxa Média Ponderada",
+        value: "RN-11 Ponderada",
+        description: "Cálculo por volume financeiro efetivo: 13,0909% a.a. vs média simples distorcida"
       },
       {
-        label: "Segurança de Webhook",
-        value: "HMAC Timing-Safe",
-        description: "Assinatura SHA-256 com tolerância anti-replay de 300s e roteamento para DLQ"
+        label: "Governança CVM 175",
+        value: "CockpitSnapshot",
+        description: "Visão consolidada de custódia, concentração de sacados e saúde operacional"
       },
       {
-        label: "Prevenção Concorrente",
-        value: "Anti-Deadlock",
-        description: "Lock Manager com ordenação lexicográfica de chaves e barreira anti-race condition"
+        label: "Latência SEFAZ",
+        value: "p95/p99 Histograma",
+        description: "Métricas determinísticas de validação Módulo 11 com rastreio de anomalias"
       },
       {
         label: "Testes Automatizados",
-        value: "27 (100% Pass)",
-        description: "21 suítes no runner nativo cobrindo domínio, ACID, outbox e resiliência"
+        value: "38 (100% Pass)",
+        description: "27 suítes no runner nativo cobrindo domínio, ACID, outbox e telemetria"
       }
     ],
     securitySpec: {
       idempotencyStrategy: "Ledger de Recebíveis com constraint primária por Chave NF-e e locks ordenados lexicograficamente. Outbox Relay garante entrega at-least-once com idempotência no receptor.",
       cryptography: "Validação oficial SEFAZ mod-11 de 44 dígitos e assinatura de webhooks via HMAC-SHA256 com crypto.timingSafeEqual, bloqueando timing attacks e rejeitando payloads com defasagem > 300s.",
-      precisionModel: "Aritmética estrita em centavos inteiros (Integer Cents), anulando drift de float IEEE 754 e preservando a invariante contábil RN-04: valFace === valLiquido + desagio.",
-      reconciliationAudit: "Unit of Work atômico integrando o Transactional Outbox: eventos de cessão e alterações contábeis são comutados atomicamente, roteando falhas persistentes para DLQ para auditoria."
+      precisionModel: "Aritmética financeira estrita em centavos inteiros (Integer Cents), anulando drift de float IEEE 754 e cálculo ponderado da taxa de deságio RN-11 preservando a invariante: valFace === valLiquido + desagio.",
+      reconciliationAudit: "Cockpit operacional com Probes de Liveness/Readiness, transição para status DEGRADED se houver mensagens em DEAD_LETTER ou backlog > 100 mensagens, e consolidação de custódia CVM 175."
     },
     keyUseCases: [
       {
@@ -156,9 +156,9 @@ export const realWorldProjects: RealWorldProject[] = [
         desc: "Coordena a transição de estado de CEDIDA para LIQUIDADA mediante confirmação de pagamento do sacado."
       }
     ],
-    technologies: ["TypeScript", "Node.js", "Transactional Outbox", "HMAC SHA-256", "Dead Letter Queue (DLQ)", "Clean Architecture", "DDD", "Lock Manager", "Native Test Runner"],
+    technologies: ["TypeScript", "Node.js", "CVM 175 Governance", "Transactional Outbox", "HMAC SHA-256", "Health Probes", "Clean Architecture", "DDD", "Telemetry & Metrics", "Native Test Runner"],
     githubUrl: "https://github.com/Gui1949/fidc-receivables-hub",
-    status: "Produção (v1.2.0)"
+    status: "Produção (v1.3.0)"
   },
   {
     id: "fintech-payment-gateway",

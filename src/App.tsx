@@ -872,7 +872,7 @@ export const App: React.FC = () => {
                     {currentProject.id === 'retail-order-sync' ? (
                       <span><strong>Identidade Visual Única:</strong> Console NOC de Varejo com telemetria de conectividade de lojas físicas, topologia de mensageria com RabbitMQ e stream em tempo real de logs de replicação com o ERP.</span>
                     ) : currentProject.id === 'fidc-receivables-hub' ? (
-                      <span><strong>Identidade Visual Única:</strong> Cockpit Executivo FIDC para custódia de duplicatas, monitoramento de garantias e esteira de cessão com validação SEFAZ mod-11 e proteção anti-duplo penhor.</span>
+                      <span><strong>Identidade Visual Única:</strong> Cockpit Operacional FIDC (Resolução CVM 175) com monitoramento executivo de custódia, taxa média ponderada (RN-11), histograma de latência SEFAZ p95/p99 e probes de saturação de Outbox/DLQ.</span>
                     ) : (
                       <span><strong>Identidade Visual Única:</strong> Display Touchscreen KDS de Alta Visibilidade para Cozinha Industrial, com colunas divididas por estações de preparo (Parrilla/Grill, Pizza, Bar, Expedição) e botões de ação tátil.</span>
                     )}
