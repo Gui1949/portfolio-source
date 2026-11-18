@@ -88,59 +88,59 @@ export const realWorldProjects: RealWorldProject[] = [
     id: "fidc-receivables-hub",
     name: "FIDC Receivables & Securitization Hub",
     tagline: "Motor de securitização e cessão de duplicatas com validação SEFAZ mod-11, zero float drift e ledger anti-duplo penhor",
-    version: "v1.3.0",
-    versionTag: "v1.3.0",
+    version: "v1.4.0",
+    versionTag: "v1.4.0",
     isNew: true,
     sprintWeek: "Módulo FIDC",
-    sprintBadge: "Telemetria & Custódia CVM 175",
+    sprintBadge: "Release Gate v1.4.0 · 24.5k ops/s",
     previewImage: "/previews/fidc-receivables-hub.svg",
     previewAlt: "Cockpit FIDC de Securitização, Custódia de Duplicatas e Prevenção a Dupla Cessão",
     businessDomain: "Mercado de Capitais, FIDCs & Securitização de Crédito",
     businessProblem: "Fundos de Investimento em Direitos Creditórios (FIDCs) e fintechs de antecipação sofrem com três vulnerabilidades críticas: 1) O risco de cessão duplicada (duplo penhor), onde a mesma NF-e é cedida simultaneamente para dois fundos distintos gerando disputas judiciais e perdas patrimoniais; 2) 'Drift' acumulado de ponto flutuante (IEEE 754 float) no cálculo de deságio pro-rata dia sobre milhares de duplicatas, drenando centenas de reais em frações de centavos não auditáveis; 3) Aceite de duplicatas 'frias' sem validação prévia de lastro SEFAZ com dígito verificador módulo 11.",
-    solutionArchitecture: "Clean Architecture e DDD com observabilidade nativa e esteira transacional resiliente: CockpitSnapshot consolidado para governança CVM 175 com cálculo exato da Taxa Média Ponderada Anual de Deságio (RN-11) ponderada estritamente por volume financeiro; telemetria de latência SEFAZ Mod-11 com histogramas determinísticos (p50, p95 e p99); probes de Liveness e Readiness com monitoramento de saturação de Outbox e degradação automática por mensagens em DLQ (RN-12); Transactional Outbox Pattern integrado ao Unit of Work com eliminação do Dual-Write; Webhook Dispatcher HMAC-SHA256 timing-safe com tolerância anti-replay de 300s; e Lock Manager lexicográfico anti-deadlock.",
-    operationalImpact: "Governança executiva aderente à Resolução CVM 175 com auditoria contínua de limites por cedente/sacado, detecção preventiva de degradação da esteira antes de paradas de liquidação, cálculo financeiro fidedigno da taxa média ponderada e telemetria de precisão sobre a latência de validação SEFAZ.",
+    solutionArchitecture: "Clean Architecture e DDD com esteira de alta performance e resiliência a falhas: motor com throughput comprovado de 24.553 ops/seg processando 5.000 duplicatas em 203,64ms com Zero Float Drift (RN-13) sobre R$ 5,12 milhões; isolamento transacional com rollback integral do Unit of Work sob injeção de caos em I/O (RN-14); Lock Manager lexicográfico à prova de deadlocks em concorrência pesada cruzada; neutralização de 100% dos ataques de replay expirado e adulteração de payload em webhooks; e observabilidade CVM 175 com health checks nativos.",
+    operationalImpact: "Throughput de 24.553 ops/seg capaz de processar borderôs de 5.000 títulos em ~200ms com exatidão matemática absoluta centavo a centavo, neutralização de 100% de injeções de falha de I/O via rollback atômico e garantia de zero deadlocks em concorrência simultânea.",
     highlights: [
-      "Taxa Média Ponderada Anual de Deságio (RN-11) calculada estritamente por volume financeiro ponderado",
-      "CockpitSnapshot de Custódia executivo para enquadramento regulatório CVM 175 e risco operacional",
-      "Histograma determinístico de latência SEFAZ Mod-11 com percentis p50, p95 e p99 em tempo real",
-      "Probes de Liveness/Readiness e degradação automática do Cockpit por saturação de Outbox e DLQ (RN-12)",
-      "Transactional Outbox Pattern atômico integrado ao Unit of Work e Webhook HMAC-SHA256 timing-safe",
-      "38 testes automatizados aprovados (100% pass em 27 suítes) cobrindo domínio, ACID, eventos e observabilidade"
+      "Benchmark massivo de 24.553 ops/seg (5.000 títulos liquidados em 203,64ms com zero drift float sobre R$ 5,12M)",
+      "Chaos Engineering com injeção de falhas de I/O e rollback atômico perfeito do Unit of Work (RN-14)",
+      "Tempestade de concorrência cruzada executada com zero deadlocks e bloqueio estrito de duplo penhor",
+      "Neutralização de 100% de ataques de replay expirado (>300s) e adulteração de payloads (tampering)",
+      "Cockpit executivo CVM 175 com taxa média ponderada (RN-11) e histograma de latência SEFAZ p95/p99",
+      "44 testes automatizados aprovados (100% pass em 33 suítes) cobrindo domínio, ACID, mensageria e caos"
     ],
     weeklyEvolution: [
       { day: "Fase 1", phase: "Domínio & DDD", deliverable: "Value Objects SEFAZ mod-11, CNPJ duplo DV, Integer Cents e FSM de Duplicata e Lote." },
       { day: "Fase 2", phase: "Persistência ACID & Locks", deliverable: "Unit of Work com rollback atômico, Lock Manager anti-deadlock e proteção contra race condition." },
       { day: "Fase 3", phase: "Mensageria & Outbox Resiliente", deliverable: "Transactional Outbox atômico, Webhook HMAC timing-safe, anti-replay 300s e tolerância a falhas com DLQ." },
-      { day: "Fase 4", phase: "Telemetria & Cockpit CVM 175", deliverable: "Taxa ponderada RN-11, histograma SEFAZ p95/p99, probes Liveness/Readiness e 38 testes (100% pass)." },
-      { day: "Fase 5", phase: "Hardening & Stress Test", deliverable: "Validação matemática sob estresse com 10.000 títulos e release v1.0.0." }
+      { day: "Fase 4", phase: "Telemetria & Cockpit CVM 175", deliverable: "Taxa ponderada RN-11, histograma SEFAZ p95/p99 e probes Liveness/Readiness." },
+      { day: "Fase 5", phase: "Hardening, Chaos & Release v1.4.0", deliverable: "Benchmark 24.553 ops/s (5.000 duplicatas em 203ms), Chaos Test 100% neutralizado e 44 testes (100% pass)." }
     ],
     metrics: [
       {
-        label: "Taxa Média Ponderada",
-        value: "RN-11 Ponderada",
-        description: "Cálculo por volume financeiro efetivo: 13,0909% a.a. vs média simples distorcida"
+        label: "Throughput Motor",
+        value: "24.553 ops/s",
+        description: "5.000 duplicatas processadas em 203,64ms com zero drift sobre R$ 5,12M"
       },
       {
-        label: "Governança CVM 175",
-        value: "CockpitSnapshot",
-        description: "Visão consolidada de custódia, concentração de sacados e saúde operacional"
+        label: "Chaos Engineering",
+        value: "100% Rollback",
+        description: "Injeção de falha de I/O neutralizada com restauração integral de estado"
       },
       {
-        label: "Latência SEFAZ",
-        value: "p95/p99 Histograma",
-        description: "Métricas determinísticas de validação Módulo 11 com rastreio de anomalias"
+        label: "Segurança Concorrente",
+        value: "Zero Deadlocks",
+        description: "Tempestade concorrente cruzada sem timeouts e bloqueio total de 100 ataques"
       },
       {
         label: "Testes Automatizados",
-        value: "38 (100% Pass)",
-        description: "27 suítes no runner nativo cobrindo domínio, ACID, outbox e telemetria"
+        value: "44 (100% Pass)",
+        description: "33 suítes no runner nativo cobrindo domínio, ACID, resiliência e estresse"
       }
     ],
     securitySpec: {
-      idempotencyStrategy: "Ledger de Recebíveis com constraint primária por Chave NF-e e locks ordenados lexicograficamente. Outbox Relay garante entrega at-least-once com idempotência no receptor.",
-      cryptography: "Validação oficial SEFAZ mod-11 de 44 dígitos e assinatura de webhooks via HMAC-SHA256 com crypto.timingSafeEqual, bloqueando timing attacks e rejeitando payloads com defasagem > 300s.",
-      precisionModel: "Aritmética financeira estrita em centavos inteiros (Integer Cents), anulando drift de float IEEE 754 e cálculo ponderado da taxa de deságio RN-11 preservando a invariante: valFace === valLiquido + desagio.",
-      reconciliationAudit: "Cockpit operacional com Probes de Liveness/Readiness, transição para status DEGRADED se houver mensagens em DEAD_LETTER ou backlog > 100 mensagens, e consolidação de custódia CVM 175."
+      idempotencyStrategy: "Ledger de Recebíveis com constraint primária por Chave NF-e e locks lexicográficos. Tempestades de concorrência cruzada executadas sem deadlocks e retries idempotentes via Outbox Relay.",
+      cryptography: "Validação SEFAZ mod-11 de 44 dígitos, HMAC-SHA256 timing-safe com bloqueio total de 100 ataques de tampering e rejeição de replays expirados (>300s).",
+      precisionModel: "Aritmética estrita em centavos inteiros (Integer Cents): zero float drift comprovado sobre R$ 5.125.925,00 em lote massivo de 5.000 títulos (RN-13).",
+      reconciliationAudit: "Unit of Work com rollback transacional à prova de injeção de falhas (Chaos Engineering RN-14), health checks com degradação automática e governança CVM 175."
     },
     keyUseCases: [
       {
@@ -156,9 +156,9 @@ export const realWorldProjects: RealWorldProject[] = [
         desc: "Coordena a transição de estado de CEDIDA para LIQUIDADA mediante confirmação de pagamento do sacado."
       }
     ],
-    technologies: ["TypeScript", "Node.js", "CVM 175 Governance", "Transactional Outbox", "HMAC SHA-256", "Health Probes", "Clean Architecture", "DDD", "Telemetry & Metrics", "Native Test Runner"],
+    technologies: ["TypeScript", "Node.js", "Chaos Engineering", "Throughput Benchmark", "Transactional Outbox", "HMAC SHA-256", "CVM 175 Governance", "DDD", "Clean Architecture", "Native Test Runner"],
     githubUrl: "https://github.com/Gui1949/fidc-receivables-hub",
-    status: "Produção (v1.3.0)"
+    status: "Produção Estabilizada (v1.4.0)"
   },
   {
     id: "fintech-payment-gateway",
