@@ -85,12 +85,88 @@ export const sprintMethodology = {
 
 export const realWorldProjects: RealWorldProject[] = [
   {
+    id: "titan-ledger-hub",
+    name: "TitanLedger & Clearing Hub",
+    tagline: "Core Banking e motor de partidas dobradas com soma zero, validação Bacen Pix DICT e ledger imutável append-only",
+    version: "v1.0.0",
+    versionTag: "v1.0.0",
+    isNew: true,
+    sprintWeek: "Módulo Core Banking",
+    sprintBadge: "Novo Produto · Partidas Dobradas",
+    previewImage: "/previews/titan-ledger-hub.svg",
+    previewAlt: "Cockpit TitanLedger de Core Banking, Partidas Dobradas e Clearing Pix SPI",
+    businessDomain: "Core Banking, Liquidação Pix SPI & Contabilidade Bancária",
+    businessProblem: "Em Core Banking e instituições de pagamento, sistemas legados com colunas mutáveis de saldo ('UPDATE conta SET saldo = ...') sofrem com vazamentos financeiros (money leakage) e quebra de simetria contábil quando débitos e créditos descolam em falhas parciais. Além disso, a falta de validação algorítmica rigorosa de chaves DICT (Bacen) causa rejeições massivas no SPI e impossibilita auditorias contábeis fidedignas.",
+    solutionArchitecture: "Clean Architecture e Domain-Driven Design (DDD) com motor de partidas dobradas (Double-Entry Bookkeeping) garantindo que Débito seja rigorosamente igual a Crédito com saldo de zero centavos (RN-01); ledger append-only imutável sem UPDATE ou DELETE com estornos por partidas contrapostas (RN-02); Value Objects de precisão financeira em centavos inteiros (Integer Cents) e validação dos 4 formatos oficiais Bacen DICT (CPF/CNPJ mod-11, Telefone E.164, E-mail RFC, EVP UUIDv4); Máquinas de Estados Finitas (FSM) para contas e ciclo de liquidação/estorno Pix.",
+    operationalImpact: "Eliminação de 100% de discrepâncias contábeis e vazamentos de moeda, trilha de auditoria perpétua e inalterável para conformidade com o Banco Central e liquidação instantânea com tolerância zero a assimetrias.",
+    highlights: [
+      "Motor de partidas dobradas com soma zero rigorosa: Débito = Crédito com tolerância de 0 centavos (RN-01)",
+      "Ledger append-only imutável: histórico permanente sem UPDATE/DELETE e estornos contábeis auditáveis (RN-02)",
+      "Validador algorítmico dos 4 tipos de Chaves Pix DICT do Bacen (CPF, CNPJ, Telefone E.164, Email, EVP)",
+      "Proteção estrita contra saldo descoberto não contratado e máquina de estados da conta FSM (RN-04)",
+      "Ciclo completo de transferência Pix com liquidação e estorno contábil reverso auditável (RN-05)",
+      "18 testes automatizados aprovados (100% pass em 7 suítes) cobrindo regras contábeis e DICT Bacen"
+    ],
+    weeklyEvolution: [
+      { day: "Fase 1", phase: "Domínio & Partidas Dobradas", deliverable: "Value Objects ChavePix DICT, ValorMonetario em centavos, FSM Conta/Transação e 18 testes (100% pass)." },
+      { day: "Fase 2", phase: "Persistência ACID & Ledger", deliverable: "Repositórios atômicos, Unit of Work e locking concorrente de contas." },
+      { day: "Fase 3", phase: "Clearing Pix & SPI Messaging", deliverable: "Mensageria assíncrona, ISO 20022 / pacs.008 e webhooks assinados." },
+      { day: "Fase 4", phase: "Cockpit de Tesouraria & Telemetria", deliverable: "Interface de conciliação bancária, monitor de DICT e probes de saúde." },
+      { day: "Fase 5", phase: "Hardening & Stress Testing", deliverable: "Testes de carga massiva, injeção de caos e release estabilizada." }
+    ],
+    metrics: [
+      {
+        label: "Equilíbrio Contábil",
+        value: "Soma Zero (0c)",
+        description: "Débitos idênticos a Créditos em cada transação, sem resíduos"
+      },
+      {
+        label: "Rastreabilidade",
+        value: "Append-Only",
+        description: "Ledger imutável perpétuo com estornos contábeis reversos auditáveis"
+      },
+      {
+        label: "Validação Bacen",
+        value: "DICT Oficial",
+        description: "Validação dos 4 tipos de Chaves Pix com mod-11, E.164 e UUIDv4"
+      },
+      {
+        label: "Testes Automatizados",
+        value: "18 (100% Pass)",
+        description: "7 suítes no runner nativo cobrindo domínio contábil e regras Bacen"
+      }
+    ],
+    securitySpec: {
+      idempotencyStrategy: "Transações indexadas por Idempotency-Key e End-to-End Id Pix Bacen, impedindo duplicidade de débitos e créditos no ledger.",
+      cryptography: "Validação algorítmica de CPF/CNPJ via módulo 11, formatação E.164 e UUIDv4 canônico, além de assinaturas de payload para clearing Pix.",
+      precisionModel: "Aritmética estrita em centavos inteiros (Integer Cents), garantindo a invariante de soma zero: somatório de débitos idêntico ao somatório de créditos.",
+      reconciliationAudit: "MotorContabilDoubleEntry valida o balanço de cada transação antes da gravação imutável no ledger, bloqueando lançamentos assimétricos com TransacaoDesbalanceadaError."
+    },
+    keyUseCases: [
+      {
+        title: "Liquidação Instantânea Pix",
+        desc: "Gera lançamentos contábeis complementares simultâneos com liquidação em centavos e comprovante E2E."
+      },
+      {
+        title: "Estorno e Devolução Contábil",
+        desc: "Realiza reversão auditável por partidas contrapostas sem alterar registros pretéritos do ledger."
+      },
+      {
+        title: "Bloqueio e Proteção Judicial",
+        desc: "FSM suspende transações imediatamente para contas com ordem judicial sem corromper saldos."
+      }
+    ],
+    technologies: ["TypeScript", "Node.js", "Core Banking", "Double-Entry Ledger", "Bacen Pix DICT", "Clean Architecture", "DDD", "Finite State Machine", "Native Test Runner"],
+    githubUrl: "https://github.com/Gui1949/titan-ledger-hub",
+    status: "Produção (v1.0.0)"
+  },
+  {
     id: "fidc-receivables-hub",
     name: "FIDC Receivables & Securitization Hub",
     tagline: "Motor de securitização e cessão de duplicatas com validação SEFAZ mod-11, zero float drift e ledger anti-duplo penhor",
     version: "v1.4.0",
     versionTag: "v1.4.0",
-    isNew: true,
+    isNew: false,
     sprintWeek: "Módulo FIDC",
     sprintBadge: "Release Gate v1.4.0 · 24.5k ops/s",
     previewImage: "/previews/fidc-receivables-hub.svg",
@@ -345,6 +421,14 @@ export const realWorldProjects: RealWorldProject[] = [
 ];
 
 export const featuredGithubRepos: FeaturedGithubRepo[] = [
+  {
+    name: "titan-ledger-hub",
+    category: "Core Banking & Fintech",
+    description: "Motor de Core Banking com partidas dobradas (soma zero), ledger append-only imutável e validação Bacen Pix DICT.",
+    technologies: ["TypeScript", "Core Banking", "Double-Entry", "Pix DICT", "Clean Architecture"],
+    githubUrl: "https://github.com/Gui1949/titan-ledger-hub",
+    context: "Arquitetura bancária de alta confiabilidade com garantia de equilíbrio contábil e zero money leakage."
+  },
   {
     name: "terraChat",
     category: "IA & Geoespacial",

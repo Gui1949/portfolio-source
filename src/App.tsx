@@ -846,6 +846,7 @@ export const App: React.FC = () => {
                       <span>Interface Operacional ({
                         currentProject.id === 'retail-order-sync' ? 'Console NOC Industrial' :
                         currentProject.id === 'fidc-receivables-hub' ? 'Cockpit FIDC de Securitização' :
+                        currentProject.id === 'titan-ledger-hub' ? 'Console Titan Core Banking & Clearing Pix' :
                         'Monitor Touchscreen KDS'
                       })</span>
                     </span>
@@ -873,6 +874,8 @@ export const App: React.FC = () => {
                       <span><strong>Identidade Visual Única:</strong> Console NOC de Varejo com telemetria de conectividade de lojas físicas, topologia de mensageria com RabbitMQ e stream em tempo real de logs de replicação com o ERP.</span>
                     ) : currentProject.id === 'fidc-receivables-hub' ? (
                       <span><strong>Identidade Visual Única:</strong> Cockpit Operacional FIDC (Resolução CVM 175) com monitoramento executivo de custódia, taxa média ponderada (RN-11), histograma de latência SEFAZ p95/p99 e probes de saturação de Outbox/DLQ.</span>
+                    ) : currentProject.id === 'titan-ledger-hub' ? (
+                      <span><strong>Identidade Visual Única:</strong> Cockpit de Core Banking com partidas dobradas em tempo real (Débito = Crédito com soma zero), validação DICT Bacen e telemetria de ledger append-only imutável.</span>
                     ) : (
                       <span><strong>Identidade Visual Única:</strong> Display Touchscreen KDS de Alta Visibilidade para Cozinha Industrial, com colunas divididas por estações de preparo (Parrilla/Grill, Pizza, Bar, Expedição) e botões de ação tátil.</span>
                     )}
