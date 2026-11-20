@@ -88,28 +88,28 @@ export const realWorldProjects: RealWorldProject[] = [
     id: "titan-ledger-hub",
     name: "TitanLedger & Clearing Hub",
     tagline: "Core Banking e motor de partidas dobradas com soma zero, validação Bacen Pix DICT e ledger imutável append-only",
-    version: "v1.0.0",
-    versionTag: "v1.0.0",
+    version: "v1.1.0",
+    versionTag: "v1.1.0",
     isNew: true,
     sprintWeek: "Módulo Core Banking",
-    sprintBadge: "Novo Produto · Partidas Dobradas",
+    sprintBadge: "Fase 2 · Persistência ACID & Partidas Dobradas",
     previewImage: "/previews/titan-ledger-hub.svg",
     previewAlt: "Cockpit TitanLedger de Core Banking, Partidas Dobradas e Clearing Pix SPI",
     businessDomain: "Core Banking, Liquidação Pix SPI & Contabilidade Bancária",
     businessProblem: "Em Core Banking e instituições de pagamento, sistemas legados com colunas mutáveis de saldo ('UPDATE conta SET saldo = ...') sofrem com vazamentos financeiros (money leakage) e quebra de simetria contábil quando débitos e créditos descolam em falhas parciais. Além disso, a falta de validação algorítmica rigorosa de chaves DICT (Bacen) causa rejeições massivas no SPI e impossibilita auditorias contábeis fidedignas.",
-    solutionArchitecture: "Clean Architecture e Domain-Driven Design (DDD) com motor de partidas dobradas (Double-Entry Bookkeeping) garantindo que Débito seja rigorosamente igual a Crédito com saldo de zero centavos (RN-01); ledger append-only imutável sem UPDATE ou DELETE com estornos por partidas contrapostas (RN-02); Value Objects de precisão financeira em centavos inteiros (Integer Cents) e validação dos 4 formatos oficiais Bacen DICT (CPF/CNPJ mod-11, Telefone E.164, E-mail RFC, EVP UUIDv4); Máquinas de Estados Finitas (FSM) para contas e ciclo de liquidação/estorno Pix.",
-    operationalImpact: "Eliminação de 100% de discrepâncias contábeis e vazamentos de moeda, trilha de auditoria perpétua e inalterável para conformidade com o Banco Central e liquidação instantânea com tolerância zero a assimetrias.",
+    solutionArchitecture: "Clean Architecture e Domain-Driven Design (DDD) com motor de partidas dobradas (Double-Entry Bookkeeping) garantindo que Débito seja rigorosamente igual a Crédito com saldo de zero centavos (RN-01); ledger append-only imutável sem UPDATE ou DELETE com estornos por partidas contrapostas (RN-02); Unit of Work transacional com rollback total (RN-06); AsyncMutexLockManager com ordenação lexicográfica de recursos anti-deadlock e anti double-spending (RN-08); Value Objects de precisão financeira em centavos inteiros (Integer Cents) e validação dos 4 formatos oficiais Bacen DICT (CPF/CNPJ mod-11, Telefone E.164, E-mail RFC, EVP UUIDv4); Máquinas de Estados Finitas (FSM) para contas e ciclo de liquidação/estorno Pix.",
+    operationalImpact: "Eliminação de 100% de discrepâncias contábeis e vazamentos de moeda, trilha de auditoria perpétua e inalterável para conformidade com o Banco Central e liquidação instantânea com tolerância zero a assimetrias e inconsistências concorrentes.",
     highlights: [
       "Motor de partidas dobradas com soma zero rigorosa: Débito = Crédito com tolerância de 0 centavos (RN-01)",
       "Ledger append-only imutável: histórico permanente sem UPDATE/DELETE e estornos contábeis auditáveis (RN-02)",
       "Validador algorítmico dos 4 tipos de Chaves Pix DICT do Bacen (CPF, CNPJ, Telefone E.164, Email, EVP)",
-      "Proteção estrita contra saldo descoberto não contratado e máquina de estados da conta FSM (RN-04)",
-      "Ciclo completo de transferência Pix com liquidação e estorno contábil reverso auditável (RN-05)",
-      "18 testes automatizados aprovados (100% pass em 7 suítes) cobrindo regras contábeis e DICT Bacen"
+      "Unit of Work ACID transacional com rollback atômico impedindo vazamento de dados em falhas (RN-06)",
+      "AsyncMutexLockManager com ordenação lexicográfica eliminando deadlocks e double-spending (RN-08)",
+      "25 testes automatizados aprovados (100% pass em 8 suítes) cobrindo regras contábeis, DICT Bacen e ACID"
     ],
     weeklyEvolution: [
       { day: "Fase 1", phase: "Domínio & Partidas Dobradas", deliverable: "Value Objects ChavePix DICT, ValorMonetario em centavos, FSM Conta/Transação e 18 testes (100% pass)." },
-      { day: "Fase 2", phase: "Persistência ACID & Ledger", deliverable: "Repositórios atômicos, Unit of Work e locking concorrente de contas." },
+      { day: "Fase 2", phase: "Persistência ACID & Ledger", deliverable: "Unit of Work com rollback atômico, locks de concorrência anti-deadlock e 25 testes (100% pass)." },
       { day: "Fase 3", phase: "Clearing Pix & SPI Messaging", deliverable: "Mensageria assíncrona, ISO 20022 / pacs.008 e webhooks assinados." },
       { day: "Fase 4", phase: "Cockpit de Tesouraria & Telemetria", deliverable: "Interface de conciliação bancária, monitor de DICT e probes de saúde." },
       { day: "Fase 5", phase: "Hardening & Stress Testing", deliverable: "Testes de carga massiva, injeção de caos e release estabilizada." }
@@ -126,14 +126,14 @@ export const realWorldProjects: RealWorldProject[] = [
         description: "Ledger imutável perpétuo com estornos contábeis reversos auditáveis"
       },
       {
-        label: "Validação Bacen",
-        value: "DICT Oficial",
-        description: "Validação dos 4 tipos de Chaves Pix com mod-11, E.164 e UUIDv4"
+        label: "Persistência & Locks",
+        value: "ACID & Deadlock-Free",
+        description: "Unit of Work com rollback atômico e locks ordenados por recurso"
       },
       {
         label: "Testes Automatizados",
-        value: "18 (100% Pass)",
-        description: "7 suítes no runner nativo cobrindo domínio contábil e regras Bacen"
+        value: "25 (100% Pass)",
+        description: "8 suítes no runner nativo cobrindo domínio contábil, ACID e concorrência"
       }
     ],
     securitySpec: {
