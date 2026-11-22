@@ -88,32 +88,33 @@ export const realWorldProjects: RealWorldProject[] = [
     id: "titan-ledger-hub",
     name: "TitanLedger & Clearing Hub",
     tagline: "Core Banking e motor de partidas dobradas com soma zero, validação Bacen Pix DICT e ledger imutável append-only",
-    version: "v1.2.0",
-    versionTag: "v1.2.0",
+    version: "v1.3.0",
+    versionTag: "v1.3.0",
     isNew: true,
     sprintWeek: "Módulo Core Banking",
-    sprintBadge: "Fase 3 · Clearing Pix SPI & Mensageria ISO 20022",
+    sprintBadge: "Fase 4 · Cockpit de Tesouraria & Telemetria SPI",
     previewImage: "/previews/titan-ledger-hub.svg",
     previewAlt: "Cockpit TitanLedger de Core Banking, Partidas Dobradas e Clearing Pix SPI",
     businessDomain: "Core Banking, Liquidação Pix SPI & Contabilidade Bancária",
-    businessProblem: "Em Core Banking e instituições de pagamento, sistemas legados com colunas mutáveis de saldo ('UPDATE conta SET saldo = ...') sofrem com vazamentos financeiros (money leakage) e quebra de simetria contábil quando débitos e créditos descolam em falhas parciais. Além disso, a falta de validação algorítmica rigorosa de chaves DICT (Bacen) e o Dual-Write Problem entre banco de dados e mensageria causam rejeições massivas no SPI e impossibilitam auditorias contábeis fidedignas.",
-    solutionArchitecture: "Clean Architecture e Domain-Driven Design (DDD) com motor de partidas dobradas (Double-Entry Bookkeeping) garantindo que Débito seja rigorosamente igual a Crédito com saldo de zero centavos (RN-01); ledger append-only imutável sem UPDATE ou DELETE com estornos por partidas contrapostas (RN-02); Unit of Work transacional com rollback total (RN-06); Transactional Outbox Pattern prevenindo dual-write com mensagens ISO 20022 pacs.008 e pacs.004 (RN-09); WebhookSignatureValidator com HMAC-SHA256 e timingSafeEqual (RN-10); OutboxRelayService com retentativas, backoff exponencial e DLQ; AsyncMutexLockManager anti-deadlock e anti double-spending (RN-08); Value Objects de precisão financeira em centavos inteiros (Integer Cents) e validação dos 4 formatos oficiais Bacen DICT.",
-    operationalImpact: "Eliminação de 100% de discrepâncias contábeis e vazamentos de moeda, garantia atômica de entrega de eventos para o SPI Bacen sem dual-write, trilha de auditoria perpétua e inalterável e resiliência com Dead Letter Queue.",
+    businessProblem: "Em Core Banking e instituições de pagamento, sistemas legados com colunas mutáveis de saldo ('UPDATE conta SET saldo = ...') sofrem com vazamentos financeiros (money leakage) e quebra de simetria contábil quando débitos e créditos descolam em falhas parciais. Além disso, a falta de validação algorítmica rigorosa de chaves DICT (Bacen), a ausência de telemetria de latência p99 para SLA SPI (< 1000ms) e o Dual-Write Problem causam rejeições massivas no SPI e impossibilitam auditorias contábeis fidedignas.",
+    solutionArchitecture: "Clean Architecture e Domain-Driven Design (DDD) com motor de partidas dobradas (Double-Entry Bookkeeping) garantindo que Débito seja rigorosamente igual a Crédito com saldo de zero centavos (RN-01); ledger append-only imutável sem UPDATE ou DELETE com estornos por partidas contrapostas (RN-02); Unit of Work transacional com rollback total (RN-06); Transactional Outbox Pattern prevenindo dual-write com mensagens ISO 20022 pacs.008 e pacs.004 (RN-09); WebhookSignatureValidator com HMAC-SHA256 e timingSafeEqual (RN-10); TelemetryCollector com histogramas p50/p95/p99; HealthCheckService com liveness/readiness, auditoria contábil contínua (RN-11) e monitor de saturação DLQ/Outbox (RN-12); CoreBankingCockpitEngine para tesouraria executiva; AsyncMutexLockManager anti-deadlock e anti double-spending (RN-08).",
+    operationalImpact: "Eliminação de 100% de discrepâncias contábeis e vazamentos de moeda, observabilidade em tempo real com conformidade de SLA SPI Bacen (< 1000ms), garantia atômica de entrega de eventos sem dual-write, trilha de auditoria perpétua e inalterável com resíduo zero absoluto (0c).",
     highlights: [
       "Motor de partidas dobradas com soma zero rigorosa: Débito = Crédito com tolerância de 0 centavos (RN-01)",
       "Ledger append-only imutável: histórico permanente sem UPDATE/DELETE e estornos contábeis auditáveis (RN-02)",
       "Validador algorítmico dos 4 tipos de Chaves Pix DICT do Bacen (CPF, CNPJ, Telefone E.164, Email, EVP)",
       "Transactional Outbox com ISO 20022 pacs.008 e pacs.004 eliminando risco de dual-write (RN-09)",
       "Webhooks seguros com assinatura HMAC-SHA256 e verificação em tempo constante timingSafeEqual (RN-10)",
-      "OutboxRelayService resiliente com retentativas, backoff exponencial e roteamento para Dead Letter Queue (DLQ)",
-      "AsyncMutexLockManager com ordenação lexicográfica eliminando deadlocks e double-spending (RN-08)",
-      "32 testes automatizados aprovados (100% pass em 9 suítes) cobrindo regras contábeis, DICT Bacen, ACID e Outbox"
+      "Telemetria industrial com histogramas de latência p50/p95/p99 garantindo conformidade ao SLA SPI Bacen",
+      "Health Probes (liveness/readiness), auditoria global RN-11 e monitoramento de saturação de DLQ/Outbox (RN-12)",
+      "CoreBankingCockpitEngine consolidando saldo de clientes (Passivo), tesouraria e resíduo contábil global",
+      "39 testes automatizados aprovados (100% pass em 10 suítes) cobrindo regras contábeis, DICT Bacen, ACID, Outbox e Cockpit"
     ],
     weeklyEvolution: [
       { day: "Fase 1", phase: "Domínio & Partidas Dobradas", deliverable: "Value Objects ChavePix DICT, ValorMonetario em centavos, FSM Conta/Transação e 18 testes (100% pass)." },
       { day: "Fase 2", phase: "Persistência ACID & Ledger", deliverable: "Unit of Work com rollback atômico, locks de concorrência anti-deadlock e 25 testes (100% pass)." },
       { day: "Fase 3", phase: "Clearing Pix & SPI Messaging", deliverable: "Transactional Outbox, mensagens ISO 20022 pacs.008/pacs.004, HMAC timingSafeEqual, DLQ e 32 testes (100% pass)." },
-      { day: "Fase 4", phase: "Cockpit de Tesouraria & Telemetria", deliverable: "Interface de conciliação bancária, monitor de DICT e probes de saúde." },
+      { day: "Fase 4", phase: "Cockpit de Tesouraria & Telemetria", deliverable: "Cockpit Executivo Core Banking, telemetria de latência p95/p99, health probes liveness/readiness e 39 testes (100% pass)." },
       { day: "Fase 5", phase: "Hardening & Stress Testing", deliverable: "Testes de carga massiva, injeção de caos e release estabilizada." }
     ],
     metrics: [
@@ -128,14 +129,14 @@ export const realWorldProjects: RealWorldProject[] = [
         description: "Ledger imutável perpétuo com estornos contábeis reversos auditáveis"
       },
       {
-        label: "Mensageria & SPI",
-        value: "ISO 20022 & DLQ",
-        description: "Transactional Outbox com pacs.008/pacs.004, HMAC timingSafeEqual e DLQ"
+        label: "Telemetria & SLA",
+        value: "SLA SPI < 1000ms",
+        description: "Histograma p99 em tempo real e monitor de saturação DLQ/Outbox"
       },
       {
         label: "Testes Automatizados",
-        value: "32 (100% Pass)",
-        description: "9 suítes no runner nativo cobrindo domínio contábil, ACID, Outbox e resiliência"
+        value: "39 (100% Pass)",
+        description: "10 suítes no runner nativo cobrindo domínio contábil, ACID, Outbox, telemetria e cockpit"
       }
     ],
     securitySpec: {
