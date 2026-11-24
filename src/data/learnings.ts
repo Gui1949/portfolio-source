@@ -85,12 +85,88 @@ export const sprintMethodology = {
 
 export const realWorldProjects: RealWorldProject[] = [
   {
+    id: "cloudshield-iac-platform",
+    name: "CloudShield IaC Platform",
+    tagline: "Enterprise Infrastructure as Code, Policy-as-Code CIS Benchmark, orquestração de drift e governança FinOps",
+    version: "v1.0.0",
+    versionTag: "v1.0.0",
+    isNew: true,
+    sprintWeek: "Semana 06",
+    sprintBadge: "Semana 06 · Kickoff v1.0.0",
+    previewImage: "/previews/cloudshield-iac-platform.svg",
+    previewAlt: "Cockpit CloudShield de Infrastructure as Code, Policy-as-Code CIS Benchmark e FinOps",
+    businessDomain: "Cloud Engineering, Platform Architecture, FinOps & Segurança DevSecOps",
+    businessProblem: "Em ecossistemas corporativos multi-cloud (AWS, GCP, Azure, K8s), operações manuais (ClickOps) e códigos fragmentados de Terraform provocam quatro fragilidades graves: 1) Violações de segurança expondo portas administrativas (SSH 22, RDP 3389, bancos 5432) para a internet pública (0.0.0.0/0) e datastores sem KMS; 2) Colisão de endereçamento de rede (CIDR overlaps) que inviabiliza roteamento entre VPCs e subnets; 3) Descontrole orçamentário FinOps (budget runaway) sem travas em tempo de plan com precisão contábil; 4) Drift de configuração entre o estado GitOps desejado e a infraestrutura viva em execução.",
+    solutionArchitecture: "Clean Architecture e Domain-Driven Design (DDD) com motor de governança declarativa: cálculo bitwise de blocos IPv4 com detecção preventiva de colisão (RN-02); URN canônico padronizado multi-provedor (RN-03); precisão orçamentária em centavos inteiros (Integer Cents) com travas atômicas e alarme de threshold em 80% (RN-01); motor Policy-as-Code auditando padrões CIS Benchmarks e criptografia KMS obrigatória em datastores (RN-04); e máquina de estados finitos imutável (FSM) com transições determinísticas DRAFT -> VALIDATING -> PLAN_READY -> APPLYING -> PROVISIONED (RN-05).",
+    operationalImpact: "Eliminação de 100% dos riscos de portas administrativas abertas ao mundo, bloqueio preventivo de colisões de subnets antes da aplicação no provedor, governança financeira absoluta com teto orçamentário à prova de furos e visibilidade completa do ciclo de vida de provisionamento.",
+    highlights: [
+      "Validação algorítmica bitwise de blocos CIDR IPv4 com prevenção total a sobreposição de subnets (RN-02)",
+      "Motor Policy-as-Code garantindo conformidade aos padrões CIS Benchmarks 4.1 e 4.2 e KMS obrigatório (RN-04)",
+      "Aritmética FinOps em centavos inteiros (Integer Cents) com trava orçamentária atômica e alerta em 80% (RN-01)",
+      "Máquina de estados finitos (FSM) imutável com rastreabilidade auditável e eventos de domínio (RN-05)",
+      "Identificação canônica multi-cloud via URN padronizado (AWS, GCP, Azure e Kubernetes) (RN-03)",
+      "23 testes unitários nativos aprovados (100% pass em 8 suítes) cobrindo rede, segurança, FinOps e ciclo de vida"
+    ],
+    weeklyEvolution: [
+      { day: "Fase 1", phase: "Domínio & Policy-as-Code", deliverable: "Value Objects CidrBlock, FinOpsBudget, SecurityRule, Agregado InfrastructureStack e 23 testes (100% pass)." },
+      { day: "Fase 2", phase: "Persistência ACID & State Locking", deliverable: "Repositório de estado com snapshot, Lock Manager distribuído anti-concorrência e Unit of Work." },
+      { day: "Fase 3", phase: "Mensageria & Drift Relay", deliverable: "Transactional Outbox, webhooks criptográficos HMAC para alertas de drift e eventos." },
+      { day: "Fase 4", phase: "Cockpit Operacional & Telemetria", deliverable: "Telemetry Collector, histogramas p50/p95/p99, health probes liveness/readiness e console." },
+      { day: "Fase 5", phase: "Hardening & Stress Testing", deliverable: "Benchmark massivo >= 5.000 ops/s, injeção de caos em I/O e release estabilizada v1.4.0." }
+    ],
+    metrics: [
+      {
+        label: "Conformidade CIS",
+        value: "100,00%",
+        description: "Zero portas administrativas expostas em 0.0.0.0/0 e KMS obrigatório"
+      },
+      {
+        label: "Prevenção de Colisão",
+        value: "0 Overlaps",
+        description: "Cálculo bitwise preventivo de subnets na VPC evitando conflitos de rota"
+      },
+      {
+        label: "Precisão FinOps",
+        value: "Integer Cents",
+        description: "Zero float drift com teto orçamentário atômico e alerta em 80%"
+      },
+      {
+        label: "Testes Automatizados",
+        value: "23 (100% Pass)",
+        description: "8 suítes no test runner nativo cobrindo domínio, rede, CIS e ciclo de vida"
+      }
+    ],
+    securitySpec: {
+      idempotencyStrategy: "Identificadores imutáveis por URN canônico com travas de estado na FSM impedindo execuções concorrentes de apply.",
+      cryptography: "Criptografia KMS obrigatória em repouso para todos os recursos de dados (RDS, MSK, S3) e bloqueio CIS 4.1/4.2.",
+      precisionModel: "Aritmética estrita em centavos inteiros (Integer Cents), impedindo desvios de arredondamento em orçamentos corporativos.",
+      reconciliationAudit: "PolicyComplianceEngine avalia 100% dos recursos declarados antes da geração do plano de execução."
+    },
+    keyUseCases: [
+      {
+        title: "Governança Policy-as-Code Automática",
+        desc: "Bloqueia regras de Security Group permissivas e recursos sem criptografia antes da aplicação na nuvem."
+      },
+      {
+        title: "Prevenção Bitwise de Colisão de IPs",
+        desc: "Impede o provisionamento de subnets sobrepostas que inviabilizariam conexões de rede corporativa."
+      },
+      {
+        title: "Trava Orçamentária FinOps em Tempo Real",
+        desc: "Interrompe planos de infraestrutura que excedam o orçamento aprovado para o ambiente."
+      }
+    ],
+    technologies: ["TypeScript", "Node.js", "Platform Engineering", "Infrastructure as Code", "Policy-as-Code", "CIS Benchmarks", "FinOps", "Clean Architecture", "DDD", "Native Test Runner"],
+    githubUrl: "https://github.com/Gui1949/cloudshield-iac-platform",
+    status: "Produção (v1.0.0)"
+  },
+  {
     id: "titan-ledger-hub",
     name: "TitanLedger & Clearing Hub",
     tagline: "Core Banking e motor de partidas dobradas com soma zero, validação Bacen Pix DICT e ledger imutável append-only",
     version: "v1.4.0",
     versionTag: "v1.4.0",
-    isNew: true,
+    isNew: false,
     sprintWeek: "Módulo Core Banking",
     sprintBadge: "Semana 05 · Estabilizado v1.4.0",
     previewImage: "/previews/titan-ledger-hub.svg",
@@ -424,6 +500,14 @@ export const realWorldProjects: RealWorldProject[] = [
 ];
 
 export const featuredGithubRepos: FeaturedGithubRepo[] = [
+  {
+    name: "cloudshield-iac-platform",
+    category: "Cloud Engineering & Platform",
+    description: "Enterprise Infrastructure as Code, Policy-as-Code CIS Benchmark, orquestração de drift e governança FinOps.",
+    technologies: ["TypeScript", "IaC", "CIS Benchmarks", "FinOps", "Clean Architecture"],
+    githubUrl: "https://github.com/Gui1949/cloudshield-iac-platform",
+    context: "Governança declarativa de nuvem com prevenção bitwise de colisão CIDR e travas orçamentárias FinOps."
+  },
   {
     name: "titan-ledger-hub",
     category: "Core Banking & Fintech",
